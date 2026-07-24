@@ -1,0 +1,173 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: support@smallstep.com
+    name: Smallstep Support
+    url: https://support.smallstep.com
+  description: '# Getting Started
+
+    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+
+
+    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+
+    ```
+
+    set +o history
+
+    echo "Authorization: Bearer [your API token]" > api_headers
+
+    set -o history
+
+    curl -H @api_headers https://gateway.smallstep.com/api/certificates
+
+    ```
+
+
+    More resources:
+
+    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+
+    * [Python Client](https://github.com/smallstep/smallstep-python)
+
+    '
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  summary: Smallstep API
+  title: Smallstep Authentication API
+  version: '2025-01-01'
+servers:
+- url: https://gateway.smallstep.com/api
+security:
+- JWT: []
+tags:
+- description: Create API tokens
+  name: Authentication
+paths:
+  /auth:
+    x-internal: true
+    post:
+      description: Use client certificate authentication to get an API token
+      operationId: PostAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                audience:
+                  enum:
+                  - step-agent
+                  type: string
+                bundle:
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+                teamID:
+                  type: string
+                teamSlug:
+                  type: string
+              type: object
+        description: Client authentication information.
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                type: object
+          description: A new auth token.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - mtls: []
+      summary: Authenticate
+      tags:
+      - Authentication
+      x-internal: true
+components:
+  responses:
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  schemas:
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+  headers:
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http
+    mtls:
+      description: Use a client certificate issued by a trusted root to get short-lived bearer tokens with the step CLI.
+      type: mutualTLS

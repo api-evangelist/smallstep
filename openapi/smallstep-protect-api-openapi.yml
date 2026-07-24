@@ -1,0 +1,2785 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: support@smallstep.com
+    name: Smallstep Support
+    url: https://support.smallstep.com
+  description: '# Getting Started
+
+    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+
+
+    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+
+    ```
+
+    set +o history
+
+    echo "Authorization: Bearer [your API token]" > api_headers
+
+    set -o history
+
+    curl -H @api_headers https://gateway.smallstep.com/api/certificates
+
+    ```
+
+
+    More resources:
+
+    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+
+    * [Python Client](https://github.com/smallstep/smallstep-python)
+
+    '
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  summary: Smallstep API
+  title: Smallstep Authentication Protect API
+  version: '2025-01-01'
+servers:
+- url: https://gateway.smallstep.com/api
+security:
+- JWT: []
+tags:
+- description: Manage access to protected resources
+  name: Protect
+paths:
+  /accounts:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      deprecated: true
+      description: 'Get a page of accounts.
+
+        '
+      operationId: ListAccounts
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/account'
+                type: array
+          description: A page of accounts.
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-accounts
+      summary: List Accounts
+      tags:
+      - Protect
+    post:
+      deprecated: true
+      description: Create a new account.
+      operationId: PostAccounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/accountRequest'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+          description: 'The newly created account
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-accounts
+      summary: Create Account
+      tags:
+      - Protect
+  /accounts/{accountID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/accountID'
+    delete:
+      deprecated: true
+      description: 'Delete an account.
+
+        '
+      operationId: DeleteAccount
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-account
+      summary: Delete Account
+      tags:
+      - Protect
+    get:
+      deprecated: true
+      description: 'Get an account.
+
+        '
+      operationId: GetAccount
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+          description: 'The account.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-account
+      summary: Get Account
+      tags:
+      - Protect
+    put:
+      deprecated: true
+      description: 'Update an existing account.
+
+        '
+      operationId: PutAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/account'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/account'
+          description: 'The updated account.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-account
+      summary: Update Account
+      tags:
+      - Protect
+  /endpoint-configurations:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      deprecated: true
+      description: 'Get a page of endpoint configurations.
+
+        '
+      operationId: ListEndpointConfigurations
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/endpointConfiguration'
+                type: array
+          description: A page of endpoint configurations.
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-endpoint-configurations
+      summary: List Endpoint Configurations
+      tags:
+      - Protect
+    post:
+      deprecated: true
+      description: Create a new endpoint configuration.
+      operationId: PostEndpointConfigurations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/endpointConfigurationRequest'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/endpointConfiguration'
+          description: 'The newly created endpoint configuration
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-endpoint-configurations
+      summary: Create Endpoint Configuration
+      tags:
+      - Protect
+  /endpoint-configurations/{endpointConfigurationID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/endpointConfigurationID'
+    delete:
+      deprecated: true
+      description: 'Delete an endpoint configuration.
+
+        '
+      operationId: DeleteEndpointConfiguration
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-endpoint-configuration
+      summary: Delete Endpoint Configuration
+      tags:
+      - Protect
+    get:
+      deprecated: true
+      description: 'Get an endpoint configuration.
+
+        '
+      operationId: GetEndpointConfiguration
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/endpointConfiguration'
+          description: 'The endpoint configuration.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-endpoint-configuration
+      summary: Get Endpoint Configuration
+      tags:
+      - Protect
+    put:
+      deprecated: true
+      description: 'Update an existing endpoint configuration.
+
+        '
+      operationId: PutEndpointConfiguration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/endpointConfiguration'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/endpointConfiguration'
+          description: 'The updated endpoint configuration.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-endpoint-configuration
+      summary: Update Endpoint Configuration
+      tags:
+      - Protect
+  /managed-radius:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: List all RADIUS servers managed by Smallstep.
+      operationId: ListManagedRadius
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/managedRadius'
+                type: array
+          description: 'The team''s Smallstep-managed RADIUS servers.
+
+            '
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-managed-radius
+      summary: List Managed RADIUS Servers
+      tags:
+      - Protect
+    post:
+      description: 'Configure a new RADIUS server managed by Smallstep.
+
+        '
+      operationId: PostManagedRadius
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/managedRadius'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managedRadius'
+          description: 'The Smallstep-managed RADIUS server configuration.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-managed-radius
+      summary: Create Managed RADIUS
+      tags:
+      - Protect
+  /managed-radius/{managedRadiusID}:
+    parameters:
+    - $ref: '#/components/parameters/managedRadiusID'
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/secret'
+    delete:
+      description: 'Deprovision a Smallstep-managed RADIUS server.
+
+        '
+      operationId: DeleteManagedRadius
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-managed-radius
+      summary: Delete Managed RADIUS
+      tags:
+      - Protect
+    get:
+      description: 'Get a Smallstep-managed RADIUS server configuration.
+
+        '
+      operationId: GetManagedRadius
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managedRadius'
+          description: 'The Smallstep-managed RADIUS server configuration.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-managed-radius
+      summary: Get Managed RADIUS
+      tags:
+      - Protect
+    put:
+      description: 'Update a Smallstep-managed RADIUS server configuration.
+
+        '
+      operationId: PutManagedRadius
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/managedRadius'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managedRadius'
+          description: 'The Smallstep-managed RADIUS server configuration.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-managed-radius
+      summary: Put Managed RADIUS
+      tags:
+      - Protect
+  /protect/browser:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'List configurations for using client certificates in browsers.
+
+        '
+      operationId: ListBrowser
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/browser'
+                type: array
+          description: 'The list of configurations for using client certificates in browsers.
+
+            '
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-browser
+      summary: List Browser mTLS Configurations
+      tags:
+      - Protect
+    post:
+      description: 'Create a new configuration for using a client certificate in a browser.
+
+        '
+      operationId: PostBrowser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/browser'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/browser'
+          description: 'The configuration for using a client certificate in a browser.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-browser
+      summary: Create Browser mTLS Configuration
+      tags:
+      - Protect
+  /protect/browser/{browserID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/browserID'
+    delete:
+      description: 'Delete a configuration for using a client certificate in a browser.
+
+        '
+      operationId: DeleteBrowser
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-browser
+      summary: Delete Browser mTLS Configuration
+      tags:
+      - Protect
+    get:
+      description: 'Get a configuration for using a client certificate in a browser.
+
+        '
+      operationId: GetBrowser
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/browser'
+          description: 'The configuration for using a client certificate in a browser.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-browser
+      summary: Get Browser mTLS Configuration
+      tags:
+      - Protect
+    put:
+      description: 'Update a configuration for using a client certificate in a browser.
+
+        '
+      operationId: PutBrowser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/browser'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/browser'
+          description: 'The updated configuration for using a client certificate in a browser.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-browser
+      summary: Update Browser mTLS Configuration
+      tags:
+      - Protect
+  /protect/ethernet:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'List configurations for connecting devices to EAP-TLS 802.1X wired networks.
+
+        '
+      operationId: ListEthernet
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ethernet'
+                type: array
+          description: 'The configurations for connecting devices to EAP-TLS 802.1X wired networks.
+
+            '
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-ethernet
+      summary: List Ethernet Device Configurations
+      tags:
+      - Protect
+    post:
+      description: 'Create a new configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+        '
+      operationId: PostEthernet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ethernet'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ethernet'
+          description: 'The configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-ethernet
+      summary: Create Ethernet Device Configuration
+      tags:
+      - Protect
+  /protect/ethernet/{ethernetID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/ethernetID'
+    delete:
+      description: 'Delete a configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+        '
+      operationId: DeleteEthernet
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-ethernet
+      summary: Delete Ethernet Device Configuration
+      tags:
+      - Protect
+    get:
+      description: 'Get a configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+        '
+      operationId: GetEthernet
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ethernet'
+          description: 'The configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-ethernet
+      summary: Get Ethernet Device Configuration
+      tags:
+      - Protect
+    put:
+      description: 'Update a configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+        '
+      operationId: PutEthernet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ethernet'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ethernet'
+          description: 'The updated configuration for connecting a device to an EAP-TLS 802.1X wired network.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-ethernet
+      summary: Update Ethernet Device Configuration
+      tags:
+      - Protect
+  /protect/vpn:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'List configurations for connecting devices to VPNs.
+
+        '
+      operationId: ListVpn
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/vpn'
+                type: array
+          description: 'The list of configurations for connecting devices to VPNs.
+
+            '
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-vpn
+      summary: List VPN Device Configurations
+      tags:
+      - Protect
+    post:
+      description: 'Create a new configuration for connecting a device to a VPN.
+
+        '
+      operationId: PostVpn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vpn'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vpn'
+          description: 'The configuration for connecting a device to a VPN.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-vpn
+      summary: Create VPN Device Configuration
+      tags:
+      - Protect
+  /protect/vpn/{vpnID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/vpnID'
+    delete:
+      description: 'Delete a configuration for connecting a device to a VPN.
+
+        '
+      operationId: DeleteVpn
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-vpn
+      summary: Delete VPN Device Configuration
+      tags:
+      - Protect
+    get:
+      description: 'Get a configuration for connecting a device to a VPN.
+
+        '
+      operationId: GetVpn
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vpn'
+          description: 'The configuration for connecting a device to a VPN.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-vpn
+      summary: Get VPN Device Configuration
+      tags:
+      - Protect
+    put:
+      description: 'Update a configuration for connecting a device to a VPN.
+
+        '
+      operationId: PutVpn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/vpn'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vpn'
+          description: 'The updated configuration for connecting a device to a VPN.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-vpn
+      summary: Update VPN Device Configuration
+      tags:
+      - Protect
+  /protect/wifi:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'List configurations for connecting devices to Wi-Fi.
+
+        '
+      operationId: ListWifi
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/wifi'
+                type: array
+          description: 'The configuration for connecting a device to Wi-Fi.
+
+            '
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-wifi
+      summary: List Wi-Fi Device Configurations
+      tags:
+      - Protect
+    post:
+      description: 'Create a new configuration for connecting a device to Wi-Fi.
+
+        '
+      operationId: PostWifi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wifi'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wifi'
+          description: 'The configuration for connecting a device to Wi-Fi.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-wifi
+      summary: Create Wi-Fi Device Configuration
+      tags:
+      - Protect
+  /protect/wifi/{wifiID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/wifiID'
+    delete:
+      description: 'Delete a configuration for connecting a device to Wi-Fi.
+
+        '
+      operationId: DeleteWifi
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-wifi
+      summary: Delete Wi-Fi Device Configuration
+      tags:
+      - Protect
+    get:
+      description: 'Get a configuration for connecting a device to Wi-Fi.
+
+        '
+      operationId: GetWifi
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wifi'
+          description: 'The configuration for connecting a device to Wi-Fi.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-wifi
+      summary: Get Wi-Fi Device Configuration
+      tags:
+      - Protect
+    put:
+      description: 'Update a configuration for connecting a device to Wi-Fi.
+
+        '
+      operationId: PutWifi
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/wifi'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/wifi'
+          description: 'The updated configuration for connecting a device to Wi-Fi.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-wifi
+      summary: Update Wi-Fi Device Configuration
+      tags:
+      - Protect
+  /sso:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    delete:
+      description: 'Delete the team''s identity provider.
+
+        '
+      operationId: DeleteIdentityProvider
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-identity-provider
+      summary: Delete Identity Provider
+      tags:
+      - Protect
+    get:
+      description: 'Get the team''s identity provider.
+
+        '
+      operationId: GetIdentityProvider
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/identityProvider'
+          description: 'The team''s identity provider.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-identity-provider
+      summary: Get Identity Provider
+      tags:
+      - Protect
+    put:
+      description: 'Create or update the team''s identity provider.
+
+        '
+      operationId: PutIdentityProvider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/identityProvider'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/identityProvider'
+          description: 'The team''s identity provider.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-identity-provider
+      summary: Create Identity Provider
+      tags:
+      - Protect
+  /sso/clients:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'List identity provider clients.
+
+        '
+      operationId: ListIdpClients
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/idpClient'
+                type: array
+          description: 'The list of the teams'' IdP clients.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-idp-clients
+      summary: List IdP Clients
+      tags:
+      - Protect
+    post:
+      description: 'Create an identity provider client.
+
+        '
+      operationId: PostIdpClients
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/idpClient'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/idpClient'
+          description: 'The new IdP client. This is the only time the secret will be shown.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-idp-clients
+      summary: Create IdP Client
+      tags:
+      - Protect
+  /sso/clients/{idpClientID}:
+    parameters:
+    - $ref: '#/components/parameters/idpClientID'
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    delete:
+      description: Delete an IdP client.
+      operationId: DeleteIdpClient
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-idp-client
+      summary: Delete IdP Client
+      tags:
+      - Protect
+    get:
+      description: 'Get an identity provider client by ID.
+
+        '
+      operationId: GetIdpClient
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/idpClient'
+          description: 'The IdP client without the secret.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-idp-client
+      summary: Get IdP Client
+      tags:
+      - Protect
+    put:
+      description: Update an IdP client.
+      operationId: PutIdpClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/idpClient'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/idpClient'
+          description: 'The updated IdP client.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-idp-client
+      summary: Update IdP Client
+      tags:
+      - Protect
+components:
+  schemas:
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+    managedRadius:
+      properties:
+        clientCA:
+          description: The CA that the RADIUS server will trust to verify clients.
+          type: string
+        id:
+          description: The UUID of this managed RADIUS server.
+          readOnly: true
+          type: string
+        name:
+          description: A descriptive name for this resource. Must be unique across the team.
+          type: string
+        nasIPs:
+          description: The IP addresses the Network Access Server (NAS) may connect from to the RADIUS server.
+          items:
+            type: string
+          type: array
+        replyAttributes:
+          items:
+            $ref: '#/components/schemas/replyAttribute'
+          type: array
+        secret:
+          description: 'The credential the Network Access Server (NAS) uses to connect to the RADIUS server.
+
+            Only included when the `secret` parameter is set in the query string.
+
+            '
+          readOnly: true
+          type: string
+        serverCA:
+          description: The CA that supplicants should use to verify the RADIUS server.
+          readOnly: true
+          type: string
+        serverHostname:
+          description: The hostname of the RADIUS server.
+          readOnly: true
+          type: string
+        serverIP:
+          description: The IP address of the RADIUS server.
+          readOnly: true
+          type: string
+        serverPort:
+          description: The port of the RADIUS server.
+          readOnly: true
+          type: string
+      required:
+      - id
+      - nasIPs
+      - clientCA
+      - name
+      - serverCA
+      - serverIP
+      - serverPort
+      - serverHostname
+      type: object
+    certificateFieldList:
+      description: A certificate field that accepts multiple string values, e.g. SANs.
+      properties:
+        deviceMetadata:
+          description: 'Keys in the device''s metadata whose values will populate this certificate field.
+
+
+            In addition to custom metadata keys, the following reserved keys are available: `smallstep:identity`, `Device.ID`, `Device.DisplayName`, `Device.PermanentIdentifier`, `Device.PermanentIdentifierURI`, `Device.Hostname`, `Device.HostURI`, and `Device.Serial`. For SSH certificates, `SSH.Principals` and `SSH.Extensions` are also available. See [deviceMetadata](/schemas/deviceMetadata) for details.
+
+            '
+          items:
+            type: string
+          type: array
+        insecureIncludeRequested:
+          description: Copy all values from the certificate request into the signed certificate. This allows the client to set arbitrary values for the field.
+          type: boolean
+        static:
+          description: Literal values.
+          items:
+            type: string
+          type: array
+      title: Certificate Field List
+      type: object
+    browser:
+      description: Configuration to use a credential for browser mTLS.
+      properties:
+        credentials:
+          description: The UUID of credentials that the Smallstep agent will configure to use this browser integration.
+          items:
+            type: string
+          type: array
+        id:
+          description: The UUID of this protected browser configuration.
+          readOnly: true
+          type: string
+        matchAddresses:
+          description: List of URLs the configuration applies to.
+          items:
+            type: string
+          type: array
+        name:
+          description: A human-friendly display name for this configuration.
+          type: string
+      required:
+      - id
+      - matchAddresses
+      - credentials
+      title: Browser Device Connection
+      type: object
+    wifiAccount:
+      description: Configuration to connect a device to a protected WiFi network.
+      examples:
+      - autojoin: true
+        hidden: false
+        networkAccessServerIP: 34.111.195.46
+        ssid: Smallnet
+      - autojoin: false
+        caChain: '-----BEGIN CERTIFICATE-----...'
+        externalRadiusServer: true
+        hidden: true
+        ssid: Smallnet
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        caChain:
+          description: The certificate authority bundle that client certificates must chain up to.
+          type: string
+        externalRadiusServer:
+          description: Whether or not this network is configured to use Smallstep or external RADIUS.
+          type: boolean
+        hidden:
+          description: Whether or not the SSID is broadcast by the access points.
+          type: boolean
+        networkAccessServerIP:
+          description: The public IP address of your network equipment that clients connect to.
+          type: string
+        securityProtocol:
+          description: The security protocol that the wireless network is configured for.
+          enum:
+          - WPA2
+          - WPA3
+          - WPA3192
+          type: string
+        ssid:
+          description: The name of the wireless network clients connect to.
+          type: string
+      required:
+      - ssid
+      title: WiFi
+      type: object
+    endpointManagementMode:
+      description: 'Determines who manages the certificate lifecycle for the workload.
+
+        Defaults to `agent` if not set.
+
+
+        - `agent`: The Smallstep Agent manages the certificate lifecycle, including enrollment, renewal, key management, and service reloading.
+
+        - `mdm`: An MDM manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
+
+        - `other`: Some other process or workflow manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
+
+        '
+      enum:
+      - agent
+      - mdm
+      - other
+      example: agent
+      title: Endpoint Management Mode
+      type: string
+    account:
+      allOf:
+      - properties:
+          id:
+            description: A UUID identifying this account. Read only.
+            type: string
+        required:
+        - id
+        type: object
+      - $ref: '#/components/schemas/accountRequest'
+      description: An account configures the certificate a device uses to connect to a protected resource.
+      examples:
+      - certificateInfo:
+          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
+          details:
+            commonName:
+              deviceMetadata: smallstep:identity
+              static: Office Wifi
+            sans:
+              deviceMetadata: smallstep:identity
+          duration: 24h0m0s
+          type: X509
+        configuration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
+        keyInfo:
+          format: DEFAULT
+          type: ECDSA_P256
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+        reloadInfo:
+          method: AUTOMATIC
+        type: wifi
+    endpointKeyInfo:
+      description: The attributes of the cryptographic key.
+      example:
+        format: PKCS8
+        protection: NONE
+        pubFile: /etc/db.csr
+        type: ECDSA_P256
+      properties:
+        format:
+          description: The format used to encode the private key. For X.509 keys the default format is PKCS#8. The classic format is PKCS#1 for RSA keys, SEC 1 for ECDSA keys, and PKCS#8 for ED25519 keys. For SSH keys the default format is always the OPENSSH format. When a hardware module is used to store the keys the default will be a JSON representation of the key, except on Linux where TSS2 will be used.
+          enum:
+          - DEFAULT
+          - PKCS8
+          - OPENSSH
+          - TSS2
+          - CLASSIC
+          type: string
+        protection:
+          description: Whether to use a hardware module to store the private key for a workload certificate. If set to `NONE` no hardware module will be used. If set to `DEFAULT` a hardware module will only be used with format `TSS2`. `HARDWARE_WITH_FALLBACK` can only be used with the key format `DEFAULT`.
+          enum:
+          - DEFAULT
+          - NONE
+          - HARDWARE
+          - HARDWARE_WITH_FALLBACK
+          - HARDWARE_ATTESTED
+          type: string
+        pubFile:
+          description: A CSR or SSH public key to use instead of generating one.
+          type: string
+        type:
+          description: The key type used. The current DEFAULT type is ECDSA_P256.
+          enum:
+          - DEFAULT
+          - ECDSA_P256
+          - ECDSA_P384
+          - ECDSA_P521
+          - RSA_2048
+          - RSA_3072
+          - RSA_4096
+          - ED25519
+          type: string
+      title: Key Management Info
+      type: object
+    ethernet:
+      description: Configuration for connecting a device to an EAP-TLS 802.1X wired network.
+      examples:
+      - autojoin: true
+        name: Smallnet
+        radiuServerCA: '-----BEGIN CERTIFICATE-----'
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        credentials:
+          description: The UUID of credentials that the Smallstep agent will configure to use this ethernet integration.
+          items:
+            type: string
+          type: array
+        id:
+          description: The UUID of this protected Ethernet configuration.
+          readOnly: true
+          type: string
+        name:
+          description: A human-friendly display name for this resource.
+          type: string
+        radiusServerCA:
+          description: The certificate bundle used to verify the RADIUS server.
+          type: string
+      required:
+      - id
+      - radiusServerCA
+      - credentials
+      title: Ethernet
+      type: object
+    wifi:
+      description: Configuration to use a credential to connect to a protected Wi-Fi network.
+      examples:
+      - autojoin: true
+        hidden: false
+        name: Smallnet
+        radiusServerCA: '-----BEGIN CERTIFICATE-----'
+        ssid: smallnet
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        credentials:
+          description: The UUID of credentials that the Smallstep agent will configure to use this Wi-Fi integration.
+          items:
+            type: string
+          type: array
+        hidden:
+          description: Whether or not the SSID is broadcast by the access points.
+          type: boolean
+        id:
+          description: The UUID of this protected Wi-Fi configuration.
+          readOnly: true
+          type: string
+        name:
+          description: A human-friendly display name for this resource.
+          type: string
+        radiusServerCA:
+          description: The certificate bundle used to verify the RADIUS server.
+          type: string
+        radiusServerDomain:
+          description: Require the RADIUS server certificate to contain this DNS name as a SAN or CommonName. Supported on Windows.
+          type: string
+        ssid:
+          description: The name of the wireless network that clients connect to.
+          type: string
+      required:
+      - id
+      - ssid
+      - radiusServerCA
+      - credentials
+      title: Wi-Fi
+      type: object
+    idpClient:
+      properties:
+        id:
+          description: The client ID.
+          readOnly: true
+          type: string
+        lifecycleFailureURI:
+          description: Where user-agents will be sent when the device lifecycle is not active.
+          type: string
+        redirectURI:
+          description: Where user-agents will be sent after authentication attempts.
+          type: string
+        secret:
+          description: The secret relying parties will use to authenticate when exchanging an authorization code for an id token.
+          readOnly: true
+          type: string
+      required:
+      - id
+      - redirectURI
+      type: object
+    vpn:
+      allOf:
+      - properties:
+          credentials:
+            description: The UUID of credentials that the Smallstep agent will configure to use this VPN integration.
+            items:
+              type: string
+            type: array
+          id:
+            description: The UUID of this protected VPN configuration.
+            readOnly: true
+            type: string
+          name:
+            description: A human-friendly display name for this configuration.
+            type: string
+        required:
+        - id
+        - credentials
+        type: object
+      - $ref: '#/components/schemas/vpnAccount'
+      description: Configuration to use a credential to connect a device to a VPN.
+      title: VPN Device Connection
+    certificateField:
+      description: A certificate field that takes a single string value, e.g. Common Name. Static values are used as a fallback when device metadata is not present.
+      properties:
+        deviceMetadata:
+          description: 'A key in the device''s metadata whose value will populate this certificate field. If the key is not present in the device''s metadata, the static value will be used.
+
+
+            In addition to custom metadata keys, the following reserved keys are available: `smallstep:identity`, `Device.ID`, `Device.DisplayName`, `Device.PermanentIdentifier`, `Device.PermanentIdentifierURI`, `Device.Hostname`, `Device.HostURI`, and `Device.Serial`. For SSH certificates, `SSH.KeyID` is also available. See [deviceMetadata](/schemas/deviceMetadata) for details.
+
+            '
+          type: string
+        static:
+          description: A literal value.
+          type: string
+      title: Certificate Field
+      type: object
+    x509ExtendedKeyUsage:
+      description: A purpose for which a certified public key may be used.
+      enum:
+      - serverAuth
+      - clientAuth
+      - codeSigning
+      - emailProtection
+      - ipsecEndSystem
+      - ipsecTunnel
+      - ipsecUser
+      - timeStamping
+      - ocspSigning
+      - microsoftServerGatedCrypto
+      - netscapeServerGatedCrypto
+      - microsoftCommercialCodeSigning
+      - microsoftKernelCodeSigning
+      - any
+      title: X.509 Extended Key Usage
+      type: string
+    deviceOwnership:
+      description: 'Whether the device is owned by the user or the company.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - company
+      - user
+      type: string
+    vpnVendor:
+      description: For SSL-type VPN connections, the vendor of the VPN.
+      enum:
+      - F5
+      - Cisco
+      - Juniper
+      type: string
+    accountRequest:
+      description: The configuration settings of an account.
+      examples:
+      - configuration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+        type: wifi
+      properties:
+        certificateInfo:
+          $ref: '#/components/schemas/endpointCertificateInfo'
+        configuration:
+          oneOf:
+          - $ref: '#/components/schemas/wifiAccount'
+          - $ref: '#/components/schemas/ethernetAccount'
+          - $ref: '#/components/schemas/vpnAccount'
+          - $ref: '#/components/schemas/browserAccount'
+        keyInfo:
+          $ref: '#/components/schemas/endpointKeyInfo'
+        name:
+          description: A human-friendly name for this account.
+          type: string
+        policy:
+          $ref: '#/components/schemas/policyMatchCriteria'
+        reloadInfo:
+          $ref: '#/components/schemas/endpointReloadInfo'
+        type:
+          description: The type of configuration settings for this account.
+          enum:
+          - wifi
+          - ethernet
+          - vpn
+          - browser
+          type: string
+      required:
+      - name
+      type: object
+    vpnType:
+      description: The type of VPN connection.
+      enum:
+      - IPsec
+      - IKEv2
+      - SSL
+      type: string
+    deviceOS:
+      description: 'The device operating system.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - Linux
+      - Windows
+      - macOS
+      - iOS
+      - tvOS
+      - watchOS
+      - visionOS
+      type: string
+    x509TypedSANs:
+      description: Explicitly typed subject alternative names. When set, takes precedence over the untyped `sans` field.
+      properties:
+        dnsNames:
+          $ref: '#/components/schemas/certificateFieldList'
+        emailAddresses:
+          $ref: '#/components/schemas/certificateFieldList'
+        ipAddresses:
+          $ref: '#/components/schemas/certificateFieldList'
+        uris:
+          $ref: '#/components/schemas/certificateFieldList'
+        userPrincipalNames:
+          $ref: '#/components/schemas/certificateFieldList'
+      title: X.509 Typed Subject Alternative Names
+      type: object
+    replyAttribute:
+      allOf:
+      - oneOf:
+        - required:
+          - name
+          - value
+        - required:
+          - name
+          - valueFromCertificate
+      - properties:
+          name:
+            description: The attribute name.
+            type: string
+          value:
+            description: The static attribute value.
+            type: string
+          valueFromCertificate:
+            description: The object identifier (OID) of a field in the supplicant certificate. The RADIUS server will set the value of the reply attribute to the value of the field.
+            type: string
+        required:
+        - name
+        type: object
+    deviceAssurance:
+      description: 'The assurance level of the device.
+
+        High-assurance devices are those that have a user binding, have been approved, and have performed cryptographic
+
+        remote attestation.
+
+        '
+      enum:
+      - normal
+      - high
+      type: string
+    deviceDiscoverySource:
+      description: 'The source from which this device was discovered.
+
+        '
+      enum:
+      - End-User
+      - Smallstep API
+      - Smallstep Agent
+      - Jamf
+      - Intune
+      type: string
+    vpnAccount:
+      description: Configuration to connect a device to a VPN.
+      examples:
+      - autojoin: true
+        connectionType: IKEv2
+        ike:
+          caChain: '-----BEGIN CERTIFICATE------'
+          eap: true
+          remoteID: vpn.smallstep.com
+        remoteAddress: vpn.smallstep.com
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        connectionType:
+          $ref: '#/components/schemas/vpnType'
+        ike:
+          $ref: '#/components/schemas/ikeV2Config'
+        remoteAddress:
+          description: The public IP address of the VPN server.
+          type: string
+        vendor:
+          $ref: '#/components/schemas/vpnVendor'
+      required:
+      - connectionType
+      - remoteAddress
+      title: VPN
+      type: object
+    endpointConfiguration:
+      allOf:
+      - properties:
+          id:
+            description: A UUID identifying this endpoint configuration. Read only.
+            type: string
+        required:
+        - id
+        type: object
+      - $ref: '#/components/schemas/endpointConfigurationRequest'
+      description: An endpoint configuration represents the details for issuing a certificate a device uses to connect to a protected resource.
+      examples:
+      - certificateInfo:
+          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
+          details:
+            commonName:
+              deviceMetadata: smallstep:identity
+              static: Office Wifi
+            sans:
+              deviceMetadata: smallstep:identity
+          duration: 24h0m0s
+          type: X509
+        extendedType: wifi
+        extendedTypeConfiguration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
+        keyInfo:
+          format: DEFAULT
+          type: ECDSA_P256
+        kind: account
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+        reloadInfo:
+          method: AUTOMATIC
+    endpointConfigurationRequest:
+      description: The configuration settings of an endpoint.
+      examples:
+      - extendedType: wifi
+        extendedTypeConfiguration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        kind: account
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+      properties:
+        certificateInfo:
+          $ref: '#/components/schemas/endpointCertificateInfo'
+        extendedType:
+          description: The extended type of this endpoint, which allows for further configuration to be specified using the `extendedTypeConfiguration` field.
+          enum:
+          - wifi
+          - ethernet
+          - vpn
+          - browser
+          type: string
+        extendedTypeConfiguration:
+          oneOf:
+          - $ref: '#/components/schemas/wifiAccount'
+          - $ref: '#/components/schemas/ethernetAccount'
+          - $ref: '#/components/schemas/vpnAccount'
+          - $ref: '#/components/schemas/browserAccount'
+        keyInfo:
+          $ref: '#/components/schemas/endpointKeyInfo'
+        kind:
+          description: 'The kind of endpoint.
+
+
+            Account-kind endpoints should be used for human users accessing protected resources. For account-kind endpoints, the `extendedType` and `extendedTypeConfiguration` fields are required.
+
+
+            Device-kind endpoints should be used for devices or machines accessing protected resources.
+
+
+            Workload-kind endpoints should be used issuing credentials to programs running on the device or machine.
+
+            '
+          enum:
+          - account
+          - workload
+          - device
+          type: string
+        managementMode:
+          $ref: '#/components/schemas/endpointManagementMode'
+        name:
+          description: A human-friendly name for this endpoint on devices.
+          type: string
+        policy:
+          $ref: '#/components/schemas/policyMatchCriteria'
+        reloadInfo:
+          $ref: '#/components/schemas/endpointReloadInfo'
+      required:
+      - name
+      - kind
+      type: object
+    endpointReloadInfo:
+      description: The properties used to reload a service.
+      example:
+        method: SIGNAL
+        pidFile: /var/run/db.pid
+        signal: 1
+      properties:
+        method:
+          description: Ways an endpoint can reload a certificate. `AUTOMATIC` means the process is able to detect and reload new certificates automatically. `CUSTOM` means a custom command must be run to trigger the workload to reload the certificates. `SIGNAL` will configure the agent to send a signal to the process in `pidFile`. `DBUS` will use the systemd system bus to issue a `try-reload-or-restart` job for unit specified by `unitName`. `PLATFORM` uses a method specific to the operating system.
+          enum:
+          - AUTOMATIC
+          - CUSTOM
+          - SIGNAL
+          - DBUS
+          - PLATFORM
+          type: string
+        pidFile:
+          description: File that holds the pid of the process to signal. Required when method is SIGNAL.
+          type: string
+        signal:
+          description: The signal to send to a process when a certificate should be reloaded. Required when method is SIGNAL.
+          type: integer
+        unitName:
+          description: The systemd unit name to reload when a certificate should be reloaded. Required when method is DBUS.
+          type: string
+      required:
+      - method
+      title: Managed Endpoint Reload Info
+      type: object
+    policyMatchCriteria:
+      description: Policy to select the devices an account is assigned to. An empty policy indicates an account will be provisioned for all devices.
+      properties:
+        assurance:
+          description: Assurance levels that devices must match.
+          items:
+            $ref: '#/components/schemas/deviceAssurance'
+          type: array
+          uniqueItems: true
+        operatingSystem:
+          description: Operating systems that devices must match.
+          items:
+            $ref: '#/components/schemas/deviceOS'
+          type: array
+          uniqueItems: true
+        ownership:
+          description: Ownership values that devices must match.
+          items:
+            $ref: '#/components/schemas/deviceOwnership'
+          type: array
+          uniqueItems: true
+        source:
+          description: Registration sources that devices must match.
+          items:
+            $ref: '#/components/schemas/deviceDiscoverySource'
+          type: array
+          uniqueItems: true
+        tags:
+          description: Tags that devices must match.
+          items:
+            type: string
+          type: array
+      type: object
+    ikeV2Config:
+      description: Configuration for VPNs that use the IKEv2 protocol.
+      properties:
+        caChain:
+          description: The certificate authority bundle that client certificates must chain up to.
+          type: string
+        eap:
+          description: Whether or not EAP is enforced on this VPN server.
+          type: boolean
+        remoteID:
+          description: Typically, the common name of the remote server. Defaults to the remote address.
+          type: string
+      required:
+      - caChain
+      type: object
+    ethernetAccount:
+      description: Configuration to connect a device to a protected LAN.
+      examples:
+      - autojoin: true
+        networkAccessServerIP: 34.111.195.46
+      - caChain: '-----BEGIN CERTIFICATE-----...'
+        externalRadiusServer: true
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        caChain:
+          description: The certificate authority bundle that client certificates must chain up to.
+          type: string
+        externalRadiusServer:
+          description: Whether or not this network is configured to use Smallstep or external RADIUS.
+          type: boolean
+        networkAccessServerIP:
+          description: The public IP address of your network equipment that clients connect to.
+          type: string
+      title: Ethernet
+      type: object
+    endpointCertificateInfo:
+      description: Details on a managed certificate.
+      example:
+        crtFile: /etc/db.crt
+        duration: 24h0m0s
+        gid: 999
+        keyFile: /etc/db.key
+        mode: 256
+        rootFile: /etc/ca.crt
+        type: X509
+        uid: 1001
+      properties:
+        authorityID:
+          description: A UUID identifying the authority to issue certificates for the account. If not provided, a new authority will be created.
+          type: string
+        crtFile:
+          description: The filepath where the certificate is to be stored.
+          type: string
+        details:
+          description: Certificate subject fields. See [X.509 Certificate Fields](/schemas/x509Fields) or [SSH Certificate Fields](/schemas/sshFields).
+          oneOf:
+          - $ref: '#/components/schemas/x509Fields'
+          - $ref: '#/components/schemas/sshFields'
+        duration:
+          description: The certificate lifetime. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        gid:
+          description: GID of the files where the certificate is stored.
+          type: integer
+        keyFile:
+          description: The filepath where the key is to be stored.
+          type: string
+        mode:
+          description: Permission bits of the files where the certificate is stored.
+          type: integer
+        rootFile:
+          description: The filepath where the root certificate is to be stored.
+          type: string
+        type:
+          description: The type of certificate.
+          enum:
+          - X509
+          - SSH_USER
+          - SSH_HOST
+          type: string
+        uid:
+          description: UID of the files where the certificate is stored.
+          type: integer
+      required:
+      - type
+      title: Managed Endpoint Certificate Info
+      type: object
+    identityProvider:
+      properties:
+        authorizeEndpoint:
+          description: The URL where clients authenticate.
+          readOnly: true
+          type: string
+        issuer:
+          description: The URL of this identity provider.
+          readOnly: true
+          type: string
+        jwksEndpoint:
+          description: The URL where relying parties can read the provider's public key.
+          readOnly: true
+          type: string
+        tokenEndpoint:
+          description: The URL where relying parties exchange authorization codes for identity tokens.
+          readOnly: true
+          type: string
+        trustRoots:
+          description: 'The CA used to verify clients at the authorize endpoint.
+
+            '
+          type: string
+      required:
+      - trustRoots
+      - issuer
+      - authorizeEndpoint
+      - tokenEndpoint
+      - jwksEndpoint
+      type: object
+    x509Fields:
+      description: Populate certificate fields using using static names or device metadata.
+      properties:
+        commonName:
+          $ref: '#/components/schemas/certificateField'
+        country:
+          $ref: '#/components/schemas/certificateFieldList'
+        customExtensions:
+          description: Arbitrary X.509 extensions to include in the certificate.
+          items:
+            $ref: '#/components/schemas/x509CustomExtension'
+          type: array
+        extendedKeyUsage:
+          description: The set of purposes for which the certified public key may be used. Defaults to server and client authentication when omitted.
+          items:
+            $ref: '#/components/schemas/x509ExtendedKeyUsage'
+          type: array
+        givenName:
+          $ref: '#/components/schemas/certificateField'
+        locality:
+          $ref: '#/components/schemas/certificateFieldList'
+        organization:
+          $ref: '#/components/schemas/certificateFieldList'
+        organizationalUnit:
+          $ref: '#/components/schemas/certificateFieldList'
+        postalCode:
+          $ref: '#/components/schemas/certificateFieldList'
+        province:
+          $ref: '#/components/schemas/certificateFieldList'
+        sans:
+          $ref: '#/components/schemas/certificateFieldList'
+        serialNumber:
+          $ref: '#/components/schemas/certificateField'
+        streetAddress:
+          $ref: '#/components/schemas/certificateFieldList'
+        surname:
+          $ref: '#/components/schemas/certificateField'
+        typedSans:
+          $ref: '#/components/schemas/x509TypedSANs'
+      title: X.509 Certificate Fields
+      type: object
+    sshFields:
+      description: Populate certificate fields using static names or device metadata.
+      properties:
+        keyId:
+          $ref: '#/components/schemas/certificateField'
+        principals:
+          $ref: '#/components/schemas/certificateFieldList'
+      title: SSH Certificate Fields
+      type: object
+    browserAccount:
+      description: Configuration to use a client certificate.
+      title: Browser
+      type: object
+    x509CustomExtension:
+      description: An arbitrary X.509 certificate extension.
+      properties:
+        critical:
+          description: Whether the extension is marked critical.
+          type: boolean
+        oid:
+          description: The object identifier in dotted notation (e.g. `1.3.6.1.4.1.44947`).
+          type: string
+        value:
+          description: The DER-encoded extension value, base64-encoded.
+          format: byte
+          type: string
+      required:
+      - oid
+      - value
+      title: X.509 Custom Extension
+      type: object
+  responses:
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '422':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unprocessable
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  parameters:
+    endpointConfigurationID:
+      description: ID of the endpoint configuration
+      in: path
+      name: endpointConfigurationID
+      required: true
+      schema:
+        type: string
+    wifiID:
+      description: The UUID of the Wi-Fi device configuration.
+      in: path
+      name: wifiID
+      required: true
+      schema:
+        type: string
+    version:
+      description: The version of the Smallstep API. Required unless set in the Accept header.
+      example: '2025-01-01'
+      in: header
+      name: X-Smallstep-Api-Version
+      required: true
+      schema:
+        type: string
+    managedRadiusID:
+      description: The UUID of the managed RADIUS server.
+      in: path
+      name: managedRadiusID
+      required: true
+      schema:
+        type: string
+    vpnID:
+      description: The UUID of the VPN device configuration.
+      in: path
+      name: vpnID
+      required: true
+      schema:
+        type: string
+    accountID:
+      description: ID of the account
+      in: path
+      name: accountID
+      required: true
+      schema:
+        type: string
+    idpClientID:
+      description: The UUID of the IdP client.
+      in: path
+      name: idpClientID
+      required: true
+      schema:
+        type: string
+    ethernetID:
+      description: The UUID of the Ethernet device configuration.
+      in: path
+      name: ethernetID
+      required: true
+      schema:
+        type: string
+    secret:
+      description: 'Whether to return the managed RADIUS secret in the response.
+
+        '
+      in: query
+      name: secret
+      schema:
+        type: boolean
+    requestID:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      in: header
+      name: X-Request-Id
+      schema:
+        type: string
+    pagination:
+      description: 'Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`
+
+        '
+      explode: true
+      in: query
+      name: pagination
+      schema:
+        nullable: true
+        properties:
+          after:
+            description: 'Fetch a page of results other than the first page.
+
+              Must be copied from a previously returned X-Next-Cursor header.
+
+              '
+            example: MTIzNA==
+            nullable: true
+            type: string
+          first:
+            description: 'Limits the number of results returned.
+
+              Defaults to 100.
+
+              '
+            example: 30
+            maximum: 1000
+            minimum: 1
+            nullable: true
+            type: integer
+        type: object
+      style: deepObject
+    browserID:
+      description: The UUID of the browser mTLS configuation.
+      in: path
+      name: browserID
+      required: true
+      schema:
+        type: string
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+  headers:
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http
+    mtls:
+      description: Use a client certificate issued by a trusted root to get short-lived bearer tokens with the step CLI.
+      type: mutualTLS

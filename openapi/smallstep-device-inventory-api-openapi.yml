@@ -1,0 +1,1149 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: support@smallstep.com
+    name: Smallstep Support
+    url: https://support.smallstep.com
+  description: '# Getting Started
+
+    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+
+
+    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+
+    ```
+
+    set +o history
+
+    echo "Authorization: Bearer [your API token]" > api_headers
+
+    set -o history
+
+    curl -H @api_headers https://gateway.smallstep.com/api/certificates
+
+    ```
+
+
+    More resources:
+
+    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+
+    * [Python Client](https://github.com/smallstep/smallstep-python)
+
+    '
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  summary: Smallstep API
+  title: Smallstep Authentication Device Inventory API
+  version: '2025-01-01'
+servers:
+- url: https://gateway.smallstep.com/api
+security:
+- JWT: []
+tags:
+- description: Manage your device inventory
+  name: Device Inventory
+paths:
+  /devices:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: Get a page of devices matching the given filters.
+      operationId: ListDevices
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      - $ref: '#/components/parameters/deviceFilters'
+      - $ref: '#/components/parameters/deviceSort'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/device'
+                type: array
+          description: 'A page of devices.
+
+            '
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-devices
+      summary: List Devices
+      tags:
+      - Device Inventory
+    post:
+      description: 'Add a device record. If a device with the same permanent identifier has
+
+        been synced from an MDM, then the response will be a merged record with
+
+        data from both the request and the MDM.
+
+        '
+      operationId: PostDevices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deviceRequest'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/device'
+          description: 'The added device.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - post-devices
+      summary: Add Device
+      tags:
+      - Device Inventory
+  /devices/{deviceID}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/deviceID'
+    delete:
+      description: Delete a device by ID.
+      operationId: DeleteDevice
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - delete-device
+      summary: Delete Device
+      tags:
+      - Device Inventory
+    get:
+      description: 'Get a device by ID.
+
+        '
+      operationId: GetDevice
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/device'
+          description: A device.
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-device
+      summary: Get Device
+      tags:
+      - Device Inventory
+    patch:
+      description: Update selected fields of an existing device.
+      operationId: PatchDevice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/devicePatch'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/device'
+          description: 'The updated device.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - patch-device
+      summary: Update Device
+      tags:
+      - Device Inventory
+  /devices/{deviceID}/lifecycle:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/deviceID'
+    patch:
+      description: 'Update a device''s lifecycle status
+
+        '
+      operationId: PatchDeviceLifecycle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deviceLifecyclePatch'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/device'
+          description: 'The updated device.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - patch-device-lifecycle
+      summary: Update Device Lifecycle
+      tags:
+      - Device Inventory
+  /platforms:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'Get a page of platforms.
+
+        '
+      operationId: GetPlatforms
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/platform'
+                type: array
+          description: A page of platforms.
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-platforms
+      summary: List Platforms
+      tags:
+      - Device Inventory
+  /platforms/{platformSlug}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/platformSlug'
+    put:
+      description: 'Create a new platform or update an existing platform.
+
+        '
+      operationId: PutPlatform
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newPlatform'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/platform'
+          description: 'The new or updated platform.
+
+            '
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - put-platform
+      summary: Create Platform
+      tags:
+      - Device Inventory
+components:
+  parameters:
+    deviceSort:
+      description: 'The sorting behavior for matching devices. Example: `?sort[field]=lastSeen&sort[ascending]=true`, which after encoding would be `?sort%5Bfield%5D=lastSeen&sort%5Bascending%5D=true`
+
+        '
+      explode: true
+      in: query
+      name: sort
+      schema:
+        nullable: true
+        properties:
+          ascending:
+            description: Indicates that devices should be sorted in ascending order.
+            type: boolean
+          field:
+            default: enrolledAt
+            description: The field used for sorting matching devices.
+            enum:
+            - enrolledAt
+            - lastSeen
+            - source
+            type: string
+        type: object
+      style: deepObject
+    deviceID:
+      description: Either the UUID of the device, or a URN that uniquely identifies the device. URNs must be URL-encoded, but provided examples are shown without encoding for clarity.
+      examples:
+        ekPub:
+          summary: The SHA-256 hash of the device's TPM Endorsement Key, in URN form.
+          value: urn:ek:sha256:RO7QunjhqUqKJj7HAHCpusLZqrypC42vvpGMJvpQdrw=
+        permanentId:
+          summary: A URN referencing the permanent identifier of the device.
+          value: urn:smallstep:device:permanent-identifier:7f358e57fb2df7c7462d9be6570ea41e
+        sn:
+          summary: A URN referencing the serial number of the device.
+          value: urn:smallstep:device:serial:7GX359OOP
+        uuid:
+          summary: The UUID of the device in the Smallstep inventory.
+          value: 3b415cf2-30bf-441e-aa72-82eb2f38181f
+      in: path
+      name: deviceID
+      required: true
+      schema:
+        type: string
+    deviceFilters:
+      description: 'Filter a list of devices by specifying the critera that must be met. Example: `?filters[os]=windows&filters[assurance]=high`, which after encoding would be `?filters%5Bos%5D=windows&filters%5Bassurance%5D=high`
+
+        '
+      explode: true
+      in: query
+      name: filters
+      schema:
+        nullable: true
+        properties:
+          assurance:
+            description: Assurance levels that devices must match.
+            items:
+              $ref: '#/components/schemas/deviceAssurance'
+            type: array
+            uniqueItems: true
+          onlyManaged:
+            description: Only return devices that are Smallstep-managed.
+            type: boolean
+          onlyPendingApproval:
+            description: Only return devices that are pending approval.
+            type: boolean
+          onlyUnassigned:
+            description: Only return devices that do not have a user binding.
+            type: boolean
+          operatingSystem:
+            description: Operating systems that devices must match.
+            items:
+              $ref: '#/components/schemas/deviceOS'
+            type: array
+            uniqueItems: true
+          ownership:
+            description: Ownership values that devices must match.
+            items:
+              $ref: '#/components/schemas/deviceOwnership'
+            type: array
+            uniqueItems: true
+          source:
+            description: Registration sources that devices must match.
+            items:
+              $ref: '#/components/schemas/deviceDiscoverySource'
+            type: array
+            uniqueItems: true
+          status:
+            $ref: '#/components/schemas/deviceStatus'
+        type: object
+      style: deepObject
+    version:
+      description: The version of the Smallstep API. Required unless set in the Accept header.
+      example: '2025-01-01'
+      in: header
+      name: X-Smallstep-Api-Version
+      required: true
+      schema:
+        type: string
+    platformSlug:
+      description: slug identifying the platform
+      in: path
+      name: platformSlug
+      required: true
+      schema:
+        type: string
+    requestID:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      in: header
+      name: X-Request-Id
+      schema:
+        type: string
+    pagination:
+      description: 'Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`
+
+        '
+      explode: true
+      in: query
+      name: pagination
+      schema:
+        nullable: true
+        properties:
+          after:
+            description: 'Fetch a page of results other than the first page.
+
+              Must be copied from a previously returned X-Next-Cursor header.
+
+              '
+            example: MTIzNA==
+            nullable: true
+            type: string
+          first:
+            description: 'Limits the number of results returned.
+
+              Defaults to 100.
+
+              '
+            example: 30
+            maximum: 1000
+            minimum: 1
+            nullable: true
+            type: integer
+        type: object
+      style: deepObject
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+  schemas:
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+    deviceSerial:
+      description: 'The serial number of the device.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      type: string
+    deviceUser:
+      description: 'The user that a device is assigned to. A device cannot be approved for high-assurance certificates until a user has been assigned to it.
+
+        '
+      properties:
+        displayName:
+          description: Full name of the user the device is assigned to. Synced from team's identity provider. Read only.
+          type: string
+        email:
+          description: 'Email of the user the device is assigned to.
+
+            This field may be populated with a value derived from data synced from your team''s MDMs.
+
+            Setting this value explicitly will mask any MDM-derived value.
+
+            '
+          type: string
+      required:
+      - email
+      type: object
+    devicePatch:
+      description: 'Data that can be modified on an existing device.
+
+
+        Some device fields may be populated with a value derived from data synced from your team''s MDMs.
+
+        Any data that is explicitly set by API or with the Smallstep dashboard will mask MDM-derived values.
+
+        Use this list to specify fields that should be unset. If the device includes data synced from an MDM
+
+        this will result in the fields being populated with values derived from the MDM data. Otherwise the
+
+        removed fields will be empty.
+
+        '
+      example:
+        displayId: null
+        displayName: null
+        metadata:
+          department: engineering
+        os: Linux
+        ownership: user
+        serial: 7GX359OOP
+        shared: true
+        tags:
+        - ubuntu24
+        user:
+          email: patch@example.com
+      properties:
+        displayId:
+          oneOf:
+          - $ref: '#/components/schemas/deviceDisplayId'
+          - {}
+        displayName:
+          oneOf:
+          - $ref: '#/components/schemas/deviceDisplayName'
+          - {}
+        metadata:
+          oneOf:
+          - $ref: '#/components/schemas/deviceMetadata'
+          - {}
+        os:
+          oneOf:
+          - $ref: '#/components/schemas/deviceOS'
+          - {}
+        ownership:
+          oneOf:
+          - $ref: '#/components/schemas/deviceOwnership'
+          - {}
+        serial:
+          oneOf:
+          - $ref: '#/components/schemas/deviceSerial'
+          - {}
+        shared:
+          type: boolean
+        tags:
+          oneOf:
+          - $ref: '#/components/schemas/deviceTags'
+          - {}
+        user:
+          $ref: '#/components/schemas/deviceUserPatch'
+      type: object
+    newPlatform:
+      description: Configuration to create a new platform.
+      properties:
+        displayName:
+          type: string
+        platformConfiguration:
+          oneOf:
+          - $ref: '#/components/schemas/awsPlatform'
+          - $ref: '#/components/schemas/azurePlatform'
+          - $ref: '#/components/schemas/gcpPlatform'
+        platformType:
+          description: Determines which set of fields to use in platformConfiguration. Cannot be changed.
+          enum:
+          - aws
+          - azure
+          - gcp
+          type: string
+        slug:
+          type: string
+      required:
+      - slug
+      - displayName
+      - platformType
+      - platformConfiguration
+      title: New Platform
+      type: object
+    deviceUserPatch:
+      description: 'The user that a device is assigned to. A device cannot be approved for high-assurance certificates until it has an assigned user.
+
+        '
+      properties:
+        email:
+          description: 'Email of the user the device is assigned to.
+
+            This field may be populated with a value derived from data synced from your team''s MDMs.
+
+            Setting this value explicitly will mask any MDM-derived value.
+
+            '
+          oneOf:
+          - nullable: true
+            type: string
+      required:
+      - email
+      type: object
+    deviceDisplayId:
+      description: 'An opaque identifier that may be used to link this device to an external inventory.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      type: string
+    platform:
+      description: A platform with a list of configurations.
+      properties:
+        displayName:
+          type: string
+        platformConfigurations:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/awsPlatform'
+            - $ref: '#/components/schemas/azurePlatform'
+            - $ref: '#/components/schemas/gcpPlatform'
+          type: array
+        platformType:
+          description: The type used in platformConfiguration.
+          enum:
+          - aws
+          - azure
+          - gcp
+          type: string
+        slug:
+          type: string
+      required:
+      - slug
+      - displayName
+      - platformType
+      - platformConfigurations
+      title: Platform
+      type: object
+    deviceOwnership:
+      description: 'Whether the device is owned by the user or the company.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - company
+      - user
+      type: string
+    deviceDisplayName:
+      description: 'A friendly name for the device.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      type: string
+    deviceMetadata:
+      additionalProperties:
+        type: string
+      description: 'A map of custom key-value pairs for a device, typically used to populate certificate fields. These custom keys can be referenced in [X.509 Certificate Fields](/schemas/x509Fields) or [SSH Certificate Fields](/schemas/sshFields).
+
+
+        In addition to custom keys, the following reserved keys are also available:
+
+
+        - `smallstep:identity` — The device''s assigned user email.
+
+        - `Device.ID` — The Smallstep internal UUID for the device.
+
+        - `Device.DisplayName` — The computed display name for the device, usually sourced from the MDM or hostname.
+
+        - `Device.PermanentIdentifier` — The permanent identifier of the device (e.g. the EK public key hash).
+
+        - `Device.PermanentIdentifierURI` — The permanent identifier as a URI.
+
+        - `Device.Hostname` — The reported hostname of the device.
+
+        - `Device.HostURI` — The host identifier as a URI.
+
+        - `Device.Serial` — The serial number of the device.
+
+
+        For SSH certificates, the following additional reserved keys are available:
+
+
+        - `SSH.Principals` — The SSH certificate principals.
+
+        - `SSH.KeyID` — The SSH certificate key ID.
+
+        - `SSH.Extensions` — The SSH certificate extensions.
+
+
+        Reserved keys are populated automatically and are not stored in this map.
+
+        '
+      type: object
+    deviceOS:
+      description: 'The device operating system.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - Linux
+      - Windows
+      - macOS
+      - iOS
+      - tvOS
+      - watchOS
+      - visionOS
+      type: string
+    deviceAssurance:
+      description: 'The assurance level of the device.
+
+        High-assurance devices are those that have a user binding, have been approved, and have performed cryptographic
+
+        remote attestation.
+
+        '
+      enum:
+      - normal
+      - high
+      type: string
+    gcpPlatform:
+      description: Google Cloud Platform
+      properties:
+        name:
+          description: A friendly name for this GCP connection
+          examples:
+          - Production GCP Projects
+          title: Name/Alias
+          type: string
+        projectIds:
+          description: The project IDs where the resources are located.
+          examples:
+          - prod-1234
+          items:
+            type: string
+          title: Project IDs
+          type: array
+        serviceAccountKey:
+          description: A JSON-formatted service account key that allows the Smallstep Platform to manage resources on your behalf.
+          examples:
+          - '{"type": "service_acount", "private_key", ...}'
+          title: Service Account Key
+          type: string
+        serviceAccounts:
+          description: GCE service accounts that are allowed to enroll with the Smallstep Platform.
+          examples:
+          - dbs@myproject.iam.gserviceaccount.com
+          items:
+            type: string
+          title: Service Accounts
+          type: array
+      required:
+      - projectIds
+      - name
+      title: Google Cloud Platform
+    deviceDiscoverySource:
+      description: 'The source from which this device was discovered.
+
+        '
+      enum:
+      - End-User
+      - Smallstep API
+      - Smallstep Agent
+      - Jamf
+      - Intune
+      type: string
+    deviceRequest:
+      description: Data that can be added to a device record.
+      example:
+        displayId: '681'
+        displayName: Sheldon Personal Laptop
+        metadata:
+          department: engineering
+        os: Linux
+        ownership: user
+        permanentIdentifier: urn:ek:sha256:RO7QunjhqUqKJj7HAHCpusLZqrypC42vvpGMJvpQdrw=
+        serial: 7GX359OOP
+        tags:
+        - ubuntu24
+        user:
+          email: sheldon@example.com
+      properties:
+        displayId:
+          $ref: '#/components/schemas/deviceDisplayId'
+        displayName:
+          $ref: '#/components/schemas/deviceDisplayName'
+        metadata:
+          $ref: '#/components/schemas/deviceMetadata'
+        os:
+          $ref: '#/components/schemas/deviceOS'
+        ownership:
+          $ref: '#/components/schemas/deviceOwnership'
+        permanentIdentifier:
+          description: The cryptographic identity of the device. High-assurance devices are only issued certificates when this identifier is attested by a trusted source. All devices with the same permanent identifier appear as a single device in the Smallstep API. For Windows and Linux devices this is the hash of the TPM endorsement key and for Apple devices it is the serial number.
+          type: string
+        serial:
+          $ref: '#/components/schemas/deviceSerial'
+        tags:
+          $ref: '#/components/schemas/deviceTags'
+        user:
+          $ref: '#/components/schemas/deviceUser'
+      required:
+      - permanentIdentifier
+      type: object
+    deviceLifecyclePatch:
+      description: 'Updating a device''s lifecycle state can be used to control behavior of credential issuance, as well
+
+        as inform authorization decisions of integrations, such as RADIUS.
+
+        '
+      example:
+        status: quarantined
+      properties:
+        status:
+          $ref: '#/components/schemas/deviceLifecycleStatus'
+      required:
+      - status
+      type: object
+    deviceTags:
+      description: A set of tags that can be used to group devices.
+      items:
+        type: string
+      type: array
+    azurePlatform:
+      description: Microsoft Azure
+      properties:
+        clientId:
+          description: The client ID of an Azure Service Principal that allows the Smallstep Platform to manage resources on your behalf.
+          examples:
+          - a51b7be0-007c-4233-b137-00096852253e
+          title: Service Principal Client ID
+          type: string
+        clientSecret:
+          description: The client secret of an Azure Service Principal that allows the Smallstep Platform to manage resources on your behalf.
+          examples:
+          - 8eYbM2S@ZUrTcWHeE6Zju8m8n
+          title: Service Principal Client Secret
+          type: string
+        name:
+          description: A friendly name for this Azure connection
+          examples:
+          - Production Resources
+          title: Name/Alias
+          type: string
+        resourceGroups:
+          description: A list of resource groups that are allowed to enroll with the Smallstep Platform.
+          examples:
+          - prod
+          items:
+            type: string
+          title: Resource Groups
+          type: array
+        tenantId:
+          description: The Azure Entra tenant ID
+          examples:
+          - b17c217c-84db-43f0-babd-e06a71083cda
+          title: Tenant ID
+          type: string
+      required:
+      - tenantId
+      - resourceGroups
+      - name
+      title: Microsoft Azure Platform
+      type: object
+    awsPlatform:
+      description: Configuration for an AWS platform.
+      properties:
+        accountId:
+          title: Account ID
+          type: string
+        name:
+          description: A friendly name for this AWS account.
+          title: Name/Alias
+          type: string
+        roleArn:
+          description: A role ARN that allows the Smallstep Platform to manage resources on your behalf.
+          examples:
+          - arn:aws:iam::0123456789:role/smallstep
+          title: Role ARN
+          type: string
+      required:
+      - accountId
+      - name
+      title: Amazon Web Services
+      type: object
+    deviceStatus:
+      description: 'The status of the device.
+
+        '
+      enum:
+      - ok
+      - warning
+      - error
+      type: string
+    deviceLifecycleStatus:
+      description: 'The lifecycle status of a device indicates its ongoing management
+
+        state.
+
+        '
+      enum:
+      - active
+      - quarantined
+      - deleted
+      type: string
+    device:
+      allOf:
+      - $ref: '#/components/schemas/deviceRequest'
+      - properties:
+          approvedAt:
+            description: Timestamp in RFC3339 format when the device was approved to connect to company resources. Read only.
+            format: date-time
+            type: string
+          connected:
+            description: The device is currently connected to Smallstep. Read only.
+            type: boolean
+          enrolledAt:
+            description: Timestamp in RFC3339 format when the device first connected to Smallstep. Read only.
+            format: date-time
+            type: string
+          highAssurance:
+            description: The device has been issued certificates using high assurance device attestation. Read only.
+            type: boolean
+          hostID:
+            description: The identifier for the smallstep agent on the device.
+            type: string
+          id:
+            description: A UUID identifying this device. Read only.
+            type: string
+          lastSeen:
+            description: Timestamp in RFC3339 format when the device last connected to Smallstep. Read only.
+            format: date-time
+            type: string
+          lifecycleStatus:
+            $ref: '#/components/schemas/deviceLifecycleStatus'
+          shared:
+            description: Whether the device is shared. A shared device is not expected to have a direct user binding.
+            type: boolean
+        required:
+        - id
+        - connected
+        - highAssurance
+        type: object
+      description: A device represents a computer that can be issued X.509 certificates for securely connecting to company resources.
+      example:
+        approvedAt: '2025-01-01T12:04:05'
+        connected: true
+        displayId: '681'
+        displayName: Sheldon Personal Laptop
+        enrolledAt: '2025-01-01T10:04:05'
+        highAssurance: false
+        lastSeen: '2025-01-01T15:04:05'
+        lifecycleStatus: active
+        metadata:
+          department: engineering
+        os: Linux
+        ownership: user
+        permanentIdentifier: urn:ek:sha256:RO7QunjhqUqKJj7HAHCpusLZqrypC42vvpGMJvpQdrw=
+        serial: 7GX359OOP
+        shared: false
+        tags:
+        - ubuntu24
+        user:
+          email: sheldon@example.com
+  responses:
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '422':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unprocessable
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  headers:
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http
+    mtls:
+      description: Use a client certificate issued by a trusted root to get short-lived bearer tokens with the step CLI.
+      type: mutualTLS

@@ -1,0 +1,708 @@
+openapi: 3.1.1
+info:
+  contact:
+    email: support@smallstep.com
+    name: Smallstep Support
+    url: https://support.smallstep.com
+  description: '# Getting Started
+
+    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+
+
+    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+
+    ```
+
+    set +o history
+
+    echo "Authorization: Bearer [your API token]" > api_headers
+
+    set -o history
+
+    curl -H @api_headers https://gateway.smallstep.com/api/certificates
+
+    ```
+
+
+    More resources:
+
+    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+
+    * [Python Client](https://github.com/smallstep/smallstep-python)
+
+    '
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  summary: Smallstep API
+  title: Smallstep Authentication Certificates API
+  version: '2025-01-01'
+servers:
+- url: https://gateway.smallstep.com/api
+security:
+- JWT: []
+tags:
+- description: Query certificates and their statuses issued by authorities
+  name: Certificates
+paths:
+  /certificates:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'Get a page of certificates.
+
+        '
+      operationId: ListCertificates
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/x509Certificate'
+                type: array
+          description: A page of certificates.
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - list-certificates
+      summary: List Certificates
+      tags:
+      - Certificates
+  /certificates/search:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/accept'
+    get:
+      description: 'Search for certificates.
+
+
+        Search inputs are case-sensitive, exact match only.
+
+
+        Results are ordered by the `created_at` timestamp and certificate `id` in descending order.
+
+        '
+      operationId: SearchCertificates
+      parameters:
+      - $ref: '#/components/parameters/pagination'
+      - description: ID of a device
+        in: query
+        name: deviceID
+        schema:
+          type: string
+      - $ref: '#/components/parameters/expirationStatus'
+      - $ref: '#/components/parameters/notBefore'
+      - $ref: '#/components/parameters/notAfter'
+      - $ref: '#/components/parameters/san'
+      - $ref: '#/components/parameters/country'
+      - $ref: '#/components/parameters/organization'
+      - $ref: '#/components/parameters/organizationalUnit'
+      - $ref: '#/components/parameters/locality'
+      - $ref: '#/components/parameters/streetAddress'
+      - $ref: '#/components/parameters/postalCode'
+      - $ref: '#/components/parameters/commonName'
+      - $ref: '#/components/parameters/province'
+      - $ref: '#/components/parameters/certProvisioner'
+      - $ref: '#/components/parameters/certAuthorityID'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/x509Certificate'
+                type: array
+          description: A page of certificates.
+          headers:
+            X-Next-Cursor:
+              $ref: '#/components/headers/X-Next-Cursor'
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - search-certificates
+      summary: Search Certificates
+      tags:
+      - Certificates
+  /certificates/{serialNumber}:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/serialNumber'
+    get:
+      description: 'Get a certificate by serial number.
+
+        '
+      operationId: GetCertificate
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/x509Certificate'
+          description: A certificate.
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/X-Request-Id'
+            X-Smallstep-Api-Version:
+              $ref: '#/components/headers/X-Smallstep-Api-Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - get-certificate
+      summary: Get Certificate
+      tags:
+      - Certificates
+  /certificates/{serialNumber}/revoke:
+    parameters:
+    - $ref: '#/components/parameters/requestID'
+    - $ref: '#/components/parameters/version'
+    - $ref: '#/components/parameters/accept'
+    - $ref: '#/components/parameters/serialNumber'
+    post:
+      description: 'Revoke a certificate by serial number.
+
+        '
+      operationId: RevokeCertificate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/revocation'
+      responses:
+        '204':
+          $ref: '#/components/responses/204'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+      - JWT:
+        - revoke-certificate
+      summary: Revoke Certificate
+      tags:
+      - Certificates
+components:
+  parameters:
+    postalCode:
+      description: Subject postal code.
+      in: query
+      name: postalCode
+      schema:
+        type: string
+    streetAddress:
+      description: Subject street address.
+      in: query
+      name: streetAddress
+      schema:
+        type: string
+    locality:
+      description: Subject locality.
+      in: query
+      name: locality
+      schema:
+        type: string
+    country:
+      description: Subject country.
+      in: query
+      name: country
+      schema:
+        type: string
+    organization:
+      description: Subject organization.
+      in: query
+      name: organization
+      schema:
+        type: string
+    version:
+      description: The version of the Smallstep API. Required unless set in the Accept header.
+      example: '2025-01-01'
+      in: header
+      name: X-Smallstep-Api-Version
+      required: true
+      schema:
+        type: string
+    expirationStatus:
+      description: Filter certificates by expiration status.
+      in: query
+      name: expirationStatus
+      schema:
+        enum:
+        - ACTIVE
+        - EXPIRING
+        - EXPIRED
+        type: string
+    organizationalUnit:
+      description: Subject organizational unit.
+      in: query
+      name: organizationalUnit
+      schema:
+        type: string
+    notAfter:
+      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
+      in: query
+      name: notAfter
+      schema:
+        format: date-time
+        type: string
+    serialNumber:
+      description: serial number of a certificate
+      in: path
+      name: serialNumber
+      required: true
+      schema:
+        type: string
+    certAuthorityID:
+      description: Authority ID of cert.
+      in: query
+      name: authorityID
+      schema:
+        type: string
+    certProvisioner:
+      description: Provisioner of cert.
+      in: query
+      name: provisioner
+      schema:
+        type: string
+    province:
+      description: Subject province.
+      in: query
+      name: province
+      schema:
+        type: string
+    commonName:
+      description: Subject common name.
+      in: query
+      name: commonName
+      schema:
+        type: string
+    san:
+      description: SAN of cert.
+      in: query
+      name: san
+      schema:
+        type: string
+    notBefore:
+      description: Timestamp in RFC3339 format to filter certs not active before this timestamp.
+      in: query
+      name: notBefore
+      schema:
+        format: date-time
+        type: string
+    requestID:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      in: header
+      name: X-Request-Id
+      schema:
+        type: string
+    pagination:
+      description: 'Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`
+
+        '
+      explode: true
+      in: query
+      name: pagination
+      schema:
+        nullable: true
+        properties:
+          after:
+            description: 'Fetch a page of results other than the first page.
+
+              Must be copied from a previously returned X-Next-Cursor header.
+
+              '
+            example: MTIzNA==
+            nullable: true
+            type: string
+          first:
+            description: 'Limits the number of results returned.
+
+              Defaults to 100.
+
+              '
+            example: 30
+            maximum: 1000
+            minimum: 1
+            nullable: true
+            type: integer
+        type: object
+      style: deepObject
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+  schemas:
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+    basicConstraints:
+      properties:
+        isCA:
+          type: boolean
+        maxPathLen:
+          type: integer
+      required:
+      - isCA
+      - maxPathLen
+      type: object
+    x509Certificate:
+      properties:
+        authorityKeyId:
+          type: string
+        basicConstraints:
+          $ref: '#/components/schemas/basicConstraints'
+        crlDistributionPoints:
+          items:
+            type: string
+          type: array
+        dnsNames:
+          items:
+            type: string
+          type: array
+        emailAddresses:
+          items:
+            type: string
+          type: array
+        extKeyUsage:
+          items:
+            type: string
+          type: array
+        ipAddresses:
+          items:
+            type: string
+          type: array
+        issuer:
+          $ref: '#/components/schemas/subject'
+        issuingCertificateURL:
+          items:
+            type: string
+          type: array
+        keyUsage:
+          items:
+            type: string
+          type: array
+        nameConstraints:
+          $ref: '#/components/schemas/nameConstraints'
+        ocspServer:
+          items:
+            type: string
+          type: array
+        pem:
+          type: string
+        policyIdentifiers:
+          items:
+            type: string
+          type: array
+        revocationReason:
+          enum:
+          - UNSPECIFIED
+          - KEY_COMPROMISE
+          - CA_COMPROMISE
+          - AFFILIATION_CHANGED
+          - SUPERSEDED
+          - CESSATION_OF_OPERATION
+          - CERTIFICATE_HOLD
+          - PRIVILEGE_WITHDRAWN
+          - AA_COMPROMISE
+          type: string
+        revoked:
+          type: boolean
+        serialNumber:
+          type: string
+        signatureAlgorithm:
+          type: string
+        subject:
+          $ref: '#/components/schemas/subject'
+        subjectKeyId:
+          type: string
+        uris:
+          items:
+            type: string
+          type: array
+        version:
+          type: integer
+      required:
+      - pem
+      - version
+      - subject
+      - issuer
+      - serialNumber
+      - keyUsage
+      - subjectKeyId
+      - authorityKeyId
+      - signatureAlgorithm
+      - basicConstraints
+      type: object
+    subject:
+      description: 'Name used in X.509 certificates
+
+        '
+      properties:
+        commonName:
+          type: string
+        country:
+          items:
+            type: string
+          type: array
+        emailAddress:
+          items:
+            type: string
+          type: array
+        extraNames:
+          items:
+            $ref: '#/components/schemas/extraName'
+          type: array
+        locality:
+          items:
+            type: string
+          type: array
+        organization:
+          items:
+            type: string
+          type: array
+        organizationalUnit:
+          items:
+            type: string
+          type: array
+        postalCode:
+          items:
+            type: string
+          type: array
+        province:
+          items:
+            type: string
+          type: array
+        serialNumber:
+          type: string
+        streetAddress:
+          items:
+            type: string
+          type: array
+      title: Subject
+      type: object
+    extraName:
+      properties:
+        type:
+          type: string
+        value:
+          schema: {}
+      required:
+      - type
+      - value
+      type: object
+    revocation:
+      properties:
+        code:
+          enum:
+          - UNSPECIFIED
+          - KEY_COMPROMISE
+          - CA_COMPROMISE
+          - AFFILIATION_CHANGED
+          - SUPERSEDED
+          - CESSATION_OF_OPERATION
+          - CERTIFICATE_HOLD
+          - REMOVE_FROM_CRL
+          - PRIVILEGE_WITHDRAWN
+          - AA_COMPROMISE
+          type: string
+        reason:
+          type: string
+      type: object
+    nameConstraints:
+      description: X.509 certificate name constraints.
+      properties:
+        critical:
+          description: 'Whether or not name constraints are marked critical.
+
+            '
+          type: boolean
+        excludedDNSDomains:
+          items:
+            type: string
+          type: array
+        excludedEmailAddresses:
+          items:
+            type: string
+          type: array
+        excludedIPRanges:
+          items:
+            type: string
+          type: array
+        excludedURIDomains:
+          items:
+            type: string
+          type: array
+        permittedDNSDomains:
+          items:
+            type: string
+          type: array
+        permittedEmailAddresses:
+          items:
+            type: string
+          type: array
+        permittedIPRanges:
+          items:
+            type: string
+          type: array
+        permittedURIDomains:
+          items:
+            type: string
+          type: array
+      title: Name Constraints
+  responses:
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  headers:
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http
+    mtls:
+      description: Use a client certificate issued by a trusted root to get short-lived bearer tokens with the step CLI.
+      type: mutualTLS
