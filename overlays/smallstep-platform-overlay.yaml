@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Smallstep Platform API
+  version: 1.0.0
+extends: openapi/smallstep-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 4
+      x-apievangelist-provider: smallstep
+      x-apievangelist-category: identity-and-access
+      x-api-evangelist-notes: >-
+        Date-versioned API (X-Smallstep-Api-Version). Auth is JWT bearer with a mutual-TLS token
+        exchange on POST /auth (client certificate from a trusted root -> short-lived bearer token
+        via `step api token create`). Cursor pagination signalled by the X-Next-Cursor response
+        header. Simple JSON error envelope ({"message": ...}), not RFC 9457.
+  - target: $.info
+    update:
+      x-agentic-access-guidance: agentic-access/smallstep-agentic-access.yml
+      x-error-catalog: errors/smallstep-problem-types.yml
+      x-conventions: conventions/smallstep-conventions.yml

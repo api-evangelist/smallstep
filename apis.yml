@@ -1,28 +1,211 @@
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1
 aid: smallstep
 name: SmallStep
-description: 'SmallStep is a company surfaced as a portfolio company of accel, bain-capital-ventures and
-  added to the API Evangelist network as a stub for enrichment. Sector: developer-tools. This profile
-  is a lead awaiting the enrichment pipeline.'
+description: >-
+  Smallstep operates the world's first Device Identity Platform. It issues hardware-backed, short-lived
+  X.509 and SSH certificates that cryptographically prove what is acting and from where — for devices,
+  humans, workloads, AI agents, and MCP toolchains. Smallstep co-developed ACME Device Attestation
+  (ACME DA) with Google through the IETF, using TPM and Secure Enclave co-processors to bind
+  non-exportable credentials to specific devices at issuance. Its OpenAPI-conformant Platform API
+  (gateway.smallstep.com) manages device inventory, PKI (certificate authorities and provisioners),
+  certificate issuance and revocation, credentials, and protected resources such as Wi-Fi, VPN, and SSO.
+  Smallstep also maintains the widely used open-source step CLI and step-ca certificate authority.
 url: https://raw.githubusercontent.com/api-evangelist/smallstep/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://smallstep.imgix.net/logo_bfa4201fe5.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - accel
 - bain-capital-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Developer Tools
-apis: []
+- Certificate Authority
+- PKI
+- Device Identity
+- Zero Trust
+- Certificate Management
+- mTLS
+- ACME
+- SSH
+- Security
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: smallstep:smallstep-authentication-api
+  name: SmallStep Authentication API
+  description: Create API tokens
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
+- aid: smallstep:smallstep-certificates-api
+  name: SmallStep Certificates API
+  description: Query certificates and their statuses issued by authorities
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - Certificates
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-certificates-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
+- aid: smallstep:smallstep-credentials-api
+  name: SmallStep Credentials API
+  description: Manage credentials
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
+- aid: smallstep:smallstep-device-inventory-api
+  name: SmallStep Device Inventory API
+  description: Manage your device inventory
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - Device Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-device-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
+- aid: smallstep:smallstep-pki-architecture-api
+  name: SmallStep PKI Architecture API
+  description: Manage certificate authorities and provisioners
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - PKI Architecture
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-pki-architecture-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
+- aid: smallstep:smallstep-protect-api
+  name: SmallStep Protect API
+  description: Manage access to protected resources
+  humanURL: https://smallstep.com/docs/platform/smallstep-api/
+  baseURL: https://gateway.smallstep.com/api
+  tags:
+  - Protect
+  properties:
+  - type: OpenAPI
+    url: openapi/smallstep-protect-api-openapi.yml
+  - type: Documentation
+    url: https://smallstep.com/docs/platform/smallstep-api/
+  - type: APIReference
+    url: https://gateway.smallstep.com/v2025-01-01
 common:
+# --- Identity / link properties ---
 - type: Website
   url: http://www.smallstep.com
+- type: DeveloperPortal
+  url: https://smallstep.com/docs/
+- type: Documentation
+  url: https://smallstep.com/docs/platform
+- type: APIReference
+  url: https://smallstep.com/docs/platform/smallstep-api/
+- type: GettingStarted
+  url: https://smallstep.com/docs/certificate-manager/getting-started/
+- type: Blog
+  url: https://smallstep.com/blog
+- type: GitHubOrganization
+  url: https://github.com/smallstep
+- type: Support
+  url: https://github.com/smallstep/certificates/discussions
+- type: Pricing
+  url: https://smallstep.com/pricing
+- type: Login
+  url: https://smallstep.com/app/
+- type: TermsOfService
+  url: https://smallstep.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://smallstep.com/privacy-policy
+- type: StatusPage
+  url: https://status.smallstep.com
+# --- Artifacts ---
+- type: Authentication
+  url: authentication/smallstep-authentication.yml
+- type: AgenticAccess
+  url: agentic-access/smallstep-agentic-access.yml
+- type: DomainSecurity
+  url: security/smallstep-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/smallstep-vulnerability-disclosure.yml
+- type: Security
+  url: https://smallstep.com/security/
+- type: SecurityTxt
+  url: well-known/smallstep-security.txt
+- type: WellKnown
+  url: well-known/smallstep-well-known.yml
+- type: Packages
+  url: packages/smallstep-packages.yml
+- type: SDKs
+  url: packages/smallstep-packages.yml
+- type: CLI
+  url: cli/smallstep-cli.yml
+- type: LLMsTxt
+  url: llms/smallstep-llms.txt
+- type: Conformance
+  url: conformance/smallstep-conformance.yml
+- type: ErrorCatalog
+  url: errors/smallstep-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/smallstep-lifecycle.yml
+- type: Conventions
+  url: conventions/smallstep-conventions.yml
+- type: ChangeLog
+  url: changelog/smallstep-changelog.yml
+- type: DataModel
+  url: data-model/smallstep-data-model.yml
+- type: Webhooks
+  url: asyncapi/smallstep-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: MCPServerCandidate
+  url: mcp/smallstep-mcp.yml

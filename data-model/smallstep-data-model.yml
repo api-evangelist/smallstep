@@ -1,0 +1,102 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/smallstep-openapi-original.yml
+note: 'Entity-relationship graph derived from OpenAPI schema $ref links and the REST path hierarchy of the Smallstep Platform
+  API. Core PKI graph: Account -> Authority -> Provisioner (-> Webhook); Device -> Credential -> Certificate; Protect resources
+  (Wi-Fi/Ethernet/VPN/Browser/RADIUS) -> Endpoint Configuration.'
+id_reference_note: IDs are UUIDs; authorities addressable by domain or ID; provisioners by name or ID.
+schema_count: 99
+domain_relationships:
+- from: authority
+  to: provisioner
+  kind: has_many
+  via: authorities/{authorityID}/provisioners
+- from: provisioner
+  to: provisionerWebhook
+  kind: has_many
+  via: provisioners/{id}/webhooks
+- from: authority
+  to: x509Certificate
+  kind: has_many
+  via: issued certificates
+- from: device
+  to: credential
+  kind: has_many
+  via: device credentials
+- from: endpointConfiguration
+  to: provisioner
+  kind: belongs_to
+  via: provisioner
+- from: wifi/ethernet/vpn/browser/managedRadius
+  to: endpointConfiguration
+  kind: references
+  via: protect resource config
+entities:
+- entity: account
+  relationships: []
+- entity: authority
+  relationships:
+  - field: type
+    target: authorityType
+    kind: has_one
+- entity: provisioner
+  relationships: []
+- entity: provisionerWebhook
+  relationships:
+  - field: basicAuth
+    target: basicAuth
+    kind: has_one
+- entity: device
+  relationships: []
+- entity: credential
+  relationships:
+  - field: certificate
+    target: credentialCertificate
+    kind: has_one
+  - field: files
+    target: credentialFiles
+    kind: has_one
+  - field: key
+    target: credentialKey
+    kind: has_one
+  - field: managementMode
+    target: endpointManagementMode
+    kind: has_one
+  - field: policy
+    target: policyMatchCriteria
+    kind: has_one
+- entity: x509Certificate
+  relationships:
+  - field: basicConstraints
+    target: basicConstraints
+    kind: has_one
+  - field: issuer
+    target: subject
+    kind: has_one
+  - field: nameConstraints
+    target: nameConstraints
+    kind: has_one
+  - field: subject
+    target: subject
+    kind: has_one
+- entity: endpointConfiguration
+  relationships: []
+- entity: identityProvider
+  relationships: []
+- entity: idpClient
+  relationships: []
+- entity: platform
+  relationships: []
+- entity: wifi
+  relationships: []
+- entity: ethernet
+  relationships: []
+- entity: vpn
+  relationships: []
+- entity: browser
+  relationships: []
+- entity: managedRadius
+  relationships:
+  - field: replyAttributes
+    target: replyAttribute
+    kind: has_many

@@ -1,0 +1,25 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/smallstep-openapi-original.yml
+docs: https://smallstep.com/docs/platform/smallstep-api/
+notes: >-
+  Global default is JWT bearer. Tokens are minted in the Smallstep UI (with selectable scopes and
+  validity period) or via `step api token create`, which exchanges a client certificate issued by a
+  configured trusted root for a short-lived (1 hour) bearer token — the mutual-TLS scheme applied to
+  POST /auth.
+summary:
+  types:
+  - http
+  - mutualTLS
+schemes:
+- name: JWT
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/smallstep-openapi-original.yml
+- name: mtls
+  type: mutualTLS
+  description: Use a client certificate issued by a trusted root to get short-lived bearer tokens
+    with the step CLI.
+  sources:
+  - openapi/smallstep-openapi-original.yml

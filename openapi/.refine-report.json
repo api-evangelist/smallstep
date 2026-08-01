@@ -1,0 +1,24 @@
+{
+  "provider": "smallstep",
+  "sources": [
+    "smallstep-authentication-api-openapi.yml",
+    "smallstep-certificates-api-openapi.yml",
+    "smallstep-credentials-api-openapi.yml",
+    "smallstep-device-inventory-api-openapi.yml",
+    "smallstep-pki-architecture-api-openapi.yml",
+    "smallstep-protect-api-openapi.yml"
+  ],
+  "outputs": [
+    "smallstep-authentication-api-openapi.yml",
+    "smallstep-certificates-api-openapi.yml",
+    "smallstep-credentials-api-openapi.yml",
+    "smallstep-device-inventory-api-openapi.yml",
+    "smallstep-pki-architecture-api-openapi.yml",
+    "smallstep-protect-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,46 @@
+generated: '2026-07-21'
+method: searched
+source: https://smallstep.com/docs/step-cli/installation/
+note: >-
+  Smallstep's first-party developer distribution is the open-source `step` CLI and the `step-ca`
+  certificate-authority server (both Go). The `step` CLI is also the sanctioned way to authenticate to
+  the Smallstep Platform API (`step api token create` exchanges a client certificate for a bearer token).
+  There is no separate language-specific HTTP client SDK; the Go modules are importable as libraries.
+packages:
+  - language: go
+    registry: github-releases
+    name: step
+    url: https://github.com/smallstep/cli
+    install: 'go install github.com/smallstep/cli/cmd/step@latest'
+    version: v0.30.6
+    official: true
+    description: >-
+      step CLI — zero-trust swiss-army knife for X.509/SSH certificates, keys, JWT/JWK/JOSE, OAuth/OIDC,
+      and driving step-ca and the Smallstep Platform API.
+  - language: go
+    registry: github-releases
+    name: step-ca
+    url: https://github.com/smallstep/certificates
+    install: 'go install github.com/smallstep/certificates/cmd/step-ca@latest'
+    version: v0.30.2
+    official: true
+    description: 'step-ca — private X.509 & SSH certificate authority and ACME server.'
+  - language: go
+    registry: go-modules
+    name: github.com/smallstep/cli
+    url: https://pkg.go.dev/github.com/smallstep/cli
+    install: 'go get github.com/smallstep/cli'
+    official: true
+    description: 'Importable Go library surface of the step CLI.'
+  - language: shell
+    registry: homebrew
+    name: step
+    url: https://formulae.brew.sh/formula/step
+    install: 'brew install step'
+    official: true
+  - language: docker
+    registry: docker-hub
+    name: smallstep/step-ca
+    url: https://hub.docker.com/r/smallstep/step-ca
+    install: 'docker pull smallstep/step-ca'
+    official: true

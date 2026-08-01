@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://smallstep.com/docs/platform/smallstep-api/
+derived_from: openapi/smallstep-openapi-original.yml
+base_url: https://gateway.smallstep.com/api
+content_type: application/json
+authentication:
+  style: bearer
+  schemes:
+    - JWT bearer (Authorization: Bearer <token>) — global default
+    - mutual-TLS token exchange on POST /auth — a client certificate issued by a configured trusted root is exchanged for a short-lived (1 hour) bearer token
+  token_issuance:
+    - Smallstep UI (Settings -> API tokens; choose validity period and scopes)
+    - 'step CLI: `step api token create`'
+  scopes: Tokens carry selectable scopes chosen at issuance time in the Smallstep UI (not an OAuth2 authorization-server flow).
+  cross_ref: authentication/smallstep-authentication.yml
+idempotency:
+  supported: false
+  note: The Smallstep Platform API does not document an idempotency-key mechanism. Creates use POST; updates use PUT/PATCH (naturally idempotent for a given resource ID).
+pagination:
+  style: cursor
+  signal: X-Next-Cursor response header on list operations; pass the returned cursor to page forward.
+  response_header: X-Next-Cursor
+versioning:
+  style: date-in-path
+  header: X-Smallstep-Api-Version
+  cross_ref: lifecycle/smallstep-lifecycle.yml
+request_tracing:
+  header: X-Request-Id
+  note: Present on responses (including errors); quote it to Smallstep support for correlation.
+error_envelope:
+  media_type: application/json
+  shape: '{"message": string}'
+  rfc9457: false
+  cross_ref: errors/smallstep-problem-types.yml
+resource_addressing:
+  note: Authorities are addressable by domain or ID; provisioners by name or ID; most other resources by UUID.

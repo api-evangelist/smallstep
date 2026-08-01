@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/smallstep-openapi-original.yml
+docs:
+  - https://smallstep.com/docs/certificate-manager/acme/
+  - https://smallstep.com/platform/acme-device-attestation
+standards:
+  - id: rfc8555-acme
+    conforms: true
+    evidence: ACME server / ACME provisioner (acmeProvisioner schema); step-ca is a documented ACME CA
+  - id: acme-device-attestation
+    conforms: true
+    evidence: acmeAttestationProvisioner schema; Smallstep co-developed ACME Device Attestation (ACME DA) with Google via IETF
+  - id: rfc5280-x509
+    conforms: true
+    evidence: X.509 certificate issuance/revocation; x509Certificate, x509Fields, nameConstraints schemas
+  - id: ssh-certificates
+    conforms: true
+    evidence: sshFields / sshOptions schemas; Smallstep SSH product issues SSH certificates
+  - id: scep
+    conforms: true
+    evidence: scepProvisioner schema (SCEP enrollment supported)
+  - id: oidc
+    conforms: true
+    evidence: oidcProvisioner schema; SSO/identity-provider resources (/sso)
+  - id: oauth2
+    conforms: true
+    evidence: OAuth/OIDC provisioners and IdP client management
+  - id: jwk-jose
+    conforms: true
+    evidence: jwkProvisioner / x5cProvisioner schemas; JWT bearer auth
+  - id: mutual-tls
+    conforms: true
+    evidence: securitySchemes.mtls (mutualTLS) — client-cert token exchange on POST /auth
+  - id: cloud-instance-identity
+    conforms: true
+    evidence: awsProvisioner / azureProvisioner / gcpProvisioner schemas (instance-identity attestation)
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: error envelope is a simple {"message"} JSON object, not application/problem+json
+  - id: cursor-pagination
+    conforms: true
+    evidence: X-Next-Cursor response header on list operations

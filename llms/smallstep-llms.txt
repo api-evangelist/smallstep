@@ -1,0 +1,55 @@
+# Smallstep
+
+> Smallstep built the world's first Device Identity Platform. It issues hardware-backed, short-lived certificates that prove what is acting and from where — for devices, humans, workloads, AI agents, and MCP toolchains.
+
+Trusted by 78 of the Fortune 100, Smallstep co-developed ACME Device Attestation (ACME DA) with Google through the IETF. ACME DA uses hardware co-processors (TPM, Secure Enclave) to cryptographically bind credentials to specific devices at issuance. Apple ships native support for ACME DA. It replaces legacy enrollment protocols like SCEP and prevents credential exfiltration, phishing, and impersonation attacks by making certificates non-exportable and hardware-verified.
+
+## Platform
+
+- [Device Identity Platform](https://smallstep.com/platform/device-identity): Architecture and capabilities of the platform
+- [ACME Device Attestation](https://smallstep.com/platform/acme-device-attestation): How hardware-bound certificates are issued and what they prevent
+- [Critical Components](https://smallstep.com/platform/critical-components): PKI infrastructure, certificate automation, and lifecycle management
+- [Integrations](https://smallstep.com/integrations): 100+ integrations — MDMs, IdPs, network access controls, and developer tools
+- [Deployment Options](https://smallstep.com/deployment-options): Cloud, hybrid, and on-premises deployment
+
+## Product — Use Cases
+
+- [AI and MCP](https://smallstep.com/product/ai-and-mcp): Cryptographic identity for AI agents, MCP clients, and MCP servers — replacing API keys with mTLS
+- [SSH](https://smallstep.com/product/ssh): Certificate-based SSH access for humans and workloads
+- [Wi-Fi](https://smallstep.com/product/wifi): EAP-TLS enterprise Wi-Fi using device certificates instead of passwords
+- [SaaS Apps](https://smallstep.com/product/saas-apps): Device identity enforcement in SSO and IdP flows
+- [VPN](https://smallstep.com/product/vpn): Device certificate enforcement at VPN and proxy access points
+- [ZTNA](https://smallstep.com/product/ztna): Zero Trust Network Access gated on verified device identity
+- [DevOps](https://smallstep.com/product/devops): Automated certificate management for VMs, workloads, and cloud services
+
+## Product — Solutions by Platform
+
+- [Linux](https://smallstep.com/product/solutions/linux): Hardware-backed device identity for Linux endpoints
+- [Mac and Jamf](https://smallstep.com/product/solutions/mac-jamf): ACME DA enrollment for Mac fleets managed by Jamf Pro
+- [Windows and Intune](https://smallstep.com/product/solutions/windows-intune): TPM-backed device identity for Windows fleets managed by Intune
+- [Okta](https://smallstep.com/product/solutions/okta): Hardware-verified device factor for Okta-based access policies
+- [Fleet](https://smallstep.com/product/solutions/fleet): Device identity integration for Fleet-managed endpoints
+- [ChromeOS](https://smallstep.com/product/solutions/chromeOS): Hardware-backed certificates for ChromeOS devices
+
+## Docs
+
+- [Platform Documentation](https://smallstep.com/docs/platform): Guides, reference, and quickstarts
+
+## Blog
+
+- [Blog](https://smallstep.com/blog): Technical writing on device identity, PKI, Zero Trust, and certificate automation
+
+## Case Studies
+
+- [Customer Case Studies](https://smallstep.com/case-studies): Production deployments across enterprise, finance, and infrastructure
+
+## Company
+
+- [About](https://smallstep.com/about): Company background, leadership, and investors
+- [Pricing](https://smallstep.com/pricing): Plans and pricing
+- [Contact](https://smallstep.com/webforms/contact-us): Contact sales or request a demo
+
+## Open Source
+
+- [Open Source](https://smallstep.com/open-source): step-ca and step-cli — the open source certificate authority at the core of the platform
+- [GitHub](https://github.com/smallstep): All Smallstep open source projects

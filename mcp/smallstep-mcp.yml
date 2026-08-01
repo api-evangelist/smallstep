@@ -1,0 +1,233 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/smallstep-openapi-original.yml
+note: No official hosted Smallstep MCP server was found. Smallstep's "AI and MCP" product secures MCP clients/servers with
+  mTLS device identity; it is not itself an MCP server. Tools below are CANDIDATES derived one-per-operation from the Smallstep
+  Platform API OpenAPI, for a potential gateway MCP server.
+server:
+  name: smallstep
+  transport: http
+tools:
+- name: ListAccounts
+  description: List Accounts
+  source_operation: openapi/smallstep-openapi-original.yml#ListAccounts
+- name: PostAccounts
+  description: Create Account
+  source_operation: openapi/smallstep-openapi-original.yml#PostAccounts
+- name: DeleteAccount
+  description: Delete Account
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteAccount
+- name: GetAccount
+  description: Get Account
+  source_operation: openapi/smallstep-openapi-original.yml#GetAccount
+- name: PutAccount
+  description: Update Account
+  source_operation: openapi/smallstep-openapi-original.yml#PutAccount
+- name: PostAuth
+  description: Authenticate
+  source_operation: openapi/smallstep-openapi-original.yml#PostAuth
+- name: GetAuthorities
+  description: List Authorities
+  source_operation: openapi/smallstep-openapi-original.yml#GetAuthorities
+- name: PostAuthorities
+  description: Create New Authority
+  source_operation: openapi/smallstep-openapi-original.yml#PostAuthorities
+- name: PostAuthoritiesCsr
+  description: Create New Authority CSR
+  source_operation: openapi/smallstep-openapi-original.yml#PostAuthoritiesCsr
+- name: DeleteAuthority
+  description: Delete Authority
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteAuthority
+- name: GetAuthority
+  description: Get Authority
+  source_operation: openapi/smallstep-openapi-original.yml#GetAuthority
+- name: ListAuthorityProvisioners
+  description: List Authority Provisioners
+  source_operation: openapi/smallstep-openapi-original.yml#ListAuthorityProvisioners
+- name: PostAuthorityProvisioners
+  description: Create Authority Provisioner
+  source_operation: openapi/smallstep-openapi-original.yml#PostAuthorityProvisioners
+- name: DeleteProvisioner
+  description: Delete Provisioner
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteProvisioner
+- name: GetProvisioner
+  description: Get Provisioner
+  source_operation: openapi/smallstep-openapi-original.yml#GetProvisioner
+- name: PostWebhooks
+  description: Create Provisioner Webhook
+  source_operation: openapi/smallstep-openapi-original.yml#PostWebhooks
+- name: DeleteWebhook
+  description: Delete Provisioner Webhook
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteWebhook
+- name: GetWebhook
+  description: Get Provisioner Webhook
+  source_operation: openapi/smallstep-openapi-original.yml#GetWebhook
+- name: PostAuthorityRoot
+  description: Post Authority External Root
+  source_operation: openapi/smallstep-openapi-original.yml#PostAuthorityRoot
+- name: ListCertificates
+  description: List Certificates
+  source_operation: openapi/smallstep-openapi-original.yml#ListCertificates
+- name: SearchCertificates
+  description: Search Certificates
+  source_operation: openapi/smallstep-openapi-original.yml#SearchCertificates
+- name: GetCertificate
+  description: Get Certificate
+  source_operation: openapi/smallstep-openapi-original.yml#GetCertificate
+- name: RevokeCertificate
+  description: Revoke Certificate
+  source_operation: openapi/smallstep-openapi-original.yml#RevokeCertificate
+- name: DeleteCredential
+  description: Delete Credential
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteCredential
+- name: GetCredential
+  description: Get Credential
+  source_operation: openapi/smallstep-openapi-original.yml#GetCredential
+- name: PutCredential
+  description: Put Credential
+  source_operation: openapi/smallstep-openapi-original.yml#PutCredential
+- name: ListCredentials
+  description: List Credentials
+  source_operation: openapi/smallstep-openapi-original.yml#ListCredentials
+- name: PostCredentials
+  description: Create Credential
+  source_operation: openapi/smallstep-openapi-original.yml#PostCredentials
+- name: ListDevices
+  description: List Devices
+  source_operation: openapi/smallstep-openapi-original.yml#ListDevices
+- name: PostDevices
+  description: Add Device
+  source_operation: openapi/smallstep-openapi-original.yml#PostDevices
+- name: DeleteDevice
+  description: Delete Device
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteDevice
+- name: GetDevice
+  description: Get Device
+  source_operation: openapi/smallstep-openapi-original.yml#GetDevice
+- name: PatchDevice
+  description: Update Device
+  source_operation: openapi/smallstep-openapi-original.yml#PatchDevice
+- name: PatchDeviceLifecycle
+  description: Update Device Lifecycle
+  source_operation: openapi/smallstep-openapi-original.yml#PatchDeviceLifecycle
+- name: ListEndpointConfigurations
+  description: List Endpoint Configurations
+  source_operation: openapi/smallstep-openapi-original.yml#ListEndpointConfigurations
+- name: PostEndpointConfigurations
+  description: Create Endpoint Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PostEndpointConfigurations
+- name: DeleteEndpointConfiguration
+  description: Delete Endpoint Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteEndpointConfiguration
+- name: GetEndpointConfiguration
+  description: Get Endpoint Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#GetEndpointConfiguration
+- name: PutEndpointConfiguration
+  description: Update Endpoint Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PutEndpointConfiguration
+- name: ListManagedRadius
+  description: List Managed RADIUS Servers
+  source_operation: openapi/smallstep-openapi-original.yml#ListManagedRadius
+- name: PostManagedRadius
+  description: Create Managed RADIUS
+  source_operation: openapi/smallstep-openapi-original.yml#PostManagedRadius
+- name: DeleteManagedRadius
+  description: Delete Managed RADIUS
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteManagedRadius
+- name: GetManagedRadius
+  description: Get Managed RADIUS
+  source_operation: openapi/smallstep-openapi-original.yml#GetManagedRadius
+- name: PutManagedRadius
+  description: Put Managed RADIUS
+  source_operation: openapi/smallstep-openapi-original.yml#PutManagedRadius
+- name: GetPlatforms
+  description: List Platforms
+  source_operation: openapi/smallstep-openapi-original.yml#GetPlatforms
+- name: PutPlatform
+  description: Create Platform
+  source_operation: openapi/smallstep-openapi-original.yml#PutPlatform
+- name: ListBrowser
+  description: List Browser mTLS Configurations
+  source_operation: openapi/smallstep-openapi-original.yml#ListBrowser
+- name: PostBrowser
+  description: Create Browser mTLS Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PostBrowser
+- name: DeleteBrowser
+  description: Delete Browser mTLS Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteBrowser
+- name: GetBrowser
+  description: Get Browser mTLS Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#GetBrowser
+- name: PutBrowser
+  description: Update Browser mTLS Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PutBrowser
+- name: ListEthernet
+  description: List Ethernet Device Configurations
+  source_operation: openapi/smallstep-openapi-original.yml#ListEthernet
+- name: PostEthernet
+  description: Create Ethernet Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PostEthernet
+- name: DeleteEthernet
+  description: Delete Ethernet Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteEthernet
+- name: GetEthernet
+  description: Get Ethernet Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#GetEthernet
+- name: PutEthernet
+  description: Update Ethernet Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PutEthernet
+- name: ListVpn
+  description: List VPN Device Configurations
+  source_operation: openapi/smallstep-openapi-original.yml#ListVpn
+- name: PostVpn
+  description: Create VPN Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PostVpn
+- name: DeleteVpn
+  description: Delete VPN Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteVpn
+- name: GetVpn
+  description: Get VPN Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#GetVpn
+- name: PutVpn
+  description: Update VPN Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PutVpn
+- name: ListWifi
+  description: List Wi-Fi Device Configurations
+  source_operation: openapi/smallstep-openapi-original.yml#ListWifi
+- name: PostWifi
+  description: Create Wi-Fi Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PostWifi
+- name: DeleteWifi
+  description: Delete Wi-Fi Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteWifi
+- name: GetWifi
+  description: Get Wi-Fi Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#GetWifi
+- name: PutWifi
+  description: Update Wi-Fi Device Configuration
+  source_operation: openapi/smallstep-openapi-original.yml#PutWifi
+- name: DeleteIdentityProvider
+  description: Delete Identity Provider
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteIdentityProvider
+- name: GetIdentityProvider
+  description: Get Identity Provider
+  source_operation: openapi/smallstep-openapi-original.yml#GetIdentityProvider
+- name: PutIdentityProvider
+  description: Create Identity Provider
+  source_operation: openapi/smallstep-openapi-original.yml#PutIdentityProvider
+- name: ListIdpClients
+  description: List IdP Clients
+  source_operation: openapi/smallstep-openapi-original.yml#ListIdpClients
+- name: PostIdpClients
+  description: Create IdP Client
+  source_operation: openapi/smallstep-openapi-original.yml#PostIdpClients
+- name: DeleteIdpClient
+  description: Delete IdP Client
+  source_operation: openapi/smallstep-openapi-original.yml#DeleteIdpClient
+- name: GetIdpClient
+  description: Get IdP Client
+  source_operation: openapi/smallstep-openapi-original.yml#GetIdpClient
+- name: PutIdpClient
+  description: Update IdP Client
+  source_operation: openapi/smallstep-openapi-original.yml#PutIdpClient

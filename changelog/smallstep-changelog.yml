@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: searched
+source: https://smallstep.com/docs/platform/smallstep-api/
+scheme: date-based-api-versions
+current: '2025-01-01'
+note: >-
+  The Smallstep Platform API is versioned by date. Each dated version is a stable, independently
+  addressable snapshot of the API (selected via URL path and echoed in X-Smallstep-Api-Version). The
+  open-source step CLI and step-ca ship separate, frequent GitHub releases (see packages/).
+entries:
+  - version: '2025-01-01'
+    date: '2025-01-01'
+    breaking: false
+    highlights:
+      - Current Platform API version — device inventory, PKI (authorities/provisioners), certificates, credentials, and Protect resources (Wi-Fi, Ethernet, VPN, Browser, managed RADIUS, SSO).
+  - version: '2023-11-01'
+    date: '2023-11-01'
+    breaking: false
+    highlights:
+      - Earlier Platform API version; used for Smallstep SSH host, host-grant, and tag management.
+related_release_streams:
+  - name: step CLI
+    url: https://github.com/smallstep/cli/releases
+    latest: v0.30.6
+  - name: step-ca
+    url: https://github.com/smallstep/certificates/releases
+    latest: v0.30.2

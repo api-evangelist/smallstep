@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/smallstep-openapi-original.yml
+format: custom-json
+envelope:
+  media_type: application/json
+  schema: components.schemas.error
+  shape:
+    message: string (required) — human-readable description of the error
+  example:
+    message: ID must be a valid UUID
+  trace_headers:
+  - X-Request-Id
+  - X-Smallstep-Api-Version
+note: The Smallstep Platform API returns a simple JSON error envelope with a single `message` field (not RFC 9457 problem+json).
+  Every response carries X-Request-Id for support correlation and X-Smallstep-Api-Version echoing the negotiated API version.
+problems:
+- status: 400
+  title: Bad request
+  occurrences: 74
+  envelope: 'application/json {"message": string}'
+- status: 401
+  title: Unauthorized
+  occurrences: 74
+  envelope: 'application/json {"message": string}'
+- status: 403
+  title: Forbidden
+  occurrences: 63
+  envelope: 'application/json {"message": string}'
+- status: 404
+  title: Not found
+  occurrences: 33
+  envelope: 'application/json {"message": string}'
+- status: 409
+  title: Conflict
+  occurrences: 8
+  envelope: 'application/json {"message": string}'
+- status: 412
+  title: Precondition failed
+  occurrences: 3
+  envelope: 'application/json {"message": string}'
+- status: 422
+  title: Unprocessable entity
+  occurrences: 13
+  envelope: 'application/json {"message": string}'
+- status: 500
+  title: Internal server error
+  occurrences: 74
+  envelope: 'application/json {"message": string}'

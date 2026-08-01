@@ -1,0 +1,47 @@
+generated: '2026-07-21'
+method: searched
+source: https://smallstep.com/docs/step-cli/reference/
+name: step
+description: >-
+  `step` is Smallstep's open-source command-line tool — a zero-trust swiss-army knife for
+  certificates, keys, and tokens. It drives step-ca and the Smallstep Platform API, and is the
+  sanctioned way to mint Platform API bearer tokens.
+repository: https://github.com/smallstep/cli
+docs: https://smallstep.com/docs/step-cli/
+reference: https://smallstep.com/docs/step-cli/reference/
+install:
+  - method: homebrew
+    command: brew install step
+  - method: apt
+    command: 'apt install step-cli (Smallstep Debian repo)'
+  - method: go
+    command: go install github.com/smallstep/cli/cmd/step@latest
+  - method: github-releases
+    url: https://github.com/smallstep/cli/releases
+command_groups:
+  - group: ca
+    summary: Interact with step-ca — bootstrap trust, request/renew/revoke certificates, manage provisioners.
+  - group: certificate
+    summary: Create, inspect, verify, sign, lint, and bundle X.509 certificates and CSRs.
+  - group: crypto
+    summary: Low-level crypto — keypairs, JWT/JWK/JWS/JWE (JOSE), NaCl, OTP, hashes.
+  - group: ssh
+    summary: SSH certificate operations — login, host/user certificates, config, inspect.
+  - group: oauth
+    summary: Obtain OAuth/OIDC tokens for authentication flows.
+  - group: api
+    summary: Interact with the Smallstep Platform API — `step api token create` mints a short-lived bearer token from a client certificate.
+  - group: context
+    summary: Manage multiple step configurations/contexts.
+  - group: completion
+    summary: Print shell completion scripts.
+key_flows:
+  - name: Mint a Platform API token
+    command: step api token create --x5c-cert <cert> --x5c-key <key>
+    ref: https://smallstep.com/docs/step-cli/reference/api/token/create/
+  - name: Bootstrap CA trust
+    command: step ca bootstrap --ca-url <url> --fingerprint <fp>
+  - name: Request a certificate
+    command: step ca certificate <subject> cert.pem key.pem
+  - name: Renew a certificate
+    command: step ca renew cert.pem key.pem

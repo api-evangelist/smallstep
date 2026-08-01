@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/smallstep-openapi-original.yml
+skills:
+  - file: smallstep-provision-certificate-authority.md
+    name: Provision a Smallstep certificate authority and provisioner
+    api: openapi/smallstep-openapi-original.yml
+    operations: [PostAuth, GetAuthorities, PostAuthorities, GetAuthority, PostAuthorityProvisioners, ListAuthorityProvisioners, GetProvisioner, PostWebhooks]
+  - file: smallstep-manage-device-inventory.md
+    name: Manage the Smallstep device inventory
+    api: openapi/smallstep-openapi-original.yml
+    operations: [PostAuth, ListDevices, PostDevices, GetDevice, PatchDevice, PatchDeviceLifecycle, DeleteDevice]
+  - file: smallstep-issue-and-revoke-certificates.md
+    name: Search, inspect, and revoke Smallstep certificates
+    api: openapi/smallstep-openapi-original.yml
+    operations: [PostAuth, ListCertificates, SearchCertificates, GetCertificate, RevokeCertificate]

@@ -1,0 +1,19 @@
+generated: '2026-07-21'
+method: searched
+source: https://smallstep.com/docs/platform/smallstep-api/
+versioning:
+  scheme: date-based
+  mechanism: Client selects an API version by URL path segment (e.g. /v2025-01-01, /v2023-11-01); the server echoes the negotiated version in the X-Smallstep-Api-Version response header.
+  current: '2025-01-01'
+  known_versions:
+    - '2025-01-01'
+    - '2023-11-01'
+  docs: https://smallstep.com/docs/platform/smallstep-api/
+  version_header: X-Smallstep-Api-Version
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/sunset policy was found; older API versions (e.g. 2023-11-01, used for Smallstep SSH host management) remain addressable alongside the current version.
+sla:
+  url: null
+status_page: https://status.smallstep.com

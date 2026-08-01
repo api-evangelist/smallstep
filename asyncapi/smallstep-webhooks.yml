@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+type: Webhooks
+source:
+  - https://smallstep.com/docs/certificate-manager/webhook-events/
+  - https://smallstep.com/docs/step-ca/webhooks/
+  - openapi/smallstep-openapi-original.yml
+note: >-
+  Smallstep exposes two webhook surfaces. (1) Provisioner webhooks: configured on the Platform API
+  (POST/GET/DELETE .../provisioners/{id}/webhooks) and in step-ca — step-ca calls out to your endpoint
+  during certificate issuance to ENRICH the certificate template or AUTHORIZE (allow/deny) the request.
+  (2) Certificate Manager webhook EVENTS: outbound notifications about certificate lifecycle.
+  No AsyncAPI document is published; this is a captured webhook catalog.
+webhook_surfaces:
+  - name: Provisioner webhooks (enriching / authorizing)
+    kind: request-response
+    docs: https://smallstep.com/docs/step-ca/webhooks/
+    configured_via:
+      - openapi/smallstep-openapi-original.yml#PostWebhooks
+      - openapi/smallstep-openapi-original.yml#GetWebhook
+      - openapi/smallstep-openapi-original.yml#DeleteWebhook
+    types:
+      - ENRICHING — response augments the certificate template with extra data
+      - AUTHORIZING — response allows or denies issuance
+    security: HMAC-signed request bodies (shared secret) with optional bearer/basic auth headers
+    schema_ref: components.schemas.provisionerWebhook
+  - name: Certificate Manager webhook events
+    kind: event-notification
+    docs: https://smallstep.com/docs/certificate-manager/webhook-events/
+    note: Lifecycle notifications for certificate events emitted by Smallstep Certificate Manager.
