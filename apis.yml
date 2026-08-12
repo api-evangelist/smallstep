@@ -141,6 +141,8 @@ apis:
   - type: APIReference
     url: https://gateway.smallstep.com/v2025-01-01
 common:
+- type: Overlay
+  url: overlays/smallstep-platform-overlay.yaml
 # --- Identity / link properties ---
 - type: Website
   url: http://www.smallstep.com
