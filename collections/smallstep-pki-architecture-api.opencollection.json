@@ -1,0 +1,543 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smallstep Authentication PKI Architecture API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PKI Architecture",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Authorities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/authorities",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all of a team's authorities."
+        },
+        {
+          "info": {
+            "name": "Create New Authority",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/authorities",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new devops or advanced authority hosted by Smallstep.\n"
+        },
+        {
+          "info": {
+            "name": "Create New Authority CSR",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/authorities/csr",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new advanced authority hosted by Smallstep with an external root.\nReturns a CSR for the authority's intermediate issuer that must be signed and submitted to the `/authorities/:id/root` endpoint before the authority will be able to issue certificates.\n"
+        },
+        {
+          "info": {
+            "name": "Get Authority",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityDomainOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityDomainOrID",
+                "value": "",
+                "type": "path",
+                "description": "ID or domain of the authority"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single authority by ID or domain."
+        },
+        {
+          "info": {
+            "name": "Delete Authority",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityDomainOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityDomainOrID",
+                "value": "",
+                "type": "path",
+                "description": "ID or domain of the authority"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an Authority by ID."
+        },
+        {
+          "info": {
+            "name": "List Authority Provisioners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all provisioners attached to an authority."
+        },
+        {
+          "info": {
+            "name": "Create Authority Provisioner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new provisioner attached to an authority."
+        },
+        {
+          "info": {
+            "name": "Get Provisioner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners/:provisionerNameOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              },
+              {
+                "name": "provisionerNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single provisioner by name or ID."
+        },
+        {
+          "info": {
+            "name": "Delete Provisioner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners/:provisionerNameOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              },
+              {
+                "name": "provisionerNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single provisioner by name or ID."
+        },
+        {
+          "info": {
+            "name": "Create Provisioner Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners/:provisionerNameOrID/webhooks",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              },
+              {
+                "name": "provisionerNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a webhook to a provisioner."
+        },
+        {
+          "info": {
+            "name": "Get Provisioner Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners/:provisionerNameOrID/webhooks/:webhookNameOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              },
+              {
+                "name": "provisionerNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner"
+              },
+              {
+                "name": "webhookNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner webhook"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a single provisioner webhook by name or ID."
+        },
+        {
+          "info": {
+            "name": "Delete Provisioner Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/provisioners/:provisionerNameOrID/webhooks/:webhookNameOrID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              },
+              {
+                "name": "provisionerNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner"
+              },
+              {
+                "name": "webhookNameOrID",
+                "value": "",
+                "type": "path",
+                "description": "Either the name or UUID of the provisioner webhook"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single provisioner webhook by name or ID."
+        },
+        {
+          "info": {
+            "name": "Post Authority External Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/authorities/:authorityID/root",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the authority"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Finalize creation of a new advanced Authority with external root by submitting the signed certificate for the CSR previously returned from the `/authorities/csr` endpoint.\nAlso submit the root certificate and a name for the root.\nThe authority will be ready to issue certificates after this operation completes.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

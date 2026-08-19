@@ -1,0 +1,262 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smallstep Authentication Certificates API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certificates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/certificates",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of certificates.\n"
+        },
+        {
+          "info": {
+            "name": "Search Certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/certificates/search",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              },
+              {
+                "name": "deviceID",
+                "value": "",
+                "type": "query",
+                "description": "ID of a device"
+              },
+              {
+                "name": "expirationStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter certificates by expiration status."
+              },
+              {
+                "name": "notBefore",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp in RFC3339 format to filter certs not active before this timestamp."
+              },
+              {
+                "name": "notAfter",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp in RFC3339 format to filter certs not active after this timestamp."
+              },
+              {
+                "name": "san",
+                "value": "",
+                "type": "query",
+                "description": "SAN of cert."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Subject country."
+              },
+              {
+                "name": "organization",
+                "value": "",
+                "type": "query",
+                "description": "Subject organization."
+              },
+              {
+                "name": "organizationalUnit",
+                "value": "",
+                "type": "query",
+                "description": "Subject organizational unit."
+              },
+              {
+                "name": "locality",
+                "value": "",
+                "type": "query",
+                "description": "Subject locality."
+              },
+              {
+                "name": "streetAddress",
+                "value": "",
+                "type": "query",
+                "description": "Subject street address."
+              },
+              {
+                "name": "postalCode",
+                "value": "",
+                "type": "query",
+                "description": "Subject postal code."
+              },
+              {
+                "name": "commonName",
+                "value": "",
+                "type": "query",
+                "description": "Subject common name."
+              },
+              {
+                "name": "province",
+                "value": "",
+                "type": "query",
+                "description": "Subject province."
+              },
+              {
+                "name": "provisioner",
+                "value": "",
+                "type": "query",
+                "description": "Provisioner of cert."
+              },
+              {
+                "name": "authorityID",
+                "value": "",
+                "type": "query",
+                "description": "Authority ID of cert."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for certificates.\n\nSearch inputs are case-sensitive, exact match only.\n\nResults are ordered by the `created_at` timestamp and certificate `id` in descending order.\n"
+        },
+        {
+          "info": {
+            "name": "Get Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/certificates/:serialNumber",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "serialNumber",
+                "value": "",
+                "type": "path",
+                "description": "serial number of a certificate"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a certificate by serial number.\n"
+        },
+        {
+          "info": {
+            "name": "Revoke Certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/certificates/:serialNumber/revoke",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "serialNumber",
+                "value": "",
+                "type": "path",
+                "description": "serial number of a certificate"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Revoke a certificate by serial number.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2636 @@
+{
+  "item": [
+    {
+      "id": "181f186e-52b1-4188-aaaf-ea77c64f55b9",
+      "name": "Certificates",
+      "description": {
+        "content": "Query certificates and their statuses issued by authorities",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d73aa315-7000-48d7-9e5b-245eb16773dc",
+          "name": "List Certificates",
+          "request": {
+            "name": "List Certificates",
+            "description": {
+              "content": "Get a page of certificates.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certificates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pagination[after]",
+                  "value": "<string>",
+                  "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "pagination[first]",
+                  "value": "<integer>",
+                  "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                "key": "X-Smallstep-Api-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d11e05d6-4a68-468a-bc44-af4067d7c8c7",
+              "name": "A page of certificates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The cursor value to use for the next page of results",
+                  "key": "X-Next-Cursor",
+                  "value": "MTIzNA=="
+                },
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"pem\": \"string\",\n    \"version\": 7536,\n    \"subject\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"issuer\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"serialNumber\": \"string\",\n    \"keyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subjectKeyId\": \"string\",\n    \"authorityKeyId\": \"string\",\n    \"signatureAlgorithm\": \"string\",\n    \"basicConstraints\": {\n      \"isCA\": false,\n      \"maxPathLen\": 6783\n    },\n    \"crlDistributionPoints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dnsNames\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extKeyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"issuingCertificateURL\": [\n      \"string\",\n      \"string\"\n    ],\n    \"nameConstraints\": {\n      \"critical\": true,\n      \"excludedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedURIDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedURIDomains\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ocspServer\": [\n      \"string\",\n      \"string\"\n    ],\n    \"policyIdentifiers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"revocationReason\": \"KEY_COMPROMISE\",\n    \"revoked\": true,\n    \"uris\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"pem\": \"string\",\n    \"version\": 2045,\n    \"subject\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"issuer\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"serialNumber\": \"string\",\n    \"keyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subjectKeyId\": \"string\",\n    \"authorityKeyId\": \"string\",\n    \"signatureAlgorithm\": \"string\",\n    \"basicConstraints\": {\n      \"isCA\": false,\n      \"maxPathLen\": 4627\n    },\n    \"crlDistributionPoints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dnsNames\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extKeyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"issuingCertificateURL\": [\n      \"string\",\n      \"string\"\n    ],\n    \"nameConstraints\": {\n      \"critical\": true,\n      \"excludedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedURIDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedURIDomains\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ocspServer\": [\n      \"string\",\n      \"string\"\n    ],\n    \"policyIdentifiers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"revocationReason\": \"SUPERSEDED\",\n    \"revoked\": true,\n    \"uris\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68c25fa1-6b40-4b9b-8da5-ed0622f8433f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8366265-b15e-488a-b5f0-6ede96588f57",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2024471-fb7f-4fb5-b9cd-29897f28e6b7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43dce304-8e07-4e8f-8942-91c9a0e4f861",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed68206b-cfa6-4db3-9a07-3177b00a982e",
+          "name": "Search Certificates",
+          "request": {
+            "name": "Search Certificates",
+            "description": {
+              "content": "Search for certificates.\n\nSearch inputs are case-sensitive, exact match only.\n\nResults are ordered by the `created_at` timestamp and certificate `id` in descending order.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certificates",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pagination[after]",
+                  "value": "<string>",
+                  "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "pagination[first]",
+                  "value": "<integer>",
+                  "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceID",
+                  "value": "<string>",
+                  "description": "ID of a device"
+                },
+                {
+                  "disabled": false,
+                  "key": "expirationStatus",
+                  "value": "<string>",
+                  "description": "Filter certificates by expiration status."
+                },
+                {
+                  "disabled": false,
+                  "key": "notBefore",
+                  "value": "<dateTime>",
+                  "description": "Timestamp in RFC3339 format to filter certs not active before this timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "notAfter",
+                  "value": "<dateTime>",
+                  "description": "Timestamp in RFC3339 format to filter certs not active after this timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "san",
+                  "value": "<string>",
+                  "description": "SAN of cert."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Subject country."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization",
+                  "value": "<string>",
+                  "description": "Subject organization."
+                },
+                {
+                  "disabled": false,
+                  "key": "organizationalUnit",
+                  "value": "<string>",
+                  "description": "Subject organizational unit."
+                },
+                {
+                  "disabled": false,
+                  "key": "locality",
+                  "value": "<string>",
+                  "description": "Subject locality."
+                },
+                {
+                  "disabled": false,
+                  "key": "streetAddress",
+                  "value": "<string>",
+                  "description": "Subject street address."
+                },
+                {
+                  "disabled": false,
+                  "key": "postalCode",
+                  "value": "<string>",
+                  "description": "Subject postal code."
+                },
+                {
+                  "disabled": false,
+                  "key": "commonName",
+                  "value": "<string>",
+                  "description": "Subject common name."
+                },
+                {
+                  "disabled": false,
+                  "key": "province",
+                  "value": "<string>",
+                  "description": "Subject province."
+                },
+                {
+                  "disabled": false,
+                  "key": "provisioner",
+                  "value": "<string>",
+                  "description": "Provisioner of cert."
+                },
+                {
+                  "disabled": false,
+                  "key": "authorityID",
+                  "value": "<string>",
+                  "description": "Authority ID of cert."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ddedd2dd-0811-4301-8132-8eabd900f5f2",
+              "name": "A page of certificates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "deviceID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expirationStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "notAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "san",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organizationalUnit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "streetAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "province",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provisioner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authorityID",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The cursor value to use for the next page of results",
+                  "key": "X-Next-Cursor",
+                  "value": "MTIzNA=="
+                },
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"pem\": \"string\",\n    \"version\": 7536,\n    \"subject\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"issuer\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"serialNumber\": \"string\",\n    \"keyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subjectKeyId\": \"string\",\n    \"authorityKeyId\": \"string\",\n    \"signatureAlgorithm\": \"string\",\n    \"basicConstraints\": {\n      \"isCA\": false,\n      \"maxPathLen\": 6783\n    },\n    \"crlDistributionPoints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dnsNames\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extKeyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"issuingCertificateURL\": [\n      \"string\",\n      \"string\"\n    ],\n    \"nameConstraints\": {\n      \"critical\": true,\n      \"excludedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedURIDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedURIDomains\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ocspServer\": [\n      \"string\",\n      \"string\"\n    ],\n    \"policyIdentifiers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"revocationReason\": \"KEY_COMPROMISE\",\n    \"revoked\": true,\n    \"uris\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"pem\": \"string\",\n    \"version\": 2045,\n    \"subject\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"issuer\": {\n      \"commonName\": \"string\",\n      \"country\": [\n        \"string\",\n        \"string\"\n      ],\n      \"emailAddress\": [\n        \"string\",\n        \"string\"\n      ],\n      \"extraNames\": [\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        },\n        {\n          \"type\": \"string\",\n          \"value\": {}\n        }\n      ],\n      \"locality\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organization\": [\n        \"string\",\n        \"string\"\n      ],\n      \"organizationalUnit\": [\n        \"string\",\n        \"string\"\n      ],\n      \"postalCode\": [\n        \"string\",\n        \"string\"\n      ],\n      \"province\": [\n        \"string\",\n        \"string\"\n      ],\n      \"serialNumber\": \"string\",\n      \"streetAddress\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"serialNumber\": \"string\",\n    \"keyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"subjectKeyId\": \"string\",\n    \"authorityKeyId\": \"string\",\n    \"signatureAlgorithm\": \"string\",\n    \"basicConstraints\": {\n      \"isCA\": false,\n      \"maxPathLen\": 4627\n    },\n    \"crlDistributionPoints\": [\n      \"string\",\n      \"string\"\n    ],\n    \"dnsNames\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extKeyUsage\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"issuingCertificateURL\": [\n      \"string\",\n      \"string\"\n    ],\n    \"nameConstraints\": {\n      \"critical\": true,\n      \"excludedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"excludedURIDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedDNSDomains\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedEmailAddresses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedIPRanges\": [\n        \"string\",\n        \"string\"\n      ],\n      \"permittedURIDomains\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"ocspServer\": [\n      \"string\",\n      \"string\"\n    ],\n    \"policyIdentifiers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"revocationReason\": \"SUPERSEDED\",\n    \"revoked\": true,\n    \"uris\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cb5facd-6bcb-4c73-9279-ec6c3cf03693",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "deviceID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expirationStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "notAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "san",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organizationalUnit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "streetAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "province",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provisioner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authorityID",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20b09a3b-dab0-41af-892d-ab2948c1cead",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "deviceID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expirationStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "notAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "san",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organizationalUnit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "streetAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "province",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provisioner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authorityID",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbbe1716-5806-4ad7-81d2-d71d3cfdb490",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "deviceID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expirationStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "notAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "san",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organizationalUnit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "streetAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "province",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provisioner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authorityID",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62805321-27b6-4ad6-88ed-e3b9a1b9e030",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pagination[after]",
+                      "value": "MTIzNA=="
+                    },
+                    {
+                      "key": "pagination[first]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "deviceID",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expirationStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "notAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "san",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organization",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organizationalUnit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locality",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "streetAddress",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "postalCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "province",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provisioner",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "authorityID",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aafb3216-5439-40cf-b498-3a7c5cc2d8d8",
+          "name": "Get Certificate",
+          "request": {
+            "name": "Get Certificate",
+            "description": {
+              "content": "Get a certificate by serial number.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certificates",
+                ":serialNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serialNumber",
+                  "description": "(Required) serial number of a certificate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                "key": "X-Smallstep-Api-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c123f620-6302-4993-beec-ebfe2d0a89c9",
+              "name": "A certificate.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pem\": \"string\",\n  \"version\": 6458,\n  \"subject\": {\n    \"commonName\": \"string\",\n    \"country\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddress\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extraNames\": [\n      {\n        \"type\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"type\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"locality\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organizationalUnit\": [\n      \"string\",\n      \"string\"\n    ],\n    \"postalCode\": [\n      \"string\",\n      \"string\"\n    ],\n    \"province\": [\n      \"string\",\n      \"string\"\n    ],\n    \"serialNumber\": \"string\",\n    \"streetAddress\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"issuer\": {\n    \"commonName\": \"string\",\n    \"country\": [\n      \"string\",\n      \"string\"\n    ],\n    \"emailAddress\": [\n      \"string\",\n      \"string\"\n    ],\n    \"extraNames\": [\n      {\n        \"type\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"type\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"locality\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organization\": [\n      \"string\",\n      \"string\"\n    ],\n    \"organizationalUnit\": [\n      \"string\",\n      \"string\"\n    ],\n    \"postalCode\": [\n      \"string\",\n      \"string\"\n    ],\n    \"province\": [\n      \"string\",\n      \"string\"\n    ],\n    \"serialNumber\": \"string\",\n    \"streetAddress\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"serialNumber\": \"string\",\n  \"keyUsage\": [\n    \"string\",\n    \"string\"\n  ],\n  \"subjectKeyId\": \"string\",\n  \"authorityKeyId\": \"string\",\n  \"signatureAlgorithm\": \"string\",\n  \"basicConstraints\": {\n    \"isCA\": false,\n    \"maxPathLen\": 9432\n  },\n  \"crlDistributionPoints\": [\n    \"string\",\n    \"string\"\n  ],\n  \"dnsNames\": [\n    \"string\",\n    \"string\"\n  ],\n  \"emailAddresses\": [\n    \"string\",\n    \"string\"\n  ],\n  \"extKeyUsage\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ipAddresses\": [\n    \"string\",\n    \"string\"\n  ],\n  \"issuingCertificateURL\": [\n    \"string\",\n    \"string\"\n  ],\n  \"nameConstraints\": {\n    \"critical\": false,\n    \"excludedDNSDomains\": [\n      \"string\",\n      \"string\"\n    ],\n    \"excludedEmailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"excludedIPRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"excludedURIDomains\": [\n      \"string\",\n      \"string\"\n    ],\n    \"permittedDNSDomains\": [\n      \"string\",\n      \"string\"\n    ],\n    \"permittedEmailAddresses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"permittedIPRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"permittedURIDomains\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"ocspServer\": [\n    \"string\",\n    \"string\"\n  ],\n  \"policyIdentifiers\": [\n    \"string\",\n    \"string\"\n  ],\n  \"revocationReason\": \"AA_COMPROMISE\",\n  \"revoked\": false,\n  \"uris\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "347b44a5-e06a-4874-9eaf-0bc3a0c990a9",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31256251-7951-4314-9d65-c44f712f2cbc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eeca9b77-3223-4b42-afde-0f9003749069",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d76964f-8d7f-4311-8f56-0b063bea8dbb",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f60a88e-42a9-4ff7-83c5-efa233e1598e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a185863-ad49-46ef-a0cb-adc984139166",
+          "name": "Revoke Certificate",
+          "request": {
+            "name": "Revoke Certificate",
+            "description": {
+              "content": "Revoke a certificate by serial number.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "certificates",
+                ":serialNumber",
+                "revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serialNumber",
+                  "description": "(Required) serial number of a certificate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                "key": "X-Smallstep-Api-Version",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "411801d8-bb85-4ffc-b1a4-c968cd3093cc",
+              "name": "The resource has been deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4354d923-a952-46a6-a494-f9e4f45998f4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19000f62-841c-4a43-b194-ca6b4e8d2e49",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cf011a5-54cb-45a0-98dc-d9f40ad91383",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef2f1d37-d90e-419c-be02-e835cb371354",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baf00360-19ed-49ef-bbfc-486eaccc82aa",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "188aac84-bd83-4c10-ab3f-bce002a6d68c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "certificates",
+                    ":serialNumber",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) serial number of a certificate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                    "key": "X-Request-Id",
+                    "value": "abcdef"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The version of the Smallstep API. Required unless set in the Accept header.",
+                    "key": "X-Smallstep-Api-Version",
+                    "value": "2025-01-01"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The content type the client is willing to accept. Also includes API version.",
+                    "key": "Accept",
+                    "value": "application/vnd.smallstep.v2025-01-01+json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
+                  "key": "X-Request-Id",
+                  "value": "abcdef"
+                },
+                {
+                  "disabled": false,
+                  "description": "API version to use. Will be reflected in responses.",
+                  "key": "X-Smallstep-Api-Version",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.smallstep.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fd334716-870b-4fcb-a31b-9460d965c418",
+    "name": "Smallstep Authentication Certificates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Getting Started\nFirst you'll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).\n\nThen you can try [listing certificates](/operations/list-certificates) for your first API call:\n```\nset +o history\necho \"Authorization: Bearer [your API token]\" > api_headers\nset -o history\ncurl -H @api_headers https://gateway.smallstep.com/api/certificates\n```\n\nMore resources:\n* [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)\n* [Python Client](https://github.com/smallstep/smallstep-python)\n\n\nContact Support:\n Name: Smallstep Support\n Email: support@smallstep.com",
+      "type": "text/plain"
+    }
+  }
+}

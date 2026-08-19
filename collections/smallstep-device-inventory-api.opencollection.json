@@ -1,0 +1,340 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smallstep Authentication Device Inventory API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/devices",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Filter a list of devices by specifying the critera that must be met. Example: `?filters[os]=windows&filters[assurance]=high`, which after encoding would be `?filters%5Bos%5D=windows&filters%5Bassurance%5D=high`\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The sorting behavior for matching devices. Example: `?sort[field]=lastSeen&sort[ascending]=true`, which after encoding would be `?sort%5Bfield%5D=lastSeen&sort%5Bascending%5D=true`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of devices matching the given filters."
+        },
+        {
+          "info": {
+            "name": "Add Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/devices",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a device record. If a device with the same permanent identifier has\nbeen synced from an MDM, then the response will be a merged record with\ndata from both the request and the MDM.\n"
+        },
+        {
+          "info": {
+            "name": "Get Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/devices/:deviceID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "deviceID",
+                "value": "",
+                "type": "path",
+                "description": "Either the UUID of the device, or a URN that uniquely identifies the device. URNs must be URL-encoded, but provided examples are shown without encoding for clarity."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a device by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.smallstep.com/api/devices/:deviceID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "deviceID",
+                "value": "",
+                "type": "path",
+                "description": "Either the UUID of the device, or a URN that uniquely identifies the device. URNs must be URL-encoded, but provided examples are shown without encoding for clarity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update selected fields of an existing device."
+        },
+        {
+          "info": {
+            "name": "Delete Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/devices/:deviceID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "deviceID",
+                "value": "",
+                "type": "path",
+                "description": "Either the UUID of the device, or a URN that uniquely identifies the device. URNs must be URL-encoded, but provided examples are shown without encoding for clarity."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a device by ID."
+        },
+        {
+          "info": {
+            "name": "Update Device Lifecycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.smallstep.com/api/devices/:deviceID/lifecycle",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "deviceID",
+                "value": "",
+                "type": "path",
+                "description": "Either the UUID of the device, or a URN that uniquely identifies the device. URNs must be URL-encoded, but provided examples are shown without encoding for clarity."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a device's lifecycle status\n"
+        },
+        {
+          "info": {
+            "name": "List Platforms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/platforms",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of platforms.\n"
+        },
+        {
+          "info": {
+            "name": "Create Platform",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/platforms/:platformSlug",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "platformSlug",
+                "value": "",
+                "type": "path",
+                "description": "slug identifying the platform"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new platform or update an existing platform.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1597 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Smallstep Authentication Protect API",
+    "version": "2025-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Protect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/accounts",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of accounts.\n"
+        },
+        {
+          "info": {
+            "name": "Create Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/accounts",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new account."
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/accounts/:accountID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an account.\n"
+        },
+        {
+          "info": {
+            "name": "Update Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/accounts/:accountID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing account.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/accounts/:accountID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "accountID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the account"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an account.\n"
+        },
+        {
+          "info": {
+            "name": "List Endpoint Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/endpoint-configurations",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of endpoint configurations.\n"
+        },
+        {
+          "info": {
+            "name": "Create Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/endpoint-configurations",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new endpoint configuration."
+        },
+        {
+          "info": {
+            "name": "Get Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/endpoint-configurations/:endpointConfigurationID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "endpointConfigurationID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the endpoint configuration"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an endpoint configuration.\n"
+        },
+        {
+          "info": {
+            "name": "Update Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/endpoint-configurations/:endpointConfigurationID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "endpointConfigurationID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the endpoint configuration"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing endpoint configuration.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Endpoint Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/endpoint-configurations/:endpointConfigurationID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "endpointConfigurationID",
+                "value": "",
+                "type": "path",
+                "description": "ID of the endpoint configuration"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an endpoint configuration.\n"
+        },
+        {
+          "info": {
+            "name": "List Managed RADIUS Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/managed-radius",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all RADIUS servers managed by Smallstep."
+        },
+        {
+          "info": {
+            "name": "Create Managed RADIUS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/managed-radius",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configure a new RADIUS server managed by Smallstep.\n"
+        },
+        {
+          "info": {
+            "name": "Get Managed RADIUS",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/managed-radius/:managedRadiusID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "managedRadiusID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the managed RADIUS server."
+              },
+              {
+                "name": "secret",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return the managed RADIUS secret in the response.\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a Smallstep-managed RADIUS server configuration.\n"
+        },
+        {
+          "info": {
+            "name": "Put Managed RADIUS",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/managed-radius/:managedRadiusID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "managedRadiusID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the managed RADIUS server."
+              },
+              {
+                "name": "secret",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return the managed RADIUS secret in the response.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a Smallstep-managed RADIUS server configuration.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Managed RADIUS",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/managed-radius/:managedRadiusID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "managedRadiusID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the managed RADIUS server."
+              },
+              {
+                "name": "secret",
+                "value": "",
+                "type": "query",
+                "description": "Whether to return the managed RADIUS secret in the response.\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deprovision a Smallstep-managed RADIUS server.\n"
+        },
+        {
+          "info": {
+            "name": "List Browser mTLS Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/browser",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List configurations for using client certificates in browsers.\n"
+        },
+        {
+          "info": {
+            "name": "Create Browser mTLS Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/protect/browser",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new configuration for using a client certificate in a browser.\n"
+        },
+        {
+          "info": {
+            "name": "Get Browser mTLS Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/browser/:browserID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "browserID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the browser mTLS configuation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a configuration for using a client certificate in a browser.\n"
+        },
+        {
+          "info": {
+            "name": "Update Browser mTLS Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/protect/browser/:browserID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "browserID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the browser mTLS configuation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a configuration for using a client certificate in a browser.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Browser mTLS Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/protect/browser/:browserID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "browserID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the browser mTLS configuation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a configuration for using a client certificate in a browser.\n"
+        },
+        {
+          "info": {
+            "name": "List Ethernet Device Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/ethernet",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List configurations for connecting devices to EAP-TLS 802.1X wired networks.\n"
+        },
+        {
+          "info": {
+            "name": "Create Ethernet Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/protect/ethernet",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new configuration for connecting a device to an EAP-TLS 802.1X wired network.\n"
+        },
+        {
+          "info": {
+            "name": "Get Ethernet Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/ethernet/:ethernetID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ethernetID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Ethernet device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a configuration for connecting a device to an EAP-TLS 802.1X wired network.\n"
+        },
+        {
+          "info": {
+            "name": "Update Ethernet Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/protect/ethernet/:ethernetID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ethernetID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Ethernet device configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a configuration for connecting a device to an EAP-TLS 802.1X wired network.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Ethernet Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/protect/ethernet/:ethernetID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "ethernetID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Ethernet device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a configuration for connecting a device to an EAP-TLS 802.1X wired network.\n"
+        },
+        {
+          "info": {
+            "name": "List VPN Device Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/vpn",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List configurations for connecting devices to VPNs.\n"
+        },
+        {
+          "info": {
+            "name": "Create VPN Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/protect/vpn",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new configuration for connecting a device to a VPN.\n"
+        },
+        {
+          "info": {
+            "name": "Get VPN Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/vpn/:vpnID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "vpnID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the VPN device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a configuration for connecting a device to a VPN.\n"
+        },
+        {
+          "info": {
+            "name": "Update VPN Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/protect/vpn/:vpnID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "vpnID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the VPN device configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a configuration for connecting a device to a VPN.\n"
+        },
+        {
+          "info": {
+            "name": "Delete VPN Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/protect/vpn/:vpnID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "vpnID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the VPN device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a configuration for connecting a device to a VPN.\n"
+        },
+        {
+          "info": {
+            "name": "List Wi-Fi Device Configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/wifi",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "pagination",
+                "value": "",
+                "type": "query",
+                "description": "Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List configurations for connecting devices to Wi-Fi.\n"
+        },
+        {
+          "info": {
+            "name": "Create Wi-Fi Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/protect/wifi",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new configuration for connecting a device to Wi-Fi.\n"
+        },
+        {
+          "info": {
+            "name": "Get Wi-Fi Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/protect/wifi/:wifiID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "wifiID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Wi-Fi device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a configuration for connecting a device to Wi-Fi.\n"
+        },
+        {
+          "info": {
+            "name": "Update Wi-Fi Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/protect/wifi/:wifiID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "wifiID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Wi-Fi device configuration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a configuration for connecting a device to Wi-Fi.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Wi-Fi Device Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/protect/wifi/:wifiID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "wifiID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Wi-Fi device configuration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a configuration for connecting a device to Wi-Fi.\n"
+        },
+        {
+          "info": {
+            "name": "Get Identity Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/sso",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the team's identity provider.\n"
+        },
+        {
+          "info": {
+            "name": "Create Identity Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/sso",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create or update the team's identity provider.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Identity Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/sso",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the team's identity provider.\n"
+        },
+        {
+          "info": {
+            "name": "List IdP Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/sso/clients",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List identity provider clients.\n"
+        },
+        {
+          "info": {
+            "name": "Create IdP Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.smallstep.com/api/sso/clients",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an identity provider client.\n"
+        },
+        {
+          "info": {
+            "name": "Get IdP Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.smallstep.com/api/sso/clients/:idpClientID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "idpClientID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the IdP client."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an identity provider client by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update IdP Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.smallstep.com/api/sso/clients/:idpClientID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "idpClientID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the IdP client."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an IdP client."
+        },
+        {
+          "info": {
+            "name": "Delete IdP Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.smallstep.com/api/sso/clients/:idpClientID",
+            "headers": [
+              {
+                "name": "X-Request-Id",
+                "value": "abcdef"
+              },
+              {
+                "name": "X-Smallstep-Api-Version",
+                "value": "2025-01-01"
+              },
+              {
+                "name": "Accept",
+                "value": "application/vnd.smallstep.v2025-01-01+json"
+              }
+            ],
+            "params": [
+              {
+                "name": "idpClientID",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the IdP client."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an IdP client."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

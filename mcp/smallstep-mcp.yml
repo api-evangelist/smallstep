@@ -2,9 +2,9 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/smallstep-openapi-original.yml
-note: No official hosted Smallstep MCP server was found. Smallstep's "AI and MCP" product secures MCP clients/servers with
-  mTLS device identity; it is not itself an MCP server. Tools below are CANDIDATES derived one-per-operation from the Smallstep
-  Platform API OpenAPI, for a potential gateway MCP server.
+note: No official hosted Smallstep MCP server was found. Smallstep's "AI and MCP" product secures MCP
+  clients/servers with mTLS device identity; it is not itself an MCP server. Tools below are CANDIDATES
+  derived one-per-operation from the Smallstep Platform API OpenAPI, for a potential gateway MCP server.
 server:
   name: smallstep
   transport: http
@@ -231,3 +231,9 @@ tools:
 - name: PutIdpClient
   description: Update IdP Client
   source_operation: openapi/smallstep-openapi-original.yml#PutIdpClient
+deployment:
+  mode: none
+  verified: derived
+  tools: 74
+  checked: '2026-08-12'
+  source: catalog MCP census
