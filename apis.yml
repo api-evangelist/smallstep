@@ -15,6 +15,18 @@ description: >-
   certificate issuance and revocation, credentials, and protected resources such as Wi-Fi, VPN, and SSO.
   Smallstep also maintains the widely used open-source step CLI and step-ca certificate authority.
 url: https://raw.githubusercontent.com/api-evangelist/smallstep/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
