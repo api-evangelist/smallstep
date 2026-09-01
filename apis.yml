@@ -144,6 +144,8 @@ apis:
   humanURL: https://smallstep.com/docs/platform/smallstep-api/
   baseURL: https://gateway.smallstep.com/api
   tags:
+  - protect
+  tags_raw:
   - Protect
   properties:
   - type: OpenAPI
