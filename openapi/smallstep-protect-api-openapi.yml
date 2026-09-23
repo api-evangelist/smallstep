@@ -1,4 +1,4 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
   contact:
     email: support@smallstep.com
@@ -6,10 +6,10 @@ info:
     url: https://support.smallstep.com
   description: '# Getting Started
 
-    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+    First you''ll need to get an API token from the Team Settings page of your Smallstep dashboard.
 
 
-    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+    Then you can try listing certificates for your first API call:
 
     ```
 
@@ -26,16 +26,14 @@ info:
 
     More resources:
 
-    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+    * Terraform Provider
 
-    * [Python Client](https://github.com/smallstep/smallstep-python)
-
-    '
+    * Python Client'
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
   summary: Smallstep API
-  title: Smallstep Authentication Protect API
+  title: Smallstep Protect API
   version: '2025-01-01'
 servers:
 - url: https://gateway.smallstep.com/api
@@ -52,9 +50,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     get:
       deprecated: true
-      description: 'Get a page of accounts.
-
-        '
+      description: Get a page of accounts.
       operationId: ListAccounts
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -130,9 +126,7 @@ paths:
     - $ref: '#/components/parameters/accountID'
     delete:
       deprecated: true
-      description: 'Delete an account.
-
-        '
+      description: Delete an account.
       operationId: DeleteAccount
       responses:
         '204':
@@ -153,9 +147,7 @@ paths:
       - Protect
     get:
       deprecated: true
-      description: 'Get an account.
-
-        '
+      description: Get an account.
       operationId: GetAccount
       responses:
         '200':
@@ -189,9 +181,7 @@ paths:
       - Protect
     put:
       deprecated: true
-      description: 'Update an existing account.
-
-        '
+      description: Update an existing account.
       operationId: PutAccount
       requestBody:
         content:
@@ -237,9 +227,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     get:
       deprecated: true
-      description: 'Get a page of endpoint configurations.
-
-        '
+      description: Get a page of endpoint configurations.
       operationId: ListEndpointConfigurations
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -311,9 +299,7 @@ paths:
     - $ref: '#/components/parameters/endpointConfigurationID'
     delete:
       deprecated: true
-      description: 'Delete an endpoint configuration.
-
-        '
+      description: Delete an endpoint configuration.
       operationId: DeleteEndpointConfiguration
       responses:
         '204':
@@ -332,9 +318,7 @@ paths:
       - Protect
     get:
       deprecated: true
-      description: 'Get an endpoint configuration.
-
-        '
+      description: Get an endpoint configuration.
       operationId: GetEndpointConfiguration
       responses:
         '200':
@@ -368,9 +352,7 @@ paths:
       - Protect
     put:
       deprecated: true
-      description: 'Update an existing endpoint configuration.
-
-        '
+      description: Update an existing endpoint configuration.
       operationId: PutEndpointConfiguration
       requestBody:
         content:
@@ -441,9 +423,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Configure a new RADIUS server managed by Smallstep.
-
-        '
+      description: Configure a new RADIUS server managed by Smallstep.
       operationId: PostManagedRadius
       requestBody:
         content:
@@ -488,9 +468,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     - $ref: '#/components/parameters/secret'
     delete:
-      description: 'Deprovision a Smallstep-managed RADIUS server.
-
-        '
+      description: Deprovision a Smallstep-managed RADIUS server.
       operationId: DeleteManagedRadius
       responses:
         '204':
@@ -508,9 +486,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get a Smallstep-managed RADIUS server configuration.
-
-        '
+      description: Get a Smallstep-managed RADIUS server configuration.
       operationId: GetManagedRadius
       responses:
         '200':
@@ -543,9 +519,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Update a Smallstep-managed RADIUS server configuration.
-
-        '
+      description: Update a Smallstep-managed RADIUS server configuration.
       operationId: PutManagedRadius
       requestBody:
         content:
@@ -590,9 +564,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     get:
-      description: 'List configurations for using client certificates in browsers.
-
-        '
+      description: List configurations for using client certificates in browsers.
       operationId: ListBrowser
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -629,9 +601,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Create a new configuration for using a client certificate in a browser.
-
-        '
+      description: Create a new configuration for using a client certificate in a browser.
       operationId: PostBrowser
       requestBody:
         content:
@@ -673,9 +643,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     - $ref: '#/components/parameters/browserID'
     delete:
-      description: 'Delete a configuration for using a client certificate in a browser.
-
-        '
+      description: Delete a configuration for using a client certificate in a browser.
       operationId: DeleteBrowser
       responses:
         '204':
@@ -695,9 +663,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get a configuration for using a client certificate in a browser.
-
-        '
+      description: Get a configuration for using a client certificate in a browser.
       operationId: GetBrowser
       responses:
         '200':
@@ -730,9 +696,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Update a configuration for using a client certificate in a browser.
-
-        '
+      description: Update a configuration for using a client certificate in a browser.
       operationId: PutBrowser
       requestBody:
         content:
@@ -775,9 +739,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     get:
-      description: 'List configurations for connecting devices to EAP-TLS 802.1X wired networks.
-
-        '
+      description: List configurations for connecting devices to EAP-TLS 802.1X wired networks.
       operationId: ListEthernet
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -814,9 +776,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Create a new configuration for connecting a device to an EAP-TLS 802.1X wired network.
-
-        '
+      description: Create a new configuration for connecting a device to an EAP-TLS 802.1X wired network.
       operationId: PostEthernet
       requestBody:
         content:
@@ -858,9 +818,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     - $ref: '#/components/parameters/ethernetID'
     delete:
-      description: 'Delete a configuration for connecting a device to an EAP-TLS 802.1X wired network.
-
-        '
+      description: Delete a configuration for connecting a device to an EAP-TLS 802.1X wired network.
       operationId: DeleteEthernet
       responses:
         '204':
@@ -880,9 +838,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get a configuration for connecting a device to an EAP-TLS 802.1X wired network.
-
-        '
+      description: Get a configuration for connecting a device to an EAP-TLS 802.1X wired network.
       operationId: GetEthernet
       responses:
         '200':
@@ -915,9 +871,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Update a configuration for connecting a device to an EAP-TLS 802.1X wired network.
-
-        '
+      description: Update a configuration for connecting a device to an EAP-TLS 802.1X wired network.
       operationId: PutEthernet
       requestBody:
         content:
@@ -960,9 +914,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     get:
-      description: 'List configurations for connecting devices to VPNs.
-
-        '
+      description: List configurations for connecting devices to VPNs.
       operationId: ListVpn
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -999,9 +951,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Create a new configuration for connecting a device to a VPN.
-
-        '
+      description: Create a new configuration for connecting a device to a VPN.
       operationId: PostVpn
       requestBody:
         content:
@@ -1043,9 +993,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     - $ref: '#/components/parameters/vpnID'
     delete:
-      description: 'Delete a configuration for connecting a device to a VPN.
-
-        '
+      description: Delete a configuration for connecting a device to a VPN.
       operationId: DeleteVpn
       responses:
         '204':
@@ -1065,9 +1013,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get a configuration for connecting a device to a VPN.
-
-        '
+      description: Get a configuration for connecting a device to a VPN.
       operationId: GetVpn
       responses:
         '200':
@@ -1100,9 +1046,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Update a configuration for connecting a device to a VPN.
-
-        '
+      description: Update a configuration for connecting a device to a VPN.
       operationId: PutVpn
       requestBody:
         content:
@@ -1145,9 +1089,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     get:
-      description: 'List configurations for connecting devices to Wi-Fi.
-
-        '
+      description: List configurations for connecting devices to Wi-Fi.
       operationId: ListWifi
       parameters:
       - $ref: '#/components/parameters/pagination'
@@ -1184,9 +1126,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Create a new configuration for connecting a device to Wi-Fi.
-
-        '
+      description: Create a new configuration for connecting a device to Wi-Fi.
       operationId: PostWifi
       requestBody:
         content:
@@ -1228,9 +1168,7 @@ paths:
     - $ref: '#/components/parameters/accept'
     - $ref: '#/components/parameters/wifiID'
     delete:
-      description: 'Delete a configuration for connecting a device to Wi-Fi.
-
-        '
+      description: Delete a configuration for connecting a device to Wi-Fi.
       operationId: DeleteWifi
       responses:
         '204':
@@ -1250,9 +1188,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get a configuration for connecting a device to Wi-Fi.
-
-        '
+      description: Get a configuration for connecting a device to Wi-Fi.
       operationId: GetWifi
       responses:
         '200':
@@ -1285,9 +1221,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Update a configuration for connecting a device to Wi-Fi.
-
-        '
+      description: Update a configuration for connecting a device to Wi-Fi.
       operationId: PutWifi
       requestBody:
         content:
@@ -1330,9 +1264,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     delete:
-      description: 'Delete the team''s identity provider.
-
-        '
+      description: Delete the team's identity provider.
       operationId: DeleteIdentityProvider
       responses:
         '204':
@@ -1350,9 +1282,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get the team''s identity provider.
-
-        '
+      description: Get the team's identity provider.
       operationId: GetIdentityProvider
       responses:
         '200':
@@ -1385,9 +1315,7 @@ paths:
       tags:
       - Protect
     put:
-      description: 'Create or update the team''s identity provider.
-
-        '
+      description: Create or update the team's identity provider.
       operationId: PutIdentityProvider
       requestBody:
         content:
@@ -1428,9 +1356,7 @@ paths:
     - $ref: '#/components/parameters/version'
     - $ref: '#/components/parameters/accept'
     get:
-      description: 'List identity provider clients.
-
-        '
+      description: List identity provider clients.
       operationId: ListIdpClients
       responses:
         '200':
@@ -1463,9 +1389,7 @@ paths:
       tags:
       - Protect
     post:
-      description: 'Create an identity provider client.
-
-        '
+      description: Create an identity provider client.
       operationId: PostIdpClients
       requestBody:
         content:
@@ -1531,9 +1455,7 @@ paths:
       tags:
       - Protect
     get:
-      description: 'Get an identity provider client by ID.
-
-        '
+      description: Get an identity provider client by ID.
       operationId: GetIdpClient
       responses:
         '200':
@@ -1605,16 +1527,388 @@ paths:
       - Protect
 components:
   schemas:
-    error:
-      example:
-        message: ID must be a valid UUID
+    x509Fields:
+      description: Populate certificate fields using using static names or device metadata.
       properties:
-        message:
-          description: A description of the error.
+        commonName:
+          $ref: '#/components/schemas/certificateField'
+        country:
+          $ref: '#/components/schemas/certificateFieldList'
+        customExtensions:
+          description: Arbitrary X.509 extensions to include in the certificate.
+          items:
+            $ref: '#/components/schemas/x509CustomExtension'
+          type: array
+        extendedKeyUsage:
+          description: The set of purposes for which the certified public key may be used. Defaults to server and client authentication when omitted.
+          items:
+            $ref: '#/components/schemas/x509ExtendedKeyUsage'
+          type: array
+        givenName:
+          $ref: '#/components/schemas/certificateField'
+        locality:
+          $ref: '#/components/schemas/certificateFieldList'
+        organization:
+          $ref: '#/components/schemas/certificateFieldList'
+        organizationalUnit:
+          $ref: '#/components/schemas/certificateFieldList'
+        postalCode:
+          $ref: '#/components/schemas/certificateFieldList'
+        province:
+          $ref: '#/components/schemas/certificateFieldList'
+        sans:
+          $ref: '#/components/schemas/certificateFieldList'
+        serialNumber:
+          $ref: '#/components/schemas/certificateField'
+        streetAddress:
+          $ref: '#/components/schemas/certificateFieldList'
+        surname:
+          $ref: '#/components/schemas/certificateField'
+        typedSans:
+          $ref: '#/components/schemas/x509TypedSANs'
+      title: X.509 Certificate Fields
+      type: object
+    replyAttribute:
+      allOf:
+      - oneOf:
+        - required:
+          - name
+          - value
+        - required:
+          - name
+          - valueFromCertificate
+      - properties:
+          name:
+            description: The attribute name.
+            type: string
+          value:
+            description: The static attribute value.
+            type: string
+          valueFromCertificate:
+            description: The object identifier (OID) of a field in the supplicant certificate. The RADIUS server will set the value of the reply attribute to the value of the field.
+            type: string
+        required:
+        - name
+        type: object
+    vpnVendor:
+      description: For SSL-type VPN connections, the vendor of the VPN.
+      enum:
+      - F5
+      - Cisco
+      - Juniper
+      type: string
+    idpClient:
+      properties:
+        id:
+          description: The client ID.
+          readOnly: true
+          type: string
+        lifecycleFailureURI:
+          description: Where user-agents will be sent when the device lifecycle is not active.
+          type: string
+        redirectURI:
+          description: Where user-agents will be sent after authentication attempts.
+          type: string
+        secret:
+          description: The secret relying parties will use to authenticate when exchanging an authorization code for an id token.
+          readOnly: true
           type: string
       required:
-      - message
-      title: Error
+      - id
+      - redirectURI
+      type: object
+    endpointConfigurationRequest:
+      description: The configuration settings of an endpoint.
+      examples:
+      - extendedType: wifi
+        extendedTypeConfiguration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        kind: account
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+      properties:
+        certificateInfo:
+          $ref: '#/components/schemas/endpointCertificateInfo'
+        extendedType:
+          description: The extended type of this endpoint, which allows for further configuration to be specified using the `extendedTypeConfiguration` field.
+          enum:
+          - wifi
+          - ethernet
+          - vpn
+          - browser
+          type: string
+        extendedTypeConfiguration:
+          oneOf:
+          - $ref: '#/components/schemas/wifiAccount'
+          - $ref: '#/components/schemas/ethernetAccount'
+          - $ref: '#/components/schemas/vpnAccount'
+          - $ref: '#/components/schemas/browserAccount'
+        keyInfo:
+          $ref: '#/components/schemas/endpointKeyInfo'
+        kind:
+          description: 'The kind of endpoint.
+
+
+            Account-kind endpoints should be used for human users accessing protected resources. For account-kind endpoints, the `extendedType` and `extendedTypeConfiguration` fields are required.
+
+
+            Device-kind endpoints should be used for devices or machines accessing protected resources.
+
+
+            Workload-kind endpoints should be used issuing credentials to programs running on the device or machine.
+
+            '
+          enum:
+          - account
+          - workload
+          - device
+          type: string
+        managementMode:
+          $ref: '#/components/schemas/endpointManagementMode'
+        name:
+          description: A human-friendly name for this endpoint on devices.
+          type: string
+        policy:
+          $ref: '#/components/schemas/policyMatchCriteria'
+        reloadInfo:
+          $ref: '#/components/schemas/endpointReloadInfo'
+      required:
+      - name
+      - kind
+      type: object
+    vpnType:
+      description: The type of VPN connection.
+      enum:
+      - IPsec
+      - IKEv2
+      - SSL
+      type: string
+    vpnAccount:
+      description: Configuration to connect a device to a VPN.
+      examples:
+      - autojoin: true
+        connectionType: IKEv2
+        ike:
+          caChain: '-----BEGIN CERTIFICATE------'
+          eap: true
+          remoteID: vpn.smallstep.com
+        remoteAddress: vpn.smallstep.com
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        connectionType:
+          $ref: '#/components/schemas/vpnType'
+        ike:
+          $ref: '#/components/schemas/ikeV2Config'
+        remoteAddress:
+          description: The public IP address of the VPN server.
+          type: string
+        vendor:
+          $ref: '#/components/schemas/vpnVendor'
+      required:
+      - connectionType
+      - remoteAddress
+      title: VPN
+      type: object
+    deviceOS:
+      description: 'The device operating system.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - Linux
+      - Windows
+      - macOS
+      - iOS
+      - tvOS
+      - watchOS
+      - visionOS
+      type: string
+    endpointKeyInfo:
+      description: The attributes of the cryptographic key.
+      example:
+        format: PKCS8
+        protection: NONE
+        pubFile: /etc/db.csr
+        type: ECDSA_P256
+      properties:
+        format:
+          description: The format used to encode the private key. For X.509 keys the default format is PKCS#8. The classic format is PKCS#1 for RSA keys, SEC 1 for ECDSA keys, and PKCS#8 for ED25519 keys. For SSH keys the default format is always the OPENSSH format. When a hardware module is used to store the keys the default will be a JSON representation of the key, except on Linux where TSS2 will be used.
+          enum:
+          - DEFAULT
+          - PKCS8
+          - OPENSSH
+          - TSS2
+          - CLASSIC
+          type: string
+        protection:
+          description: Whether to use a hardware module to store the private key for a workload certificate. If set to `NONE` no hardware module will be used. If set to `DEFAULT` a hardware module will only be used with format `TSS2`. `HARDWARE_WITH_FALLBACK` can only be used with the key format `DEFAULT`.
+          enum:
+          - DEFAULT
+          - NONE
+          - HARDWARE
+          - HARDWARE_WITH_FALLBACK
+          - HARDWARE_ATTESTED
+          type: string
+        pubFile:
+          description: A CSR or SSH public key to use instead of generating one.
+          type: string
+        type:
+          description: The key type used. The current DEFAULT type is ECDSA_P256.
+          enum:
+          - DEFAULT
+          - ECDSA_P256
+          - ECDSA_P384
+          - ECDSA_P521
+          - RSA_2048
+          - RSA_3072
+          - RSA_4096
+          - ED25519
+          type: string
+      title: Key Management Info
+      type: object
+    browser:
+      description: Configuration to use a credential for browser mTLS.
+      properties:
+        credentials:
+          description: The UUID of credentials that the Smallstep agent will configure to use this browser integration.
+          items:
+            type: string
+          type: array
+        id:
+          description: The UUID of this protected browser configuration.
+          readOnly: true
+          type: string
+        matchAddresses:
+          description: List of URLs the configuration applies to.
+          items:
+            type: string
+          type: array
+        name:
+          description: A human-friendly display name for this configuration.
+          type: string
+      required:
+      - id
+      - matchAddresses
+      - credentials
+      title: Browser Device Connection
+      type: object
+    endpointCertificateInfo:
+      description: Details on a managed certificate.
+      example:
+        crtFile: /etc/db.crt
+        duration: 24h0m0s
+        gid: 999
+        keyFile: /etc/db.key
+        mode: 256
+        rootFile: /etc/ca.crt
+        type: X509
+        uid: 1001
+      properties:
+        authorityID:
+          description: A UUID identifying the authority to issue certificates for the account. If not provided, a new authority will be created.
+          type: string
+        crtFile:
+          description: The filepath where the certificate is to be stored.
+          type: string
+        details:
+          description: Certificate subject fields. See [X.509 Certificate Fields](/schemas/x509Fields) or [SSH Certificate Fields](/schemas/sshFields).
+          oneOf:
+          - $ref: '#/components/schemas/x509Fields'
+          - $ref: '#/components/schemas/sshFields'
+        duration:
+          description: The certificate lifetime. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        gid:
+          description: GID of the files where the certificate is stored.
+          type: integer
+        keyFile:
+          description: The filepath where the key is to be stored.
+          type: string
+        mode:
+          description: Permission bits of the files where the certificate is stored.
+          type: integer
+        rootFile:
+          description: The filepath where the root certificate is to be stored.
+          type: string
+        type:
+          description: The type of certificate.
+          enum:
+          - X509
+          - SSH_USER
+          - SSH_HOST
+          type: string
+        uid:
+          description: UID of the files where the certificate is stored.
+          type: integer
+      required:
+      - type
+      title: Managed Endpoint Certificate Info
+      type: object
+    ethernetAccount:
+      description: Configuration to connect a device to a protected LAN.
+      examples:
+      - autojoin: true
+        networkAccessServerIP: 34.111.195.46
+      - caChain: '-----BEGIN CERTIFICATE-----...'
+        externalRadiusServer: true
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        caChain:
+          description: The certificate authority bundle that client certificates must chain up to.
+          type: string
+        externalRadiusServer:
+          description: Whether or not this network is configured to use Smallstep or external RADIUS.
+          type: boolean
+        networkAccessServerIP:
+          description: The public IP address of your network equipment that clients connect to.
+          type: string
+      title: Ethernet
+      type: object
+    ethernet:
+      description: Configuration for connecting a device to an EAP-TLS 802.1X wired network.
+      examples:
+      - autojoin: true
+        name: Smallnet
+        radiuServerCA: '-----BEGIN CERTIFICATE-----'
+      properties:
+        autojoin:
+          description: Whether or not clients should automatically connect to the network.
+          type: boolean
+        credentials:
+          description: The UUID of credentials that the Smallstep agent will configure to use this ethernet integration.
+          items:
+            type: string
+          type: array
+        id:
+          description: The UUID of this protected Ethernet configuration.
+          readOnly: true
+          type: string
+        name:
+          description: A human-friendly display name for this resource.
+          type: string
+        radiusServerCA:
+          description: The certificate bundle used to verify the RADIUS server.
+          type: string
+      required:
+      - id
+      - radiusServerCA
+      - credentials
+      title: Ethernet
       type: object
     managedRadius:
       properties:
@@ -1694,32 +1988,122 @@ components:
           type: array
       title: Certificate Field List
       type: object
-    browser:
-      description: Configuration to use a credential for browser mTLS.
+    endpointManagementMode:
+      description: 'Determines who manages the certificate lifecycle for the workload.
+
+        Defaults to `agent` if not set.
+
+
+        - `agent`: The Smallstep Agent manages the certificate lifecycle, including enrollment, renewal, key management, and service reloading.
+
+        - `mdm`: An MDM manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
+
+        - `other`: Some other process or workflow manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
+
+        '
+      enum:
+      - agent
+      - mdm
+      - other
+      example: agent
+      title: Endpoint Management Mode
+      type: string
+    certificateField:
+      description: A certificate field that takes a single string value, e.g. Common Name. Static values are used as a fallback when device metadata is not present.
       properties:
-        credentials:
-          description: The UUID of credentials that the Smallstep agent will configure to use this browser integration.
-          items:
-            type: string
-          type: array
-        id:
-          description: The UUID of this protected browser configuration.
-          readOnly: true
+        deviceMetadata:
+          description: 'A key in the device''s metadata whose value will populate this certificate field. If the key is not present in the device''s metadata, the static value will be used.
+
+
+            In addition to custom metadata keys, the following reserved keys are available: `smallstep:identity`, `Device.ID`, `Device.DisplayName`, `Device.PermanentIdentifier`, `Device.PermanentIdentifierURI`, `Device.Hostname`, `Device.HostURI`, and `Device.Serial`. For SSH certificates, `SSH.KeyID` is also available. See [deviceMetadata](/schemas/deviceMetadata) for details.
+
+            '
           type: string
-        matchAddresses:
-          description: List of URLs the configuration applies to.
-          items:
-            type: string
-          type: array
-        name:
-          description: A human-friendly display name for this configuration.
+        static:
+          description: A literal value.
+          type: string
+      title: Certificate Field
+      type: object
+    deviceOwnership:
+      description: 'Whether the device is owned by the user or the company.
+
+        This field may be populated with a value derived from data synced from your team''s MDMs.
+
+        Setting this value explicitly will mask any MDM-derived value.
+
+        '
+      enum:
+      - company
+      - user
+      type: string
+    ikeV2Config:
+      description: Configuration for VPNs that use the IKEv2 protocol.
+      properties:
+        caChain:
+          description: The certificate authority bundle that client certificates must chain up to.
+          type: string
+        eap:
+          description: Whether or not EAP is enforced on this VPN server.
+          type: boolean
+        remoteID:
+          description: Typically, the common name of the remote server. Defaults to the remote address.
           type: string
       required:
-      - id
-      - matchAddresses
-      - credentials
-      title: Browser Device Connection
+      - caChain
       type: object
+    deviceDiscoverySource:
+      description: 'The source from which this device was discovered.
+
+        '
+      enum:
+      - End-User
+      - Smallstep API
+      - Smallstep Agent
+      - Jamf
+      - Intune
+      type: string
+    endpointConfiguration:
+      allOf:
+      - properties:
+          id:
+            description: A UUID identifying this endpoint configuration. Read only.
+            type: string
+        required:
+        - id
+        type: object
+      - $ref: '#/components/schemas/endpointConfigurationRequest'
+      description: An endpoint configuration represents the details for issuing a certificate a device uses to connect to a protected resource.
+      examples:
+      - certificateInfo:
+          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
+          details:
+            commonName:
+              deviceMetadata: smallstep:identity
+              static: Office Wifi
+            sans:
+              deviceMetadata: smallstep:identity
+          duration: 24h0m0s
+          type: X509
+        extendedType: wifi
+        extendedTypeConfiguration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
+        keyInfo:
+          format: DEFAULT
+          type: ECDSA_P256
+        kind: account
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+        reloadInfo:
+          method: AUTOMATIC
     wifiAccount:
       description: Configuration to connect a device to a protected WiFi network.
       examples:
@@ -1761,141 +2145,6 @@ components:
       required:
       - ssid
       title: WiFi
-      type: object
-    endpointManagementMode:
-      description: 'Determines who manages the certificate lifecycle for the workload.
-
-        Defaults to `agent` if not set.
-
-
-        - `agent`: The Smallstep Agent manages the certificate lifecycle, including enrollment, renewal, key management, and service reloading.
-
-        - `mdm`: An MDM manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
-
-        - `other`: Some other process or workflow manages the certificate lifecycle. Smallstep describes the desired certificate configuration but does not handle enrollment or renewal.
-
-        '
-      enum:
-      - agent
-      - mdm
-      - other
-      example: agent
-      title: Endpoint Management Mode
-      type: string
-    account:
-      allOf:
-      - properties:
-          id:
-            description: A UUID identifying this account. Read only.
-            type: string
-        required:
-        - id
-        type: object
-      - $ref: '#/components/schemas/accountRequest'
-      description: An account configures the certificate a device uses to connect to a protected resource.
-      examples:
-      - certificateInfo:
-          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
-          details:
-            commonName:
-              deviceMetadata: smallstep:identity
-              static: Office Wifi
-            sans:
-              deviceMetadata: smallstep:identity
-          duration: 24h0m0s
-          type: X509
-        configuration:
-          autojoin: true
-          hidden: false
-          networkAccessServerIP: 34.111.195.46
-          ssid: Smallnet
-        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
-        keyInfo:
-          format: DEFAULT
-          type: ECDSA_P256
-        name: Office Wifi
-        policy:
-          assurance:
-          - high
-          operatingSystem:
-          - Linux
-          - Windows
-        reloadInfo:
-          method: AUTOMATIC
-        type: wifi
-    endpointKeyInfo:
-      description: The attributes of the cryptographic key.
-      example:
-        format: PKCS8
-        protection: NONE
-        pubFile: /etc/db.csr
-        type: ECDSA_P256
-      properties:
-        format:
-          description: The format used to encode the private key. For X.509 keys the default format is PKCS#8. The classic format is PKCS#1 for RSA keys, SEC 1 for ECDSA keys, and PKCS#8 for ED25519 keys. For SSH keys the default format is always the OPENSSH format. When a hardware module is used to store the keys the default will be a JSON representation of the key, except on Linux where TSS2 will be used.
-          enum:
-          - DEFAULT
-          - PKCS8
-          - OPENSSH
-          - TSS2
-          - CLASSIC
-          type: string
-        protection:
-          description: Whether to use a hardware module to store the private key for a workload certificate. If set to `NONE` no hardware module will be used. If set to `DEFAULT` a hardware module will only be used with format `TSS2`. `HARDWARE_WITH_FALLBACK` can only be used with the key format `DEFAULT`.
-          enum:
-          - DEFAULT
-          - NONE
-          - HARDWARE
-          - HARDWARE_WITH_FALLBACK
-          - HARDWARE_ATTESTED
-          type: string
-        pubFile:
-          description: A CSR or SSH public key to use instead of generating one.
-          type: string
-        type:
-          description: The key type used. The current DEFAULT type is ECDSA_P256.
-          enum:
-          - DEFAULT
-          - ECDSA_P256
-          - ECDSA_P384
-          - ECDSA_P521
-          - RSA_2048
-          - RSA_3072
-          - RSA_4096
-          - ED25519
-          type: string
-      title: Key Management Info
-      type: object
-    ethernet:
-      description: Configuration for connecting a device to an EAP-TLS 802.1X wired network.
-      examples:
-      - autojoin: true
-        name: Smallnet
-        radiuServerCA: '-----BEGIN CERTIFICATE-----'
-      properties:
-        autojoin:
-          description: Whether or not clients should automatically connect to the network.
-          type: boolean
-        credentials:
-          description: The UUID of credentials that the Smallstep agent will configure to use this ethernet integration.
-          items:
-            type: string
-          type: array
-        id:
-          description: The UUID of this protected Ethernet configuration.
-          readOnly: true
-          type: string
-        name:
-          description: A human-friendly display name for this resource.
-          type: string
-        radiusServerCA:
-          description: The certificate bundle used to verify the RADIUS server.
-          type: string
-      required:
-      - id
-      - radiusServerCA
-      - credentials
-      title: Ethernet
       type: object
     wifi:
       description: Configuration to use a credential to connect to a protected Wi-Fi network.
@@ -1940,102 +2189,6 @@ components:
       - credentials
       title: Wi-Fi
       type: object
-    idpClient:
-      properties:
-        id:
-          description: The client ID.
-          readOnly: true
-          type: string
-        lifecycleFailureURI:
-          description: Where user-agents will be sent when the device lifecycle is not active.
-          type: string
-        redirectURI:
-          description: Where user-agents will be sent after authentication attempts.
-          type: string
-        secret:
-          description: The secret relying parties will use to authenticate when exchanging an authorization code for an id token.
-          readOnly: true
-          type: string
-      required:
-      - id
-      - redirectURI
-      type: object
-    vpn:
-      allOf:
-      - properties:
-          credentials:
-            description: The UUID of credentials that the Smallstep agent will configure to use this VPN integration.
-            items:
-              type: string
-            type: array
-          id:
-            description: The UUID of this protected VPN configuration.
-            readOnly: true
-            type: string
-          name:
-            description: A human-friendly display name for this configuration.
-            type: string
-        required:
-        - id
-        - credentials
-        type: object
-      - $ref: '#/components/schemas/vpnAccount'
-      description: Configuration to use a credential to connect a device to a VPN.
-      title: VPN Device Connection
-    certificateField:
-      description: A certificate field that takes a single string value, e.g. Common Name. Static values are used as a fallback when device metadata is not present.
-      properties:
-        deviceMetadata:
-          description: 'A key in the device''s metadata whose value will populate this certificate field. If the key is not present in the device''s metadata, the static value will be used.
-
-
-            In addition to custom metadata keys, the following reserved keys are available: `smallstep:identity`, `Device.ID`, `Device.DisplayName`, `Device.PermanentIdentifier`, `Device.PermanentIdentifierURI`, `Device.Hostname`, `Device.HostURI`, and `Device.Serial`. For SSH certificates, `SSH.KeyID` is also available. See [deviceMetadata](/schemas/deviceMetadata) for details.
-
-            '
-          type: string
-        static:
-          description: A literal value.
-          type: string
-      title: Certificate Field
-      type: object
-    x509ExtendedKeyUsage:
-      description: A purpose for which a certified public key may be used.
-      enum:
-      - serverAuth
-      - clientAuth
-      - codeSigning
-      - emailProtection
-      - ipsecEndSystem
-      - ipsecTunnel
-      - ipsecUser
-      - timeStamping
-      - ocspSigning
-      - microsoftServerGatedCrypto
-      - netscapeServerGatedCrypto
-      - microsoftCommercialCodeSigning
-      - microsoftKernelCodeSigning
-      - any
-      title: X.509 Extended Key Usage
-      type: string
-    deviceOwnership:
-      description: 'Whether the device is owned by the user or the company.
-
-        This field may be populated with a value derived from data synced from your team''s MDMs.
-
-        Setting this value explicitly will mask any MDM-derived value.
-
-        '
-      enum:
-      - company
-      - user
-      type: string
-    vpnVendor:
-      description: For SSL-type VPN connections, the vendor of the VPN.
-      enum:
-      - F5
-      - Cisco
-      - Juniper
-      type: string
     accountRequest:
       description: The configuration settings of an account.
       examples:
@@ -2081,29 +2234,24 @@ components:
       required:
       - name
       type: object
-    vpnType:
-      description: The type of VPN connection.
+    x509ExtendedKeyUsage:
+      description: A purpose for which a certified public key may be used.
       enum:
-      - IPsec
-      - IKEv2
-      - SSL
-      type: string
-    deviceOS:
-      description: 'The device operating system.
-
-        This field may be populated with a value derived from data synced from your team''s MDMs.
-
-        Setting this value explicitly will mask any MDM-derived value.
-
-        '
-      enum:
-      - Linux
-      - Windows
-      - macOS
-      - iOS
-      - tvOS
-      - watchOS
-      - visionOS
+      - serverAuth
+      - clientAuth
+      - codeSigning
+      - emailProtection
+      - ipsecEndSystem
+      - ipsecTunnel
+      - ipsecUser
+      - timeStamping
+      - ocspSigning
+      - microsoftServerGatedCrypto
+      - netscapeServerGatedCrypto
+      - microsoftCommercialCodeSigning
+      - microsoftKernelCodeSigning
+      - any
+      title: X.509 Extended Key Usage
       type: string
     x509TypedSANs:
       description: Explicitly typed subject alternative names. When set, takes precedence over the untyped `sans` field.
@@ -2120,187 +2268,59 @@ components:
           $ref: '#/components/schemas/certificateFieldList'
       title: X.509 Typed Subject Alternative Names
       type: object
-    replyAttribute:
-      allOf:
-      - oneOf:
-        - required:
-          - name
-          - value
-        - required:
-          - name
-          - valueFromCertificate
-      - properties:
-          name:
-            description: The attribute name.
-            type: string
-          value:
-            description: The static attribute value.
-            type: string
-          valueFromCertificate:
-            description: The object identifier (OID) of a field in the supplicant certificate. The RADIUS server will set the value of the reply attribute to the value of the field.
-            type: string
-        required:
-        - name
-        type: object
-    deviceAssurance:
-      description: 'The assurance level of the device.
-
-        High-assurance devices are those that have a user binding, have been approved, and have performed cryptographic
-
-        remote attestation.
-
-        '
-      enum:
-      - normal
-      - high
-      type: string
-    deviceDiscoverySource:
-      description: 'The source from which this device was discovered.
-
-        '
-      enum:
-      - End-User
-      - Smallstep API
-      - Smallstep Agent
-      - Jamf
-      - Intune
-      type: string
-    vpnAccount:
-      description: Configuration to connect a device to a VPN.
-      examples:
-      - autojoin: true
-        connectionType: IKEv2
-        ike:
-          caChain: '-----BEGIN CERTIFICATE------'
-          eap: true
-          remoteID: vpn.smallstep.com
-        remoteAddress: vpn.smallstep.com
+    sshFields:
+      description: Populate certificate fields using static names or device metadata.
       properties:
-        autojoin:
-          description: Whether or not clients should automatically connect to the network.
-          type: boolean
-        connectionType:
-          $ref: '#/components/schemas/vpnType'
-        ike:
-          $ref: '#/components/schemas/ikeV2Config'
-        remoteAddress:
-          description: The public IP address of the VPN server.
-          type: string
-        vendor:
-          $ref: '#/components/schemas/vpnVendor'
-      required:
-      - connectionType
-      - remoteAddress
-      title: VPN
+        keyId:
+          $ref: '#/components/schemas/certificateField'
+        principals:
+          $ref: '#/components/schemas/certificateFieldList'
+      title: SSH Certificate Fields
       type: object
-    endpointConfiguration:
-      allOf:
-      - properties:
-          id:
-            description: A UUID identifying this endpoint configuration. Read only.
-            type: string
-        required:
-        - id
-        type: object
-      - $ref: '#/components/schemas/endpointConfigurationRequest'
-      description: An endpoint configuration represents the details for issuing a certificate a device uses to connect to a protected resource.
-      examples:
-      - certificateInfo:
-          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
-          details:
-            commonName:
-              deviceMetadata: smallstep:identity
-              static: Office Wifi
-            sans:
-              deviceMetadata: smallstep:identity
-          duration: 24h0m0s
-          type: X509
-        extendedType: wifi
-        extendedTypeConfiguration:
-          autojoin: true
-          hidden: false
-          networkAccessServerIP: 34.111.195.46
-          ssid: Smallnet
-        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
-        keyInfo:
-          format: DEFAULT
-          type: ECDSA_P256
-        kind: account
-        name: Office Wifi
-        policy:
-          assurance:
-          - high
-          operatingSystem:
-          - Linux
-          - Windows
-        reloadInfo:
-          method: AUTOMATIC
-    endpointConfigurationRequest:
-      description: The configuration settings of an endpoint.
-      examples:
-      - extendedType: wifi
-        extendedTypeConfiguration:
-          autojoin: true
-          hidden: false
-          networkAccessServerIP: 34.111.195.46
-          ssid: Smallnet
-        kind: account
-        name: Office Wifi
-        policy:
-          assurance:
-          - high
-          operatingSystem:
-          - Linux
-          - Windows
+    identityProvider:
       properties:
-        certificateInfo:
-          $ref: '#/components/schemas/endpointCertificateInfo'
-        extendedType:
-          description: The extended type of this endpoint, which allows for further configuration to be specified using the `extendedTypeConfiguration` field.
-          enum:
-          - wifi
-          - ethernet
-          - vpn
-          - browser
+        authorizeEndpoint:
+          description: The URL where clients authenticate.
+          readOnly: true
           type: string
-        extendedTypeConfiguration:
-          oneOf:
-          - $ref: '#/components/schemas/wifiAccount'
-          - $ref: '#/components/schemas/ethernetAccount'
-          - $ref: '#/components/schemas/vpnAccount'
-          - $ref: '#/components/schemas/browserAccount'
-        keyInfo:
-          $ref: '#/components/schemas/endpointKeyInfo'
-        kind:
-          description: 'The kind of endpoint.
-
-
-            Account-kind endpoints should be used for human users accessing protected resources. For account-kind endpoints, the `extendedType` and `extendedTypeConfiguration` fields are required.
-
-
-            Device-kind endpoints should be used for devices or machines accessing protected resources.
-
-
-            Workload-kind endpoints should be used issuing credentials to programs running on the device or machine.
+        issuer:
+          description: The URL of this identity provider.
+          readOnly: true
+          type: string
+        jwksEndpoint:
+          description: The URL where relying parties can read the provider's public key.
+          readOnly: true
+          type: string
+        tokenEndpoint:
+          description: The URL where relying parties exchange authorization codes for identity tokens.
+          readOnly: true
+          type: string
+        trustRoots:
+          description: 'The CA used to verify clients at the authorize endpoint.
 
             '
-          enum:
-          - account
-          - workload
-          - device
           type: string
-        managementMode:
-          $ref: '#/components/schemas/endpointManagementMode'
-        name:
-          description: A human-friendly name for this endpoint on devices.
-          type: string
-        policy:
-          $ref: '#/components/schemas/policyMatchCriteria'
-        reloadInfo:
-          $ref: '#/components/schemas/endpointReloadInfo'
       required:
-      - name
-      - kind
+      - trustRoots
+      - issuer
+      - authorizeEndpoint
+      - tokenEndpoint
+      - jwksEndpoint
+      type: object
+    browserAccount:
+      description: Configuration to use a client certificate.
+      title: Browser
+      type: object
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
       type: object
     endpointReloadInfo:
       description: The properties used to reload a service.
@@ -2364,179 +2384,81 @@ components:
             type: string
           type: array
       type: object
-    ikeV2Config:
-      description: Configuration for VPNs that use the IKEv2 protocol.
-      properties:
-        caChain:
-          description: The certificate authority bundle that client certificates must chain up to.
-          type: string
-        eap:
-          description: Whether or not EAP is enforced on this VPN server.
-          type: boolean
-        remoteID:
-          description: Typically, the common name of the remote server. Defaults to the remote address.
-          type: string
-      required:
-      - caChain
-      type: object
-    ethernetAccount:
-      description: Configuration to connect a device to a protected LAN.
+    account:
+      allOf:
+      - properties:
+          id:
+            description: A UUID identifying this account. Read only.
+            type: string
+        required:
+        - id
+        type: object
+      - $ref: '#/components/schemas/accountRequest'
+      description: An account configures the certificate a device uses to connect to a protected resource.
       examples:
-      - autojoin: true
-        networkAccessServerIP: 34.111.195.46
-      - caChain: '-----BEGIN CERTIFICATE-----...'
-        externalRadiusServer: true
-      properties:
-        autojoin:
-          description: Whether or not clients should automatically connect to the network.
-          type: boolean
-        caChain:
-          description: The certificate authority bundle that client certificates must chain up to.
-          type: string
-        externalRadiusServer:
-          description: Whether or not this network is configured to use Smallstep or external RADIUS.
-          type: boolean
-        networkAccessServerIP:
-          description: The public IP address of your network equipment that clients connect to.
-          type: string
-      title: Ethernet
-      type: object
-    endpointCertificateInfo:
-      description: Details on a managed certificate.
-      example:
-        crtFile: /etc/db.crt
-        duration: 24h0m0s
-        gid: 999
-        keyFile: /etc/db.key
-        mode: 256
-        rootFile: /etc/ca.crt
-        type: X509
-        uid: 1001
-      properties:
-        authorityID:
-          description: A UUID identifying the authority to issue certificates for the account. If not provided, a new authority will be created.
-          type: string
-        crtFile:
-          description: The filepath where the certificate is to be stored.
-          type: string
-        details:
-          description: Certificate subject fields. See [X.509 Certificate Fields](/schemas/x509Fields) or [SSH Certificate Fields](/schemas/sshFields).
-          oneOf:
-          - $ref: '#/components/schemas/x509Fields'
-          - $ref: '#/components/schemas/sshFields'
-        duration:
-          description: The certificate lifetime. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        gid:
-          description: GID of the files where the certificate is stored.
-          type: integer
-        keyFile:
-          description: The filepath where the key is to be stored.
-          type: string
-        mode:
-          description: Permission bits of the files where the certificate is stored.
-          type: integer
-        rootFile:
-          description: The filepath where the root certificate is to be stored.
-          type: string
-        type:
-          description: The type of certificate.
-          enum:
-          - X509
-          - SSH_USER
-          - SSH_HOST
-          type: string
-        uid:
-          description: UID of the files where the certificate is stored.
-          type: integer
-      required:
-      - type
-      title: Managed Endpoint Certificate Info
-      type: object
-    identityProvider:
-      properties:
-        authorizeEndpoint:
-          description: The URL where clients authenticate.
-          readOnly: true
-          type: string
-        issuer:
-          description: The URL of this identity provider.
-          readOnly: true
-          type: string
-        jwksEndpoint:
-          description: The URL where relying parties can read the provider's public key.
-          readOnly: true
-          type: string
-        tokenEndpoint:
-          description: The URL where relying parties exchange authorization codes for identity tokens.
-          readOnly: true
-          type: string
-        trustRoots:
-          description: 'The CA used to verify clients at the authorize endpoint.
+      - certificateInfo:
+          authorityID: d3e5aaf5-60e6-45e6-98d1-bda28669757e
+          details:
+            commonName:
+              deviceMetadata: smallstep:identity
+              static: Office Wifi
+            sans:
+              deviceMetadata: smallstep:identity
+          duration: 24h0m0s
+          type: X509
+        configuration:
+          autojoin: true
+          hidden: false
+          networkAccessServerIP: 34.111.195.46
+          ssid: Smallnet
+        id: 75d0c34c-a1bf-46b2-98d7-7f13a68e91fd
+        keyInfo:
+          format: DEFAULT
+          type: ECDSA_P256
+        name: Office Wifi
+        policy:
+          assurance:
+          - high
+          operatingSystem:
+          - Linux
+          - Windows
+        reloadInfo:
+          method: AUTOMATIC
+        type: wifi
+    deviceAssurance:
+      description: 'The assurance level of the device.
 
-            '
-          type: string
-      required:
-      - trustRoots
-      - issuer
-      - authorizeEndpoint
-      - tokenEndpoint
-      - jwksEndpoint
-      type: object
-    x509Fields:
-      description: Populate certificate fields using using static names or device metadata.
-      properties:
-        commonName:
-          $ref: '#/components/schemas/certificateField'
-        country:
-          $ref: '#/components/schemas/certificateFieldList'
-        customExtensions:
-          description: Arbitrary X.509 extensions to include in the certificate.
-          items:
-            $ref: '#/components/schemas/x509CustomExtension'
-          type: array
-        extendedKeyUsage:
-          description: The set of purposes for which the certified public key may be used. Defaults to server and client authentication when omitted.
-          items:
-            $ref: '#/components/schemas/x509ExtendedKeyUsage'
-          type: array
-        givenName:
-          $ref: '#/components/schemas/certificateField'
-        locality:
-          $ref: '#/components/schemas/certificateFieldList'
-        organization:
-          $ref: '#/components/schemas/certificateFieldList'
-        organizationalUnit:
-          $ref: '#/components/schemas/certificateFieldList'
-        postalCode:
-          $ref: '#/components/schemas/certificateFieldList'
-        province:
-          $ref: '#/components/schemas/certificateFieldList'
-        sans:
-          $ref: '#/components/schemas/certificateFieldList'
-        serialNumber:
-          $ref: '#/components/schemas/certificateField'
-        streetAddress:
-          $ref: '#/components/schemas/certificateFieldList'
-        surname:
-          $ref: '#/components/schemas/certificateField'
-        typedSans:
-          $ref: '#/components/schemas/x509TypedSANs'
-      title: X.509 Certificate Fields
-      type: object
-    sshFields:
-      description: Populate certificate fields using static names or device metadata.
-      properties:
-        keyId:
-          $ref: '#/components/schemas/certificateField'
-        principals:
-          $ref: '#/components/schemas/certificateFieldList'
-      title: SSH Certificate Fields
-      type: object
-    browserAccount:
-      description: Configuration to use a client certificate.
-      title: Browser
-      type: object
+        High-assurance devices are those that have a user binding, have been approved, and have performed cryptographic
+
+        remote attestation.
+
+        '
+      enum:
+      - normal
+      - high
+      type: string
+    vpn:
+      allOf:
+      - properties:
+          credentials:
+            description: The UUID of credentials that the Smallstep agent will configure to use this VPN integration.
+            items:
+              type: string
+            type: array
+          id:
+            description: The UUID of this protected VPN configuration.
+            readOnly: true
+            type: string
+          name:
+            description: A human-friendly display name for this configuration.
+            type: string
+        required:
+        - id
+        - credentials
+        type: object
+      - $ref: '#/components/schemas/vpnAccount'
+      description: Configuration to use a credential to connect a device to a VPN.
+      title: VPN Device Connection
     x509CustomExtension:
       description: An arbitrary X.509 certificate extension.
       properties:
@@ -2555,20 +2477,48 @@ components:
       - value
       title: X.509 Custom Extension
       type: object
+  headers:
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
   responses:
-    '204':
-      description: The resource has been deleted.
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '500':
+    '404':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-      description: Internal server error
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '204':
+      description: The resource has been deleted.
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -2596,39 +2546,6 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
     '403':
       content:
         application/json:
@@ -2640,40 +2557,34 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
   parameters:
-    endpointConfigurationID:
-      description: ID of the endpoint configuration
-      in: path
-      name: endpointConfigurationID
-      required: true
-      schema:
-        type: string
-    wifiID:
-      description: The UUID of the Wi-Fi device configuration.
-      in: path
-      name: wifiID
-      required: true
-      schema:
-        type: string
     version:
       description: The version of the Smallstep API. Required unless set in the Accept header.
       example: '2025-01-01'
       in: header
       name: X-Smallstep-Api-Version
-      required: true
-      schema:
-        type: string
-    managedRadiusID:
-      description: The UUID of the managed RADIUS server.
-      in: path
-      name: managedRadiusID
-      required: true
-      schema:
-        type: string
-    vpnID:
-      description: The UUID of the VPN device configuration.
-      in: path
-      name: vpnID
       required: true
       schema:
         type: string
@@ -2684,13 +2595,6 @@ components:
       required: true
       schema:
         type: string
-    idpClientID:
-      description: The UUID of the IdP client.
-      in: path
-      name: idpClientID
-      required: true
-      schema:
-        type: string
     ethernetID:
       description: The UUID of the Ethernet device configuration.
       in: path
@@ -2698,19 +2602,60 @@ components:
       required: true
       schema:
         type: string
-    secret:
-      description: 'Whether to return the managed RADIUS secret in the response.
-
-        '
-      in: query
-      name: secret
+    browserID:
+      description: The UUID of the browser mTLS configuation.
+      in: path
+      name: browserID
+      required: true
       schema:
-        type: boolean
+        type: string
+    idpClientID:
+      description: The UUID of the IdP client.
+      in: path
+      name: idpClientID
+      required: true
+      schema:
+        type: string
+    wifiID:
+      description: The UUID of the Wi-Fi device configuration.
+      in: path
+      name: wifiID
+      required: true
+      schema:
+        type: string
     requestID:
       description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
       example: abcdef
       in: header
       name: X-Request-Id
+      schema:
+        type: string
+    vpnID:
+      description: The UUID of the VPN device configuration.
+      in: path
+      name: vpnID
+      required: true
+      schema:
+        type: string
+    endpointConfigurationID:
+      description: ID of the endpoint configuration
+      in: path
+      name: endpointConfigurationID
+      required: true
+      schema:
+        type: string
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+    managedRadiusID:
+      description: The UUID of the managed RADIUS server.
+      in: path
+      name: managedRadiusID
+      required: true
       schema:
         type: string
     pagination:
@@ -2745,37 +2690,14 @@ components:
             type: integer
         type: object
       style: deepObject
-    browserID:
-      description: The UUID of the browser mTLS configuation.
-      in: path
-      name: browserID
-      required: true
+    secret:
+      description: 'Whether to return the managed RADIUS secret in the response.
+
+        '
+      in: query
+      name: secret
       schema:
-        type: string
-    accept:
-      description: The content type the client is willing to accept. Also includes API version.
-      example: application/vnd.smallstep.v2025-01-01+json
-      in: header
-      name: Accept
-      schema:
-        type: string
-  headers:
-    X-Next-Cursor:
-      description: The cursor value to use for the next page of results
-      example: MTIzNA==
-      schema:
-        type: string
-    X-Request-Id:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      schema:
-        type: string
-    X-Smallstep-Api-Version:
-      description: API version to use. Will be reflected in responses.
-      example: '2025-01-01'
-      schema:
-        format: date
-        type: string
+        type: boolean
   securitySchemes:
     JWT:
       scheme: bearer

@@ -1,12 +1,7 @@
 {
   "provider": "smallstep",
   "sources": [
-    "smallstep-authentication-api-openapi.yml",
-    "smallstep-certificates-api-openapi.yml",
-    "smallstep-credentials-api-openapi.yml",
-    "smallstep-device-inventory-api-openapi.yml",
-    "smallstep-pki-architecture-api-openapi.yml",
-    "smallstep-protect-api-openapi.yml"
+    "_original/smallstep-openapi-original.yml"
   ],
   "outputs": [
     "smallstep-authentication-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "smallstep-openapi-original.yml: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "smallstep-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smallstep-certificates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smallstep-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smallstep-device-inventory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smallstep-pki-architecture-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "smallstep-protect-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

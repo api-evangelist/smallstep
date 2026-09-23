@@ -1,4 +1,4 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
   contact:
     email: support@smallstep.com
@@ -6,10 +6,10 @@ info:
     url: https://support.smallstep.com
   description: '# Getting Started
 
-    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+    First you''ll need to get an API token from the Team Settings page of your Smallstep dashboard.
 
 
-    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+    Then you can try listing certificates for your first API call:
 
     ```
 
@@ -26,11 +26,9 @@ info:
 
     More resources:
 
-    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+    * Terraform Provider
 
-    * [Python Client](https://github.com/smallstep/smallstep-python)
-
-    '
+    * Python Client'
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
@@ -95,51 +93,6 @@ paths:
       - Authentication
       x-internal: true
 components:
-  responses:
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Forbidden
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal server error
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
   schemas:
     error:
       example:
@@ -164,6 +117,51 @@ components:
       schema:
         format: date
         type: string
+  responses:
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
   securitySchemes:
     JWT:
       scheme: bearer

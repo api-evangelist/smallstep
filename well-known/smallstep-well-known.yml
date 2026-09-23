@@ -1,7 +1,19 @@
 generated: '2026-07-21'
 method: searched
 host: https://smallstep.com
-documents:
+api_host: https://gateway.smallstep.com
+api_host_documents:
+- path: /.well-known/security.txt
+  status: 200
+  note: returns the site SPA HTML shell (soft-200), not a real RFC 9116 document
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  note: returns the site SPA HTML shell (soft-200), not a real RFC 8414 document
+notes: A real RFC 9116 security.txt is published at the apex host (smallstep.com). The API gateway host
+  returns its SPA shell for unknown /.well-known/ paths, so those are not genuine discovery documents.
+hosts:
+- host: https://smallstep.com
+  documents:
   - path: /.well-known/security.txt
     status: 200
     file: smallstep-security.txt
@@ -9,14 +21,8 @@ documents:
     status: 404
   - path: /.well-known/api-catalog
     status: 404
-api_host: https://gateway.smallstep.com
-api_host_documents:
-  - path: /.well-known/security.txt
-    status: 200
-    note: returns the site SPA HTML shell (soft-200), not a real RFC 9116 document
-  - path: /.well-known/oauth-authorization-server
-    status: 200
-    note: returns the site SPA HTML shell (soft-200), not a real RFC 8414 document
-notes: >-
-  A real RFC 9116 security.txt is published at the apex host (smallstep.com). The API gateway host
-  returns its SPA shell for unknown /.well-known/ paths, so those are not genuine discovery documents.
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.

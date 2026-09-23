@@ -1,4 +1,4 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
   contact:
     email: support@smallstep.com
@@ -6,10 +6,10 @@ info:
     url: https://support.smallstep.com
   description: '# Getting Started
 
-    First you''ll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).
+    First you''ll need to get an API token from the Team Settings page of your Smallstep dashboard.
 
 
-    Then you can try [listing certificates](/operations/list-certificates) for your first API call:
+    Then you can try listing certificates for your first API call:
 
     ```
 
@@ -26,16 +26,14 @@ info:
 
     More resources:
 
-    * [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)
+    * Terraform Provider
 
-    * [Python Client](https://github.com/smallstep/smallstep-python)
-
-    '
+    * Python Client'
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
   summary: Smallstep API
-  title: Smallstep Authentication PKI Architecture API
+  title: Smallstep PKI Architecture API
   version: '2025-01-01'
 servers:
 - url: https://gateway.smallstep.com/api
@@ -84,9 +82,7 @@ paths:
       tags:
       - PKI Architecture
     post:
-      description: 'Create a new devops or advanced authority hosted by Smallstep.
-
-        '
+      description: Create a new devops or advanced authority hosted by Smallstep.
       operationId: PostAuthorities
       requestBody:
         content:
@@ -135,9 +131,7 @@ paths:
     post:
       description: 'Create a new advanced authority hosted by Smallstep with an external root.
 
-        Returns a CSR for the authority''s intermediate issuer that must be signed and submitted to the `/authorities/:id/root` endpoint before the authority will be able to issue certificates.
-
-        '
+        Returns a CSR for the authority''s intermediate issuer that must be signed and submitted to the `/authorities/:id/root` endpoint before the authority will be able to issue certificates.'
       operationId: PostAuthoritiesCsr
       requestBody:
         content:
@@ -495,9 +489,7 @@ paths:
 
         Also submit the root certificate and a name for the root.
 
-        The authority will be ready to issue certificates after this operation completes.
-
-        '
+        The authority will be ready to issue certificates after this operation completes.'
       operationId: PostAuthorityRoot
       requestBody:
         content:
@@ -560,10 +552,33 @@ paths:
       - PKI Architecture
 components:
   schemas:
-    gcpDisableCustomSANs:
-      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the instance identity document will be valid, these are the DNS `<instance-name>.c.<project-id>.internal` and `<instance-name>.<zone>.c.<project-id>.internal`.
-      title: GCP Disable Custom SANs
-      type: boolean
+    sshOptions:
+      description: Options that apply when issuing SSH certificates
+      example:
+        template: '{"type": {{ toJson .Type }}, "keyId": {{ toJson .KeyID }}, "principals": {{ toJson .Principals }}, "extensions": {{ toJson .Extensions }}, "criticalOptions": {{ toJson .CriticalOptions }} }'
+        templateData:
+          principals:
+          - eng
+          - ops
+      properties:
+        template:
+          description: A JSON representation of the SSH certificate to be created. [More info](https://smallstep.com/docs/step-ca/templates/#ssh-templates).
+          type: string
+        templateData:
+          description: A map of data that can be used by the certificate template.
+          schema: {}
+      title: Provisioner SSH Options
+      type: object
+    instanceAge:
+      description: The maximum age of an instance that should be allowed to obtain a certificate. Limits certificate issuance to new instances to mitigate the risk of credential-misuse from instances that don't need a certificate. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+      title: Instance Age Cloud Provisioner
+      type: string
+    gcpServiceAccounts:
+      description: The list of service accounts that are allowed to use a GCP cloud provisioner.
+      items:
+        type: string
+      title: GCP Service Accounts
+      type: array
     acmeAttestationProvisioner:
       description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#acme) that enables automation with the [device-attest-01 challenge of the ACME protocol](https://smallstep.com/blog/acme-managed-device-attestation-explained/).
       properties:
@@ -592,51 +607,6 @@ components:
       required:
       - attestationFormats
       title: ACME Device Attestation Provisioner
-      type: object
-    basicAuth:
-      description: Configures provisioner webhook requests to include an Authorization header with these credentials. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers. At most one of `bearerToken` and `basicAuth` may be set.
-      example:
-        password: secret
-        username: user
-      properties:
-        password:
-          type: string
-        username:
-          type: string
-      required:
-      - username
-      - password
-      title: Basic Auth
-      type: object
-    jwkProvisioner:
-      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#jwk) that uses public-key cryptography to sign and validate a JSON Web Token (JWT).
-      properties:
-        encryptedKey:
-          description: The JWE encrypted private key.
-          type: string
-        key:
-          description: The public JSON web key.
-          schema: {}
-      required:
-      - key
-      title: JWK Provisioner
-      type: object
-    gcpServiceAccounts:
-      description: The list of service accounts that are allowed to use a GCP cloud provisioner.
-      items:
-        type: string
-      title: GCP Service Accounts
-      type: array
-    error:
-      example:
-        message: ID must be a valid UUID
-      properties:
-        message:
-          description: A description of the error.
-          type: string
-      required:
-      - message
-      title: Error
       type: object
     scepProvisioner:
       description: The [SCEP provisioner](https://smallstep.com/docs/step-ca/provisioners/#scep) grants certificates to clients using the SCEP protocol. This type is currently experimental and subject to change.
@@ -687,642 +657,6 @@ components:
       title: SCEP Provisioner
       type: object
       x-experimental: true
-    oidcProvisioner:
-      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#oauthoidc-single-sign-on) that is configured to trust and accept an OAuth provider's ID tokens for authentication. By default, the issued certificate will use the subject (sub) claim from the identity token as its subject. The value of the token's email claim is also included as an email SAN in the certificate.
-      properties:
-        admins:
-          description: The emails of admin users in an OpenID Connect provisioner. These users will not have restrictions in the certificates to sign.
-          items:
-            type: string
-          type: array
-        clientID:
-          description: The id used to validate the audience in an OpenID Connect token.
-          type: string
-        clientSecret:
-          description: The secret used to obtain the OpenID Connect tokens.
-          type: string
-        configurationEndpoint:
-          description: OpenID Connect configuration URL.
-          type: string
-        domains:
-          description: The domains used to validate the email claim in an OpenID Connect provisioner.
-          items:
-            type: string
-          type: array
-        groups:
-          description: The group list used to validate the groups extension in an OpenID Connect token.
-          items:
-            type: string
-          type: array
-        listenAddress:
-          description: The callback address used in the OpenID Connect flow.
-          type: string
-        tenantID:
-          description: The tenant-id used to replace the templatized tenantid value in the OpenID Configuration.
-          type: string
-      required:
-      - clientID
-      - clientSecret
-      - configurationEndpoint
-      title: OIDC Provisioner
-      type: object
-    authority:
-      description: 'An X.509 authority hosted by Smallstep.
-
-        '
-      examples:
-      - activeRevocation: true
-        createdAt: '2020-03-12T02:30:53.708Z'
-        id: fe4d17b4-7b47-447b-97a4-4510a532b559
-        name: My Advanced Authority
-        root: "-----BEGIN CERTIFICATE-----\n ... \n-----END CERTIFICATE-----\n"
-        subdomain: my-advanced
-        type: advanced
-      properties:
-        activeRevocation:
-          description: Whether CRL and OCSP are enabled (advanced authorities only).
-          type: boolean
-        adminEmails:
-          description: Users that have admin access to manage the authority.
-          items:
-            type: string
-          type: array
-        createdAt:
-          description: Timestamp when the authority was created.
-          format: date-time
-          type: string
-        domain:
-          description: The domain where the authority can be reached.
-          type: string
-        fingerprint:
-          description: The SHA-256 digest of the authority's root certificate in hex format.
-          type: string
-        id:
-          description: A UUID identifying this authority.
-          type: string
-        name:
-          description: The name of the authority.
-          type: string
-        root:
-          description: The root certificate in PEM format.
-          type: string
-        type:
-          $ref: '#/components/schemas/authorityType'
-      required:
-      - id
-      - name
-      - domain
-      - type
-      - createdAt
-      title: Authority
-      type: object
-    newAuthority:
-      description: 'The body of a request to create a new authority.
-
-        '
-      examples:
-      - activeRevocation: false
-        adminEmails:
-        - user@example.com
-        name: Devops Authority
-        subdomain: my-devops
-        type: devops
-      - activeRevocation: true
-        adminEmails:
-        - user@example.com
-        name: Advanced Authority
-        subdomain: my-advanced
-        type: advanced
-      properties:
-        activeRevocation:
-          description: Whether to enable CRL and OCSP on an advanced authority.
-          type: boolean
-        adminEmails:
-          description: Users that will have admin access to manage the authority.
-          items:
-            pattern: ^[\w-.]+@[\w-.]+$
-            type: string
-          minItems: 1
-          type: array
-          uniqueItems: true
-        intermediateIssuer:
-          $ref: '#/components/schemas/x509Issuer'
-        name:
-          description: The name of the authority.
-          type: string
-        rootIssuer:
-          $ref: '#/components/schemas/x509Issuer'
-        subdomain:
-          description: The new authority will be available at <subdomain>.<team slug>.ca.smallstep.com.
-          type: string
-        type:
-          description: Create either a devops or advanced authority.
-          enum:
-          - devops
-          - advanced
-          type: string
-      required:
-      - name
-      - subdomain
-      - type
-      - adminEmails
-      title: New Hosted Authority
-      type: object
-    provisionerClaims:
-      description: A set of constraints configuring how this provisioner can be used to issue certificates.
-      example:
-        allowRenewalAfterExpiry: true
-        defaultHostSSHCertDuration: 168h
-        defaultTLSCertDuration: 24h
-        defaultUserSSHCertDuration: 12h
-        disableRenewal: false
-        enableSSHCA: true
-        maxHostSSHCertDuration: 168h
-        maxTLSCertDuration: 168h
-        maxUserSSHCertDuration: 24h
-        minHostSSHCertDuration: 48h
-        minTLSCertDuration: 1h
-        minUserSSHCertDuration: 4h
-      properties:
-        allowRenewalAfterExpiry:
-          description: Allow renewals for expired certificates generated by this provisioner.
-          type: boolean
-        defaultHostSSHCertDuration:
-          description: The default duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        defaultTLSCertDuration:
-          description: The default duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        defaultUserSSHCertDuration:
-          description: The default duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        disableRenewal:
-          description: Disable renewal for all certificates generated by this provisioner.
-          type: boolean
-        enableSSHCA:
-          description: Allow this provisioner to be used to generate SSH certificates.
-          type: boolean
-        maxHostSSHCertDuration:
-          description: The maximum duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        maxTLSCertDuration:
-          description: The maximum duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        maxUserSSHCertDuration:
-          description: The maximum duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        minHostSSHCertDuration:
-          description: The minimum duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        minTLSCertDuration:
-          description: The minimum duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        minUserSSHCertDuration:
-          description: The minimum duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-      title: Provisioner Claims
-      type: object
-    provisionerOptions:
-      description: Options that apply when issuing certificates with this provisioner.
-      properties:
-        ssh:
-          $ref: '#/components/schemas/sshOptions'
-        webhooks:
-          items:
-            $ref: '#/components/schemas/provisionerWebhook'
-          type: array
-        x509:
-          $ref: '#/components/schemas/x509Options'
-      title: Provisioner Options
-      type: object
-    awsAccounts:
-      description: The list of AWS account IDs that are allowed to use an AWS cloud provisioner.
-      items:
-        type: string
-      title: AWS Accounts
-      type: array
-    provisionerWebhook:
-      description: A [webhook](https://smallstep.com/docs/step-ca/webhooks/) to call when a certificate request is being processed.
-      examples:
-      - certType: X509
-        id: 4ad05dca-ab33-409a-88ec-8ea4a5ad3d79
-        kind: ENRICHING
-        name: devices
-        serverType: HOSTED_ATTESTATION
-        url: https://inventory.smallstep.com/enrich/attested
-      - basicAuth:
-          password: pass
-          username: user
-        certType: ALL
-        id: 3f324c42-25eb-4ee9-a59c-b40e06118bf3
-        kind: ENRICHING
-        name: integration
-        serverType: EXTERNAL
-        url: https://example.com/hook
-      properties:
-        basicAuth:
-          $ref: '#/components/schemas/basicAuth'
-        bearerToken:
-          description: Webhook requests will include an Authorization header with the token. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers. At most one of `bearerToken` and `basicAuth` may be set.
-          type: string
-        certType:
-          enum:
-          - ALL
-          - X509
-          - SSH
-          type: string
-        collectionSlug:
-          description: For HOSTED_ATTESTATION webhooks, the collectionSlug is a reference to the collection that holds the devices that may be issued certificates. This collection must already exist. Required for `HOSTED_ATTESTATION` webhook servers; not allowed for `EXTERNAL`.
-          type: string
-        disableTLSClientAuth:
-          description: The CA will not send a client certificate when requested by the webhook server. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers.
-          type: boolean
-        id:
-          description: UUID identifying this webhook. Generated server-side when the webhook is created. Will be sent to the webhook server in every request in the `X-Smallstep-Webhook-ID` header.
-          type: string
-        kind:
-          description: 'The webhook kind indicates how and when it is called.
-
-
-            ENRICHING webhooks are called before rendering the certificate template. They have two functions. First, they must allow the certificate request or it will be aborted. Second, they can return additional data to be referenced in the certificate template. The payload sent to the webhook server varies based on whether an X.509 or SSH certificate is to be signed and based on the type of provisioner.
-
-            '
-          enum:
-          - ENRICHING
-          type: string
-        name:
-          description: The name of the webhook. For `ENRICHING` webhooks, the returned data can be referenced in the certificate under the path `.Webhooks.<name>`. Must be unique to the provisioner.
-          type: string
-        secret:
-          description: The shared secret used to authenticate the payload sent to the webhook server. Generated server-side. This is returned only for `EXTERNAL` webhook servers and only once, at the time of creation.
-          type: string
-        serverType:
-          description: 'An EXTERNAL webhook server is not operated by Smallstep. The caller must use the returned ID and secret to configure the server.
-
-
-            A HOSTED_ATTESTATION webhook server is hosted by Smallstep and must be used with an `ENRICHING` webhook type and an ACME Attestation provisioner. The webhook server will verify the attested permanent identifier exists as the ID of an instance in the configured collection. The data of the instance in the collection will be added to the template data.
-
-            '
-          enum:
-          - EXTERNAL
-          - HOSTED_ATTESTATION
-          type: string
-        url:
-          description: The URL of the webhook server. Required for `EXTERNAL` webhook servers; read-only for hosted webhook servers.
-          type: string
-      required:
-      - name
-      - kind
-      - certType
-      - serverType
-      title: Provisioner Webhook
-      type: object
-    x5cProvisioner:
-      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#x5c---x509-certificate) that authenticates a certificate request with an existing X.509 certificate.
-      properties:
-        roots:
-          description: A list of PEM-encoded X.509 certificates. Any certificate bundle that chains up to any of these roots can be used in a certificate request.
-          items:
-            type: string
-          type: array
-      required:
-      - roots
-      title: X5C Provisioner
-      type: object
-    awsDisableCustomSANs:
-      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the instance identity document will be valid. These are the private IP and the DNS ip-<private-ip>.<region>.compute.internal.
-      title: AWS Disable Custom SANs
-      type: boolean
-    distinguishedName:
-      description: 'Name used in X.509 certificates
-
-        '
-      example:
-      - organization: admins
-      properties:
-        commonName:
-          type: string
-        country:
-          type: string
-        emailAddress:
-          type: string
-        locality:
-          type: string
-        organization:
-          type: string
-        organizationalUnit:
-          type: string
-        postalCode:
-          type: string
-        province:
-          type: string
-        serialNumber:
-          type: string
-        streetAddress:
-          type: string
-      title: Distinguished Name
-    authorityType:
-      description: 'One of the available authority types
-
-        '
-      enum:
-      - devops
-      - advanced
-      - managed
-      title: Authority Type
-      type: string
-    sshOptions:
-      description: Options that apply when issuing SSH certificates
-      example:
-        template: '{"type": {{ toJson .Type }}, "keyId": {{ toJson .KeyID }}, "principals": {{ toJson .Principals }}, "extensions": {{ toJson .Extensions }}, "criticalOptions": {{ toJson .CriticalOptions }} }'
-        templateData:
-          principals:
-          - eng
-          - ops
-      properties:
-        template:
-          description: A JSON representation of the SSH certificate to be created. [More info](https://smallstep.com/docs/step-ca/templates/#ssh-templates).
-          type: string
-        templateData:
-          description: A map of data that can be used by the certificate template.
-          schema: {}
-      title: Provisioner SSH Options
-      type: object
-    x509Issuer:
-      description: 'A customized X.509 issuer for an authority.
-
-        '
-      examples:
-      - keyVersion: EC_SIGN_P256_SHA256
-        name: My Root
-      properties:
-        duration:
-          description: The certificate lifetime. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-          type: string
-        keyVersion:
-          description: 'The signature algorithm.
-
-            '
-          enum:
-          - EC_SIGN_P256_SHA256
-          - EC_SIGN_P384_SHA384
-          - RSA_SIGN_PKCS1_2048_SHA256
-          - RSA_SIGN_PKCS1_3072_SHA256
-          - RSA_SIGN_PKCS1_4096_SHA256
-          - RSA_SIGN_PKCS1_4096_SHA512
-          - RSA_SIGN_PSS_2048_SHA256
-          - RSA_SIGN_PSS_3072_SHA256
-          - RSA_SIGN_PSS_4096_SHA256
-          - RSA_SIGN_PSS_4096_SHA512
-          type: string
-        maxPathLength:
-          type: integer
-        name:
-          description: The name of the issuer.
-          pattern: .+
-          type: string
-        nameConstraints:
-          $ref: '#/components/schemas/nameConstraints'
-        subject:
-          $ref: '#/components/schemas/distinguishedName'
-      required:
-      - name
-      - keyVersion
-      title: X.509 Issuer
-      type: object
-    authorityCsr:
-      description: 'A certificate signing request for an X.509 advanced authority with an external root.
-
-        '
-      examples:
-      - authorityID: f7ea6511-a4c7-40e7-900e-23d4e9ea32fb
-        csr: '-----BEGIN CERTIFICATE REQUEST-----
-
-          MIHvMIGXAgEAMBExDzANBgNVBAMTBmlzc3VlcjBZMBMGByqGSM49AgEGCCqGSM49
-
-          AwEHA0IABIJnM2Xen6mmGZwuwwR2/K940ymjD7ZHom3t3uEa7wSUBediAyBjt1rF
-
-          zvndmHCG3Nfk/+vZeRf+RVyNrpozMDigJDAiBgkqhkiG9w0BCQ4xFTATMBEGA1Ud
-
-          EQQKMAiCBmlzc3VlcjAKBggqhkjOPQQDAgNHADBEAiBYbBuYT37y+tGw4+mlZeL9
-
-          NgylY/mAV5olep2K57jCJwIgDCT1TcVLtshsP2EClX03Skdp1KKuqpkFRWyYV3Pq
-
-          h8E=
-
-          -----END CERTIFICATE REQUEST-----
-
-          '
-        id: fe4d17b4-7b47-447b-97a4-4510a532b559
-      properties:
-        authorityID:
-          description: A UUID identifying the authority.
-          type: string
-        csr:
-          description: A certificate signing request for the authority's intermediate issuer in PEM format.
-          type: string
-        id:
-          description: A UUID identifying this CSR.
-          type: string
-      required:
-      - id
-      - authorityID
-      - csr
-      title: Authority CSR
-      type: object
-    newAuthorityCsr:
-      description: 'Body of a request to create a new X.509 advanced authority with an external root.
-
-        '
-      examples:
-      - activeRevocation: true
-        intermediateIssuer:
-          duration: 10000h
-          keyVersion: EC_SIGN_P256_SHA256
-          maxPathLength: 1
-          name: My Intermediate Issuer
-          subject:
-            commonName: My Company
-        name: My External Authority
-        subdomain: my-external
-      properties:
-        activeRevocation:
-          description: Whether to enable CRL and OCSP on the authority.
-          type: boolean
-        intermediateIssuer:
-          $ref: '#/components/schemas/x509Issuer'
-        name:
-          description: The name of the authority.
-          type: string
-        subdomain:
-          description: The new authority will be available at <subdomain>.<team slug>.ca.smallstep.com.
-          type: string
-      required:
-      - name
-      - subdomain
-      - intermediateIssuer
-      title: New Authority CSR
-      type: object
-    gcpProjectIDs:
-      description: The list of project identifiers that are allowed to use a GCP cloud provisioner.
-      items:
-        type: string
-      title: GCP Project IDs
-      type: array
-    azureProvisioner:
-      description: The [Azure provisioner](https://smallstep.com/docs/step-ca/provisioners/#azure) grants certificates to Microsoft Azure instances using the managed identities tokens.
-      properties:
-        audience:
-          $ref: '#/components/schemas/azureAudience'
-        disableCustomSANs:
-          $ref: '#/components/schemas/azureDisableCustomSANs'
-        disableTrustOnFirstUse:
-          description: By default only one certificate will be granted per instance, but if the option is set to true this limit is not set and different tokens can be used to get different certificates.
-          type: boolean
-        resourceGroups:
-          $ref: '#/components/schemas/azureResourceGroups'
-        tenantID:
-          $ref: '#/components/schemas/azureTenantID'
-      required:
-      - tenantID
-      - resourceGroups
-      title: Azure Provisioner
-      type: object
-    x509Options:
-      description: Options that apply when issuing X.509 certificates.
-      example:
-        template: '{"subject": {{ toJson .Subject }}, "sans": {{ toJson .SANs }}, "keyUsage": ["digitalSignature"], "extKeyUsage": ["serverAuth", "clientAuth"]}'
-        templateData:
-          defaultOrg: eng
-      properties:
-        template:
-          description: A JSON representation of the X.509 certificate to be created. [More info](https://smallstep.com/docs/step-ca/templates/#x509-templates).
-          type: string
-        templateData:
-          description: A map of data that can be used by the certificate template.
-          schema: {}
-      title: Provisioner X.509 Options
-      type: object
-    azureDisableCustomSANs:
-      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the token will be valid, in Azure only the virtual machine name is available.
-      title: Azure Disable Custom SANs
-      type: boolean
-    azureTenantID:
-      description: The Azure account tenant ID for this provisioner. This ID is the Directory ID available in the Azure Active Directory properties.
-      title: Azure Tenant ID
-      type: string
-    azureResourceGroups:
-      description: The list of resource group names that are allowed to use this provisioner.
-      items:
-        type: string
-      title: Azure Resource Groups
-      type: array
-    azureAudience:
-      description: Defaults to https://management.azure.com/ but it can be changed if necessary.
-      title: Azure Audience
-      type: string
-    instanceAge:
-      description: The maximum age of an instance that should be allowed to obtain a certificate. Limits certificate issuance to new instances to mitigate the risk of credential-misuse from instances that don't need a certificate. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
-      title: Instance Age Cloud Provisioner
-      type: string
-    awsProvisioner:
-      description: The [AWS provisioner](https://smallstep.com/docs/step-ca/provisioners/#aws) grants a certificate to an Amazon EC2 instance using the Instance Identity Document.
-      properties:
-        accounts:
-          $ref: '#/components/schemas/awsAccounts'
-        disableCustomSANs:
-          $ref: '#/components/schemas/awsDisableCustomSANs'
-        disableTrustOnFirstUse:
-          description: By default only one certificate will be granted per instance, but if the option is set to `true` this limit is not set and different tokens can be used to get different certificates.
-          type: boolean
-        instanceAge:
-          $ref: '#/components/schemas/instanceAge'
-      required:
-      - accounts
-      title: AWS Provisioner
-      type: object
-    acmeProvisioner:
-      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#acme) that enables automation with the [ACME protocol](https://smallstep.com/docs/step-ca/acme-basics/#acme-challenges).
-      properties:
-        challenges:
-          description: Which ACME challenge types are allowed.
-          items:
-            enum:
-            - http-01
-            - dns-01
-            - tls-alpn-01
-            type: string
-          minItems: 1
-          type: array
-          uniqueItems: true
-        forceCN:
-          description: Force one of the SANs to become the Common Name, if a Common Name is not provided.
-          type: boolean
-        requireEAB:
-          description: Only ACME clients that have been preconfigured with valid EAB credentials will be able to create an account with this provisioner. Must be `true` for all new provisioners.
-          type: boolean
-      required:
-      - challenges
-      - requireEAB
-      title: ACME Provisioner
-      type: object
-    nameConstraints:
-      description: X.509 certificate name constraints.
-      properties:
-        critical:
-          description: 'Whether or not name constraints are marked critical.
-
-            '
-          type: boolean
-        excludedDNSDomains:
-          items:
-            type: string
-          type: array
-        excludedEmailAddresses:
-          items:
-            type: string
-          type: array
-        excludedIPRanges:
-          items:
-            type: string
-          type: array
-        excludedURIDomains:
-          items:
-            type: string
-          type: array
-        permittedDNSDomains:
-          items:
-            type: string
-          type: array
-        permittedEmailAddresses:
-          items:
-            type: string
-          type: array
-        permittedIPRanges:
-          items:
-            type: string
-          type: array
-        permittedURIDomains:
-          items:
-            type: string
-          type: array
-      title: Name Constraints
-    gcpProvisioner:
-      description: The [GCP provisioner](https://smallstep.com/docs/step-ca/provisioners/#gcp) grants a certificate to a Google Compute Engine instance using its identity token. At least one service account or project ID must be set.
-      properties:
-        disableCustomSANs:
-          $ref: '#/components/schemas/gcpDisableCustomSANs'
-        disableTrustOnFirstUse:
-          description: By default only one certificate will be granted per instance, but if the option is set to `true` this limit is not set and different tokens can be used to get different certificates.
-          type: boolean
-        instanceAge:
-          $ref: '#/components/schemas/instanceAge'
-        projectIDs:
-          $ref: '#/components/schemas/gcpProjectIDs'
-        serviceAccounts:
-          $ref: '#/components/schemas/gcpServiceAccounts'
-      title: GCP Provisioner
-      type: object
     provisioner:
       allOf:
       - properties:
@@ -1464,7 +798,699 @@ components:
         name: My SCEP Provisioner
         type: SCEP
       title: Provisioner
+    acmeProvisioner:
+      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#acme) that enables automation with the [ACME protocol](https://smallstep.com/docs/step-ca/acme-basics/#acme-challenges).
+      properties:
+        challenges:
+          description: Which ACME challenge types are allowed.
+          items:
+            enum:
+            - http-01
+            - dns-01
+            - tls-alpn-01
+            type: string
+          minItems: 1
+          type: array
+          uniqueItems: true
+        forceCN:
+          description: Force one of the SANs to become the Common Name, if a Common Name is not provided.
+          type: boolean
+        requireEAB:
+          description: Only ACME clients that have been preconfigured with valid EAB credentials will be able to create an account with this provisioner. Must be `true` for all new provisioners.
+          type: boolean
+      required:
+      - challenges
+      - requireEAB
+      title: ACME Provisioner
+      type: object
+    azureAudience:
+      description: Defaults to https://management.azure.com/ but it can be changed if necessary.
+      title: Azure Audience
+      type: string
+    gcpProvisioner:
+      description: The [GCP provisioner](https://smallstep.com/docs/step-ca/provisioners/#gcp) grants a certificate to a Google Compute Engine instance using its identity token. At least one service account or project ID must be set.
+      properties:
+        disableCustomSANs:
+          $ref: '#/components/schemas/gcpDisableCustomSANs'
+        disableTrustOnFirstUse:
+          description: By default only one certificate will be granted per instance, but if the option is set to `true` this limit is not set and different tokens can be used to get different certificates.
+          type: boolean
+        instanceAge:
+          $ref: '#/components/schemas/instanceAge'
+        projectIDs:
+          $ref: '#/components/schemas/gcpProjectIDs'
+        serviceAccounts:
+          $ref: '#/components/schemas/gcpServiceAccounts'
+      title: GCP Provisioner
+      type: object
+    provisionerClaims:
+      description: A set of constraints configuring how this provisioner can be used to issue certificates.
+      example:
+        allowRenewalAfterExpiry: true
+        defaultHostSSHCertDuration: 168h
+        defaultTLSCertDuration: 24h
+        defaultUserSSHCertDuration: 12h
+        disableRenewal: false
+        enableSSHCA: true
+        maxHostSSHCertDuration: 168h
+        maxTLSCertDuration: 168h
+        maxUserSSHCertDuration: 24h
+        minHostSSHCertDuration: 48h
+        minTLSCertDuration: 1h
+        minUserSSHCertDuration: 4h
+      properties:
+        allowRenewalAfterExpiry:
+          description: Allow renewals for expired certificates generated by this provisioner.
+          type: boolean
+        defaultHostSSHCertDuration:
+          description: The default duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        defaultTLSCertDuration:
+          description: The default duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        defaultUserSSHCertDuration:
+          description: The default duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        disableRenewal:
+          description: Disable renewal for all certificates generated by this provisioner.
+          type: boolean
+        enableSSHCA:
+          description: Allow this provisioner to be used to generate SSH certificates.
+          type: boolean
+        maxHostSSHCertDuration:
+          description: The maximum duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        maxTLSCertDuration:
+          description: The maximum duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        maxUserSSHCertDuration:
+          description: The maximum duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        minHostSSHCertDuration:
+          description: The minimum duration for an SSH host certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        minTLSCertDuration:
+          description: The minimum duration for an X.509 certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        minUserSSHCertDuration:
+          description: The minimum duration for an SSH user certificate generated by this provisioner. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+      title: Provisioner Claims
+      type: object
+    provisionerWebhook:
+      description: A [webhook](https://smallstep.com/docs/step-ca/webhooks/) to call when a certificate request is being processed.
+      examples:
+      - certType: X509
+        id: 4ad05dca-ab33-409a-88ec-8ea4a5ad3d79
+        kind: ENRICHING
+        name: devices
+        serverType: HOSTED_ATTESTATION
+        url: https://inventory.smallstep.com/enrich/attested
+      - basicAuth:
+          password: pass
+          username: user
+        certType: ALL
+        id: 3f324c42-25eb-4ee9-a59c-b40e06118bf3
+        kind: ENRICHING
+        name: integration
+        serverType: EXTERNAL
+        url: https://example.com/hook
+      properties:
+        basicAuth:
+          $ref: '#/components/schemas/basicAuth'
+        bearerToken:
+          description: Webhook requests will include an Authorization header with the token. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers. At most one of `bearerToken` and `basicAuth` may be set.
+          type: string
+        certType:
+          enum:
+          - ALL
+          - X509
+          - SSH
+          type: string
+        collectionSlug:
+          description: For HOSTED_ATTESTATION webhooks, the collectionSlug is a reference to the collection that holds the devices that may be issued certificates. This collection must already exist. Required for `HOSTED_ATTESTATION` webhook servers; not allowed for `EXTERNAL`.
+          type: string
+        disableTLSClientAuth:
+          description: The CA will not send a client certificate when requested by the webhook server. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers.
+          type: boolean
+        id:
+          description: UUID identifying this webhook. Generated server-side when the webhook is created. Will be sent to the webhook server in every request in the `X-Smallstep-Webhook-ID` header.
+          type: string
+        kind:
+          description: 'The webhook kind indicates how and when it is called.
+
+
+            ENRICHING webhooks are called before rendering the certificate template. They have two functions. First, they must allow the certificate request or it will be aborted. Second, they can return additional data to be referenced in the certificate template. The payload sent to the webhook server varies based on whether an X.509 or SSH certificate is to be signed and based on the type of provisioner.
+
+            '
+          enum:
+          - ENRICHING
+          type: string
+        name:
+          description: The name of the webhook. For `ENRICHING` webhooks, the returned data can be referenced in the certificate under the path `.Webhooks.<name>`. Must be unique to the provisioner.
+          type: string
+        secret:
+          description: The shared secret used to authenticate the payload sent to the webhook server. Generated server-side. This is returned only for `EXTERNAL` webhook servers and only once, at the time of creation.
+          type: string
+        serverType:
+          description: 'An EXTERNAL webhook server is not operated by Smallstep. The caller must use the returned ID and secret to configure the server.
+
+
+            A HOSTED_ATTESTATION webhook server is hosted by Smallstep and must be used with an `ENRICHING` webhook type and an ACME Attestation provisioner. The webhook server will verify the attested permanent identifier exists as the ID of an instance in the configured collection. The data of the instance in the collection will be added to the template data.
+
+            '
+          enum:
+          - EXTERNAL
+          - HOSTED_ATTESTATION
+          type: string
+        url:
+          description: The URL of the webhook server. Required for `EXTERNAL` webhook servers; read-only for hosted webhook servers.
+          type: string
+      required:
+      - name
+      - kind
+      - certType
+      - serverType
+      title: Provisioner Webhook
+      type: object
+    authorityCsr:
+      description: 'A certificate signing request for an X.509 advanced authority with an external root.
+
+        '
+      examples:
+      - authorityID: f7ea6511-a4c7-40e7-900e-23d4e9ea32fb
+        csr: '-----BEGIN CERTIFICATE REQUEST-----
+
+          MIHvMIGXAgEAMBExDzANBgNVBAMTBmlzc3VlcjBZMBMGByqGSM49AgEGCCqGSM49
+
+          AwEHA0IABIJnM2Xen6mmGZwuwwR2/K940ymjD7ZHom3t3uEa7wSUBediAyBjt1rF
+
+          zvndmHCG3Nfk/+vZeRf+RVyNrpozMDigJDAiBgkqhkiG9w0BCQ4xFTATMBEGA1Ud
+
+          EQQKMAiCBmlzc3VlcjAKBggqhkjOPQQDAgNHADBEAiBYbBuYT37y+tGw4+mlZeL9
+
+          NgylY/mAV5olep2K57jCJwIgDCT1TcVLtshsP2EClX03Skdp1KKuqpkFRWyYV3Pq
+
+          h8E=
+
+          -----END CERTIFICATE REQUEST-----
+
+          '
+        id: fe4d17b4-7b47-447b-97a4-4510a532b559
+      properties:
+        authorityID:
+          description: A UUID identifying the authority.
+          type: string
+        csr:
+          description: A certificate signing request for the authority's intermediate issuer in PEM format.
+          type: string
+        id:
+          description: A UUID identifying this CSR.
+          type: string
+      required:
+      - id
+      - authorityID
+      - csr
+      title: Authority CSR
+      type: object
+    azureProvisioner:
+      description: The [Azure provisioner](https://smallstep.com/docs/step-ca/provisioners/#azure) grants certificates to Microsoft Azure instances using the managed identities tokens.
+      properties:
+        audience:
+          $ref: '#/components/schemas/azureAudience'
+        disableCustomSANs:
+          $ref: '#/components/schemas/azureDisableCustomSANs'
+        disableTrustOnFirstUse:
+          description: By default only one certificate will be granted per instance, but if the option is set to true this limit is not set and different tokens can be used to get different certificates.
+          type: boolean
+        resourceGroups:
+          $ref: '#/components/schemas/azureResourceGroups'
+        tenantID:
+          $ref: '#/components/schemas/azureTenantID'
+      required:
+      - tenantID
+      - resourceGroups
+      title: Azure Provisioner
+      type: object
+    authority:
+      description: 'An X.509 authority hosted by Smallstep.
+
+        '
+      examples:
+      - activeRevocation: true
+        createdAt: '2020-03-12T02:30:53.708Z'
+        id: fe4d17b4-7b47-447b-97a4-4510a532b559
+        name: My Advanced Authority
+        root: "-----BEGIN CERTIFICATE-----\n ... \n-----END CERTIFICATE-----\n"
+        subdomain: my-advanced
+        type: advanced
+      properties:
+        activeRevocation:
+          description: Whether CRL and OCSP are enabled (advanced authorities only).
+          type: boolean
+        adminEmails:
+          description: Users that have admin access to manage the authority.
+          items:
+            type: string
+          type: array
+        createdAt:
+          description: Timestamp when the authority was created.
+          format: date-time
+          type: string
+        domain:
+          description: The domain where the authority can be reached.
+          type: string
+        fingerprint:
+          description: The SHA-256 digest of the authority's root certificate in hex format.
+          type: string
+        id:
+          description: A UUID identifying this authority.
+          type: string
+        name:
+          description: The name of the authority.
+          type: string
+        root:
+          description: The root certificate in PEM format.
+          type: string
+        type:
+          $ref: '#/components/schemas/authorityType'
+      required:
+      - id
+      - name
+      - domain
+      - type
+      - createdAt
+      title: Authority
+      type: object
+    awsProvisioner:
+      description: The [AWS provisioner](https://smallstep.com/docs/step-ca/provisioners/#aws) grants a certificate to an Amazon EC2 instance using the Instance Identity Document.
+      properties:
+        accounts:
+          $ref: '#/components/schemas/awsAccounts'
+        disableCustomSANs:
+          $ref: '#/components/schemas/awsDisableCustomSANs'
+        disableTrustOnFirstUse:
+          description: By default only one certificate will be granted per instance, but if the option is set to `true` this limit is not set and different tokens can be used to get different certificates.
+          type: boolean
+        instanceAge:
+          $ref: '#/components/schemas/instanceAge'
+      required:
+      - accounts
+      title: AWS Provisioner
+      type: object
+    awsDisableCustomSANs:
+      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the instance identity document will be valid. These are the private IP and the DNS ip-<private-ip>.<region>.compute.internal.
+      title: AWS Disable Custom SANs
+      type: boolean
+    azureResourceGroups:
+      description: The list of resource group names that are allowed to use this provisioner.
+      items:
+        type: string
+      title: Azure Resource Groups
+      type: array
+    x509Issuer:
+      description: 'A customized X.509 issuer for an authority.
+
+        '
+      examples:
+      - keyVersion: EC_SIGN_P256_SHA256
+        name: My Root
+      properties:
+        duration:
+          description: The certificate lifetime. Parsed as a [Golang duration](https://pkg.go.dev/time#ParseDuration).
+          type: string
+        keyVersion:
+          description: 'The signature algorithm.
+
+            '
+          enum:
+          - EC_SIGN_P256_SHA256
+          - EC_SIGN_P384_SHA384
+          - RSA_SIGN_PKCS1_2048_SHA256
+          - RSA_SIGN_PKCS1_3072_SHA256
+          - RSA_SIGN_PKCS1_4096_SHA256
+          - RSA_SIGN_PKCS1_4096_SHA512
+          - RSA_SIGN_PSS_2048_SHA256
+          - RSA_SIGN_PSS_3072_SHA256
+          - RSA_SIGN_PSS_4096_SHA256
+          - RSA_SIGN_PSS_4096_SHA512
+          type: string
+        maxPathLength:
+          type: integer
+        name:
+          description: The name of the issuer.
+          pattern: .+
+          type: string
+        nameConstraints:
+          $ref: '#/components/schemas/nameConstraints'
+        subject:
+          $ref: '#/components/schemas/distinguishedName'
+      required:
+      - name
+      - keyVersion
+      title: X.509 Issuer
+      type: object
+    provisionerOptions:
+      description: Options that apply when issuing certificates with this provisioner.
+      properties:
+        ssh:
+          $ref: '#/components/schemas/sshOptions'
+        webhooks:
+          items:
+            $ref: '#/components/schemas/provisionerWebhook'
+          type: array
+        x509:
+          $ref: '#/components/schemas/x509Options'
+      title: Provisioner Options
+      type: object
+    oidcProvisioner:
+      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#oauthoidc-single-sign-on) that is configured to trust and accept an OAuth provider's ID tokens for authentication. By default, the issued certificate will use the subject (sub) claim from the identity token as its subject. The value of the token's email claim is also included as an email SAN in the certificate.
+      properties:
+        admins:
+          description: The emails of admin users in an OpenID Connect provisioner. These users will not have restrictions in the certificates to sign.
+          items:
+            type: string
+          type: array
+        clientID:
+          description: The id used to validate the audience in an OpenID Connect token.
+          type: string
+        clientSecret:
+          description: The secret used to obtain the OpenID Connect tokens.
+          type: string
+        configurationEndpoint:
+          description: OpenID Connect configuration URL.
+          type: string
+        domains:
+          description: The domains used to validate the email claim in an OpenID Connect provisioner.
+          items:
+            type: string
+          type: array
+        groups:
+          description: The group list used to validate the groups extension in an OpenID Connect token.
+          items:
+            type: string
+          type: array
+        listenAddress:
+          description: The callback address used in the OpenID Connect flow.
+          type: string
+        tenantID:
+          description: The tenant-id used to replace the templatized tenantid value in the OpenID Configuration.
+          type: string
+      required:
+      - clientID
+      - clientSecret
+      - configurationEndpoint
+      title: OIDC Provisioner
+      type: object
+    awsAccounts:
+      description: The list of AWS account IDs that are allowed to use an AWS cloud provisioner.
+      items:
+        type: string
+      title: AWS Accounts
+      type: array
+    jwkProvisioner:
+      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#jwk) that uses public-key cryptography to sign and validate a JSON Web Token (JWT).
+      properties:
+        encryptedKey:
+          description: The JWE encrypted private key.
+          type: string
+        key:
+          description: The public JSON web key.
+          schema: {}
+      required:
+      - key
+      title: JWK Provisioner
+      type: object
+    azureTenantID:
+      description: The Azure account tenant ID for this provisioner. This ID is the Directory ID available in the Azure Active Directory properties.
+      title: Azure Tenant ID
+      type: string
+    newAuthority:
+      description: 'The body of a request to create a new authority.
+
+        '
+      examples:
+      - activeRevocation: false
+        adminEmails:
+        - user@example.com
+        name: Devops Authority
+        subdomain: my-devops
+        type: devops
+      - activeRevocation: true
+        adminEmails:
+        - user@example.com
+        name: Advanced Authority
+        subdomain: my-advanced
+        type: advanced
+      properties:
+        activeRevocation:
+          description: Whether to enable CRL and OCSP on an advanced authority.
+          type: boolean
+        adminEmails:
+          description: Users that will have admin access to manage the authority.
+          items:
+            pattern: ^[\w-.]+@[\w-.]+$
+            type: string
+          minItems: 1
+          type: array
+          uniqueItems: true
+        intermediateIssuer:
+          $ref: '#/components/schemas/x509Issuer'
+        name:
+          description: The name of the authority.
+          type: string
+        rootIssuer:
+          $ref: '#/components/schemas/x509Issuer'
+        subdomain:
+          description: The new authority will be available at <subdomain>.<team slug>.ca.smallstep.com.
+          type: string
+        type:
+          description: Create either a devops or advanced authority.
+          enum:
+          - devops
+          - advanced
+          type: string
+      required:
+      - name
+      - subdomain
+      - type
+      - adminEmails
+      title: New Hosted Authority
+      type: object
+    authorityType:
+      description: 'One of the available authority types
+
+        '
+      enum:
+      - devops
+      - advanced
+      - managed
+      title: Authority Type
+      type: string
+    newAuthorityCsr:
+      description: 'Body of a request to create a new X.509 advanced authority with an external root.
+
+        '
+      examples:
+      - activeRevocation: true
+        intermediateIssuer:
+          duration: 10000h
+          keyVersion: EC_SIGN_P256_SHA256
+          maxPathLength: 1
+          name: My Intermediate Issuer
+          subject:
+            commonName: My Company
+        name: My External Authority
+        subdomain: my-external
+      properties:
+        activeRevocation:
+          description: Whether to enable CRL and OCSP on the authority.
+          type: boolean
+        intermediateIssuer:
+          $ref: '#/components/schemas/x509Issuer'
+        name:
+          description: The name of the authority.
+          type: string
+        subdomain:
+          description: The new authority will be available at <subdomain>.<team slug>.ca.smallstep.com.
+          type: string
+      required:
+      - name
+      - subdomain
+      - intermediateIssuer
+      title: New Authority CSR
+      type: object
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+    basicAuth:
+      description: Configures provisioner webhook requests to include an Authorization header with these credentials. Optional for `EXTERNAL` webhook servers; not allowed with hosted webhook servers. At most one of `bearerToken` and `basicAuth` may be set.
+      example:
+        password: secret
+        username: user
+      properties:
+        password:
+          type: string
+        username:
+          type: string
+      required:
+      - username
+      - password
+      title: Basic Auth
+      type: object
+    azureDisableCustomSANs:
+      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the token will be valid, in Azure only the virtual machine name is available.
+      title: Azure Disable Custom SANs
+      type: boolean
+    gcpProjectIDs:
+      description: The list of project identifiers that are allowed to use a GCP cloud provisioner.
+      items:
+        type: string
+      title: GCP Project IDs
+      type: array
+    x5cProvisioner:
+      description: A [provisioner](https://smallstep.com/docs/step-ca/provisioners/#x5c---x509-certificate) that authenticates a certificate request with an existing X.509 certificate.
+      properties:
+        roots:
+          description: A list of PEM-encoded X.509 certificates. Any certificate bundle that chains up to any of these roots can be used in a certificate request.
+          items:
+            type: string
+          type: array
+      required:
+      - roots
+      title: X5C Provisioner
+      type: object
+    nameConstraints:
+      description: X.509 certificate name constraints.
+      properties:
+        critical:
+          description: 'Whether or not name constraints are marked critical.
+
+            '
+          type: boolean
+        excludedDNSDomains:
+          items:
+            type: string
+          type: array
+        excludedEmailAddresses:
+          items:
+            type: string
+          type: array
+        excludedIPRanges:
+          items:
+            type: string
+          type: array
+        excludedURIDomains:
+          items:
+            type: string
+          type: array
+        permittedDNSDomains:
+          items:
+            type: string
+          type: array
+        permittedEmailAddresses:
+          items:
+            type: string
+          type: array
+        permittedIPRanges:
+          items:
+            type: string
+          type: array
+        permittedURIDomains:
+          items:
+            type: string
+          type: array
+      title: Name Constraints
+    distinguishedName:
+      description: 'Name used in X.509 certificates
+
+        '
+      example:
+      - organization: admins
+      properties:
+        commonName:
+          type: string
+        country:
+          type: string
+        emailAddress:
+          type: string
+        locality:
+          type: string
+        organization:
+          type: string
+        organizationalUnit:
+          type: string
+        postalCode:
+          type: string
+        province:
+          type: string
+        serialNumber:
+          type: string
+        streetAddress:
+          type: string
+      title: Distinguished Name
+    x509Options:
+      description: Options that apply when issuing X.509 certificates.
+      example:
+        template: '{"subject": {{ toJson .Subject }}, "sans": {{ toJson .SANs }}, "keyUsage": ["digitalSignature"], "extKeyUsage": ["serverAuth", "clientAuth"]}'
+        templateData:
+          defaultOrg: eng
+      properties:
+        template:
+          description: A JSON representation of the X.509 certificate to be created. [More info](https://smallstep.com/docs/step-ca/templates/#x509-templates).
+          type: string
+        templateData:
+          description: A map of data that can be used by the certificate template.
+          schema: {}
+      title: Provisioner X.509 Options
+      type: object
+    gcpDisableCustomSANs:
+      description: By default custom SANs are valid, but if this option is set to `true` only the SANs available in the instance identity document will be valid, these are the DNS `<instance-name>.c.<project-id>.internal` and `<instance-name>.<zone>.c.<project-id>.internal`.
+      title: GCP Disable Custom SANs
+      type: boolean
+  headers:
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
   responses:
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
     '204':
       description: The resource has been deleted.
       headers:
@@ -1478,17 +1504,6 @@ components:
           schema:
             $ref: '#/components/schemas/error'
       description: Failed Precondition
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Forbidden
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -1516,34 +1531,23 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
     '401':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -1561,17 +1565,17 @@ components:
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
   parameters:
+    authorityID:
+      description: ID of the authority
+      in: path
+      name: authorityID
+      required: true
+      schema:
+        type: string
     authorityDomainOrID:
       description: ID or domain of the authority
       in: path
       name: authorityDomainOrID
-      required: true
-      schema:
-        type: string
-    provisionerNameOrID:
-      description: Either the name or UUID of the provisioner
-      in: path
-      name: provisionerNameOrID
       required: true
       schema:
         type: string
@@ -1583,18 +1587,11 @@ components:
       required: true
       schema:
         type: string
-    accept:
-      description: The content type the client is willing to accept. Also includes API version.
-      example: application/vnd.smallstep.v2025-01-01+json
-      in: header
-      name: Accept
-      schema:
-        type: string
-    requestID:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      in: header
-      name: X-Request-Id
+    provisionerNameOrID:
+      description: Either the name or UUID of the provisioner
+      in: path
+      name: provisionerNameOrID
+      required: true
       schema:
         type: string
     webhookNameOrID:
@@ -1604,24 +1601,19 @@ components:
       required: true
       schema:
         type: string
-    authorityID:
-      description: ID of the authority
-      in: path
-      name: authorityID
-      required: true
-      schema:
-        type: string
-  headers:
-    X-Request-Id:
+    requestID:
       description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
       example: abcdef
+      in: header
+      name: X-Request-Id
       schema:
         type: string
-    X-Smallstep-Api-Version:
-      description: API version to use. Will be reflected in responses.
-      example: '2025-01-01'
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
       schema:
-        format: date
         type: string
   securitySchemes:
     JWT:
