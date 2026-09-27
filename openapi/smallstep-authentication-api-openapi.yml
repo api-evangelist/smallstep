@@ -105,18 +105,6 @@ components:
       - message
       title: Error
       type: object
-  headers:
-    X-Request-Id:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      schema:
-        type: string
-    X-Smallstep-Api-Version:
-      description: API version to use. Will be reflected in responses.
-      example: '2025-01-01'
-      schema:
-        format: date
-        type: string
   responses:
     '403':
       content:
@@ -124,28 +112,6 @@ components:
           schema:
             $ref: '#/components/schemas/error'
       description: Forbidden
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -162,6 +128,40 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  headers:
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
   securitySchemes:
     JWT:
       scheme: bearer

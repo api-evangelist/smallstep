@@ -220,28 +220,56 @@ paths:
       tags:
       - Certificates
 components:
-  headers:
-    X-Request-Id:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      schema:
-        type: string
-    X-Next-Cursor:
-      description: The cursor value to use for the next page of results
-      example: MTIzNA==
-      schema:
-        type: string
-    X-Smallstep-Api-Version:
-      description: API version to use. Will be reflected in responses.
-      example: '2025-01-01'
-      schema:
-        format: date
-        type: string
   parameters:
-    commonName:
-      description: Subject common name.
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+    notAfter:
+      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
       in: query
-      name: commonName
+      name: notAfter
+      schema:
+        format: date-time
+        type: string
+    postalCode:
+      description: Subject postal code.
+      in: query
+      name: postalCode
+      schema:
+        type: string
+    province:
+      description: Subject province.
+      in: query
+      name: province
+      schema:
+        type: string
+    certAuthorityID:
+      description: Authority ID of cert.
+      in: query
+      name: authorityID
+      schema:
+        type: string
+    notBefore:
+      description: Timestamp in RFC3339 format to filter certs not active before this timestamp.
+      in: query
+      name: notBefore
+      schema:
+        format: date-time
+        type: string
+    country:
+      description: Subject country.
+      in: query
+      name: country
+      schema:
+        type: string
+    streetAddress:
+      description: Subject street address.
+      in: query
+      name: streetAddress
       schema:
         type: string
     certProvisioner:
@@ -257,16 +285,22 @@ components:
       required: true
       schema:
         type: string
+    locality:
+      description: Subject locality.
+      in: query
+      name: locality
+      schema:
+        type: string
+    organization:
+      description: Subject organization.
+      in: query
+      name: organization
+      schema:
+        type: string
     organizationalUnit:
       description: Subject organizational unit.
       in: query
       name: organizationalUnit
-      schema:
-        type: string
-    certAuthorityID:
-      description: Authority ID of cert.
-      in: query
-      name: authorityID
       schema:
         type: string
     version:
@@ -277,28 +311,11 @@ components:
       required: true
       schema:
         type: string
-    locality:
-      description: Subject locality.
-      in: query
-      name: locality
-      schema:
-        type: string
-    postalCode:
-      description: Subject postal code.
-      in: query
-      name: postalCode
-      schema:
-        type: string
-    organization:
-      description: Subject organization.
-      in: query
-      name: organization
-      schema:
-        type: string
-    san:
-      description: SAN of cert.
-      in: query
-      name: san
+    requestID:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      in: header
+      name: X-Request-Id
       schema:
         type: string
     expirationStatus:
@@ -310,52 +327,6 @@ components:
         - ACTIVE
         - EXPIRING
         - EXPIRED
-        type: string
-    notAfter:
-      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
-      in: query
-      name: notAfter
-      schema:
-        format: date-time
-        type: string
-    notBefore:
-      description: Timestamp in RFC3339 format to filter certs not active before this timestamp.
-      in: query
-      name: notBefore
-      schema:
-        format: date-time
-        type: string
-    province:
-      description: Subject province.
-      in: query
-      name: province
-      schema:
-        type: string
-    streetAddress:
-      description: Subject street address.
-      in: query
-      name: streetAddress
-      schema:
-        type: string
-    country:
-      description: Subject country.
-      in: query
-      name: country
-      schema:
-        type: string
-    requestID:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      in: header
-      name: X-Request-Id
-      schema:
-        type: string
-    accept:
-      description: The content type the client is willing to accept. Also includes API version.
-      example: application/vnd.smallstep.v2025-01-01+json
-      in: header
-      name: Accept
-      schema:
         type: string
     pagination:
       description: 'Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`
@@ -389,35 +360,209 @@ components:
             type: integer
         type: object
       style: deepObject
+    commonName:
+      description: Subject common name.
+      in: query
+      name: commonName
+      schema:
+        type: string
+    san:
+      description: SAN of cert.
+      in: query
+      name: san
+      schema:
+        type: string
+  responses:
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+  headers:
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
   schemas:
-    revocation:
+    subject:
+      description: 'Name used in X.509 certificates
+
+        '
       properties:
-        code:
-          enum:
-          - UNSPECIFIED
-          - KEY_COMPROMISE
-          - CA_COMPROMISE
-          - AFFILIATION_CHANGED
-          - SUPERSEDED
-          - CESSATION_OF_OPERATION
-          - CERTIFICATE_HOLD
-          - REMOVE_FROM_CRL
-          - PRIVILEGE_WITHDRAWN
-          - AA_COMPROMISE
+        commonName:
           type: string
-        reason:
+        country:
+          items:
+            type: string
+          type: array
+        emailAddress:
+          items:
+            type: string
+          type: array
+        extraNames:
+          items:
+            $ref: '#/components/schemas/extraName'
+          type: array
+        locality:
+          items:
+            type: string
+          type: array
+        organization:
+          items:
+            type: string
+          type: array
+        organizationalUnit:
+          items:
+            type: string
+          type: array
+        postalCode:
+          items:
+            type: string
+          type: array
+        province:
+          items:
+            type: string
+          type: array
+        serialNumber:
           type: string
+        streetAddress:
+          items:
+            type: string
+          type: array
+      title: Subject
       type: object
-    basicConstraints:
+    error:
+      example:
+        message: ID must be a valid UUID
       properties:
-        isCA:
-          type: boolean
-        maxPathLen:
-          type: integer
+        message:
+          description: A description of the error.
+          type: string
       required:
-      - isCA
-      - maxPathLen
+      - message
+      title: Error
       type: object
+    nameConstraints:
+      description: X.509 certificate name constraints.
+      properties:
+        critical:
+          description: 'Whether or not name constraints are marked critical.
+
+            '
+          type: boolean
+        excludedDNSDomains:
+          items:
+            type: string
+          type: array
+        excludedEmailAddresses:
+          items:
+            type: string
+          type: array
+        excludedIPRanges:
+          items:
+            type: string
+          type: array
+        excludedURIDomains:
+          items:
+            type: string
+          type: array
+        permittedDNSDomains:
+          items:
+            type: string
+          type: array
+        permittedEmailAddresses:
+          items:
+            type: string
+          type: array
+        permittedIPRanges:
+          items:
+            type: string
+          type: array
+        permittedURIDomains:
+          items:
+            type: string
+          type: array
+      title: Name Constraints
     x509Certificate:
       properties:
         authorityKeyId:
@@ -506,58 +651,16 @@ components:
       - signatureAlgorithm
       - basicConstraints
       type: object
-    error:
-      example:
-        message: ID must be a valid UUID
+    basicConstraints:
       properties:
-        message:
-          description: A description of the error.
-          type: string
-      required:
-      - message
-      title: Error
-      type: object
-    nameConstraints:
-      description: X.509 certificate name constraints.
-      properties:
-        critical:
-          description: 'Whether or not name constraints are marked critical.
-
-            '
+        isCA:
           type: boolean
-        excludedDNSDomains:
-          items:
-            type: string
-          type: array
-        excludedEmailAddresses:
-          items:
-            type: string
-          type: array
-        excludedIPRanges:
-          items:
-            type: string
-          type: array
-        excludedURIDomains:
-          items:
-            type: string
-          type: array
-        permittedDNSDomains:
-          items:
-            type: string
-          type: array
-        permittedEmailAddresses:
-          items:
-            type: string
-          type: array
-        permittedIPRanges:
-          items:
-            type: string
-          type: array
-        permittedURIDomains:
-          items:
-            type: string
-          type: array
-      title: Name Constraints
+        maxPathLen:
+          type: integer
+      required:
+      - isCA
+      - maxPathLen
+      type: object
     extraName:
       properties:
         type:
@@ -568,127 +671,24 @@ components:
       - type
       - value
       type: object
-    subject:
-      description: 'Name used in X.509 certificates
-
-        '
+    revocation:
       properties:
-        commonName:
+        code:
+          enum:
+          - UNSPECIFIED
+          - KEY_COMPROMISE
+          - CA_COMPROMISE
+          - AFFILIATION_CHANGED
+          - SUPERSEDED
+          - CESSATION_OF_OPERATION
+          - CERTIFICATE_HOLD
+          - REMOVE_FROM_CRL
+          - PRIVILEGE_WITHDRAWN
+          - AA_COMPROMISE
           type: string
-        country:
-          items:
-            type: string
-          type: array
-        emailAddress:
-          items:
-            type: string
-          type: array
-        extraNames:
-          items:
-            $ref: '#/components/schemas/extraName'
-          type: array
-        locality:
-          items:
-            type: string
-          type: array
-        organization:
-          items:
-            type: string
-          type: array
-        organizationalUnit:
-          items:
-            type: string
-          type: array
-        postalCode:
-          items:
-            type: string
-          type: array
-        province:
-          items:
-            type: string
-          type: array
-        serialNumber:
+        reason:
           type: string
-        streetAddress:
-          items:
-            type: string
-          type: array
-      title: Subject
       type: object
-  responses:
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '204':
-      description: The resource has been deleted.
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '409':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Conflict
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Forbidden
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal server error
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
   securitySchemes:
     JWT:
       scheme: bearer
