@@ -220,37 +220,87 @@ paths:
       tags:
       - Certificates
 components:
+  responses:
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '404':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '500':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Internal server error
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
   parameters:
-    accept:
-      description: The content type the client is willing to accept. Also includes API version.
-      example: application/vnd.smallstep.v2025-01-01+json
+    version:
+      description: The version of the Smallstep API. Required unless set in the Accept header.
+      example: '2025-01-01'
       in: header
-      name: Accept
-      schema:
-        type: string
-    notAfter:
-      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
-      in: query
-      name: notAfter
-      schema:
-        format: date-time
-        type: string
-    postalCode:
-      description: Subject postal code.
-      in: query
-      name: postalCode
-      schema:
-        type: string
-    province:
-      description: Subject province.
-      in: query
-      name: province
-      schema:
-        type: string
-    certAuthorityID:
-      description: Authority ID of cert.
-      in: query
-      name: authorityID
+      name: X-Smallstep-Api-Version
+      required: true
       schema:
         type: string
     notBefore:
@@ -266,12 +316,6 @@ components:
       name: country
       schema:
         type: string
-    streetAddress:
-      description: Subject street address.
-      in: query
-      name: streetAddress
-      schema:
-        type: string
     certProvisioner:
       description: Provisioner of cert.
       in: query
@@ -285,30 +329,23 @@ components:
       required: true
       schema:
         type: string
-    locality:
-      description: Subject locality.
-      in: query
-      name: locality
-      schema:
-        type: string
-    organization:
-      description: Subject organization.
-      in: query
-      name: organization
-      schema:
-        type: string
     organizationalUnit:
       description: Subject organizational unit.
       in: query
       name: organizationalUnit
       schema:
         type: string
-    version:
-      description: The version of the Smallstep API. Required unless set in the Accept header.
-      example: '2025-01-01'
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
       in: header
-      name: X-Smallstep-Api-Version
-      required: true
+      name: Accept
+      schema:
+        type: string
+    locality:
+      description: Subject locality.
+      in: query
+      name: locality
       schema:
         type: string
     requestID:
@@ -318,15 +355,11 @@ components:
       name: X-Request-Id
       schema:
         type: string
-    expirationStatus:
-      description: Filter certificates by expiration status.
+    postalCode:
+      description: Subject postal code.
       in: query
-      name: expirationStatus
+      name: postalCode
       schema:
-        enum:
-        - ACTIVE
-        - EXPIRING
-        - EXPIRED
         type: string
     pagination:
       description: 'Paginate over a list of objects. Example: `?pagination[first]=30&pagination[after]=MTIzNA==`, which after encoding would be `?pagination%5Bfirst%5D=30&pagination%5Bafter%5D=MTIzNA==`
@@ -360,10 +393,16 @@ components:
             type: integer
         type: object
       style: deepObject
-    commonName:
-      description: Subject common name.
+    streetAddress:
+      description: Subject street address.
       in: query
-      name: commonName
+      name: streetAddress
+      schema:
+        type: string
+    province:
+      description: Subject province.
+      in: query
+      name: province
       schema:
         type: string
     san:
@@ -372,96 +411,40 @@ components:
       name: san
       schema:
         type: string
-  responses:
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal server error
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '204':
-      description: The resource has been deleted.
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '401':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '403':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Forbidden
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '409':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Conflict
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-  headers:
-    X-Smallstep-Api-Version:
-      description: API version to use. Will be reflected in responses.
-      example: '2025-01-01'
+    expirationStatus:
+      description: Filter certificates by expiration status.
+      in: query
+      name: expirationStatus
       schema:
-        format: date
+        enum:
+        - ACTIVE
+        - EXPIRING
+        - EXPIRED
         type: string
-    X-Request-Id:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
+    certAuthorityID:
+      description: Authority ID of cert.
+      in: query
+      name: authorityID
       schema:
         type: string
-    X-Next-Cursor:
-      description: The cursor value to use for the next page of results
-      example: MTIzNA==
+    commonName:
+      description: Subject common name.
+      in: query
+      name: commonName
       schema:
+        type: string
+    organization:
+      description: Subject organization.
+      in: query
+      name: organization
+      schema:
+        type: string
+    notAfter:
+      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
+      in: query
+      name: notAfter
+      schema:
+        format: date-time
         type: string
   schemas:
     subject:
@@ -511,6 +494,16 @@ components:
           type: array
       title: Subject
       type: object
+    basicConstraints:
+      properties:
+        isCA:
+          type: boolean
+        maxPathLen:
+          type: integer
+      required:
+      - isCA
+      - maxPathLen
+      type: object
     error:
       example:
         message: ID must be a valid UUID
@@ -521,6 +514,24 @@ components:
       required:
       - message
       title: Error
+      type: object
+    revocation:
+      properties:
+        code:
+          enum:
+          - UNSPECIFIED
+          - KEY_COMPROMISE
+          - CA_COMPROMISE
+          - AFFILIATION_CHANGED
+          - SUPERSEDED
+          - CESSATION_OF_OPERATION
+          - CERTIFICATE_HOLD
+          - REMOVE_FROM_CRL
+          - PRIVILEGE_WITHDRAWN
+          - AA_COMPROMISE
+          type: string
+        reason:
+          type: string
       type: object
     nameConstraints:
       description: X.509 certificate name constraints.
@@ -563,6 +574,16 @@ components:
             type: string
           type: array
       title: Name Constraints
+    extraName:
+      properties:
+        type:
+          type: string
+        value:
+          schema: {}
+      required:
+      - type
+      - value
+      type: object
     x509Certificate:
       properties:
         authorityKeyId:
@@ -651,44 +672,23 @@ components:
       - signatureAlgorithm
       - basicConstraints
       type: object
-    basicConstraints:
-      properties:
-        isCA:
-          type: boolean
-        maxPathLen:
-          type: integer
-      required:
-      - isCA
-      - maxPathLen
-      type: object
-    extraName:
-      properties:
-        type:
-          type: string
-        value:
-          schema: {}
-      required:
-      - type
-      - value
-      type: object
-    revocation:
-      properties:
-        code:
-          enum:
-          - UNSPECIFIED
-          - KEY_COMPROMISE
-          - CA_COMPROMISE
-          - AFFILIATION_CHANGED
-          - SUPERSEDED
-          - CESSATION_OF_OPERATION
-          - CERTIFICATE_HOLD
-          - REMOVE_FROM_CRL
-          - PRIVILEGE_WITHDRAWN
-          - AA_COMPROMISE
-          type: string
-        reason:
-          type: string
-      type: object
+  headers:
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
+    X-Smallstep-Api-Version:
+      description: API version to use. Will be reflected in responses.
+      example: '2025-01-01'
+      schema:
+        format: date
+        type: string
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
   securitySchemes:
     JWT:
       scheme: bearer

@@ -93,36 +93,24 @@ paths:
       - Authentication
       x-internal: true
 components:
-  schemas:
-    error:
-      example:
-        message: ID must be a valid UUID
-      properties:
-        message:
-          description: A description of the error.
-          type: string
-      required:
-      - message
-      title: Error
-      type: object
   responses:
+    '401':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Unauthorized
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
     '403':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Forbidden
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '500':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Internal server error
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -139,28 +127,40 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '401':
+    '500':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-      description: Unauthorized
+      description: Internal server error
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
+  schemas:
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
   headers:
+    X-Request-Id:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      schema:
+        type: string
     X-Smallstep-Api-Version:
       description: API version to use. Will be reflected in responses.
       example: '2025-01-01'
       schema:
         format: date
-        type: string
-    X-Request-Id:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      schema:
         type: string
   securitySchemes:
     JWT:
