@@ -156,6 +156,9 @@ apis:
   - type: APIReference
     url: https://gateway.smallstep.com/v2025-01-01
 common:
+- type: CapabilityMap
+  url: capabilities/smallstep-capability-edges.yml
+  name: SmallStep Business Capability Map
 - type: Overlay
   url: overlays/smallstep-platform-overlay.yaml
 # --- Identity / link properties ---

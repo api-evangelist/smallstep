@@ -1,0 +1,49 @@
+slug: smallstep
+provider: SmallStep
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Protect
+  spec_file: smallstep-protect-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"issues hardware-backed, short-lived X.509 and SSH certificates"; operations "List Managed
+    RADIUS Servers", "Create Endpoint Configuration"; schemas "identityProvider", "idpClient", "vpnAccount",
+    "wifiAccount"'
+  reason: The surface provisions device/user certificate-based credentials, identity providers, RADIUS/VPN/Wi-Fi
+    network access accounts and endpoint certificate configuration — i.e. credential issuance and network
+    access control, which is Identity & Access Management within Cybersecurity Management rather than
+    any industry-specific capability.
+- tag: Credentials
+  spec_file: smallstep-credentials-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /credentials 'Create Credential'; DELETE /credential/{credentialID} 'Delete Credential';
+    schemas 'credentialCertificate', 'credentialKey', 'deviceAssurance'
+  reason: Create/read/update/delete of identity credentials (certificate and key material, with device
+    assurance policy) is credential issuance and lifecycle — Identity & Access Management.
+- tag: PKI Architecture
+  spec_file: smallstep-pki-architecture-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: POST /authorities 'Create New Authority'; POST /authorities/{authorityID}/provisioners 'Create
+    Authority Provisioner'; schemas 'acmeAttestationProvisioner', 'x509Issuer', 'provisionerClaims'
+  reason: Configuration of certificate authorities and their provisioners (ACME, OIDC, JWK, SCEP) is design
+    and operation of PKI trust infrastructure — Cybersecurity Management. Split between security architecture
+    and IAM sub-capabilities, so L1 only.
