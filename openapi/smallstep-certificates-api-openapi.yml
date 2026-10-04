@@ -221,52 +221,23 @@ paths:
       - Certificates
 components:
   responses:
+    '403':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Forbidden
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
     '401':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
       description: Unauthorized
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '204':
-      description: The resource has been deleted.
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '404':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Not found
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '400':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Bad request
-      headers:
-        X-Request-Id:
-          $ref: '#/components/headers/X-Request-Id'
-        X-Smallstep-Api-Version:
-          $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '409':
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-      description: Conflict
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
@@ -283,24 +254,117 @@ components:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
-    '403':
+    '404':
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-      description: Forbidden
+      description: Not found
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '204':
+      description: The resource has been deleted.
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '409':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Conflict
+      headers:
+        X-Request-Id:
+          $ref: '#/components/headers/X-Request-Id'
+        X-Smallstep-Api-Version:
+          $ref: '#/components/headers/X-Smallstep-Api-Version'
+    '400':
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+      description: Bad request
       headers:
         X-Request-Id:
           $ref: '#/components/headers/X-Request-Id'
         X-Smallstep-Api-Version:
           $ref: '#/components/headers/X-Smallstep-Api-Version'
   parameters:
+    province:
+      description: Subject province.
+      in: query
+      name: province
+      schema:
+        type: string
+    serialNumber:
+      description: serial number of a certificate
+      in: path
+      name: serialNumber
+      required: true
+      schema:
+        type: string
+    organization:
+      description: Subject organization.
+      in: query
+      name: organization
+      schema:
+        type: string
+    requestID:
+      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
+      example: abcdef
+      in: header
+      name: X-Request-Id
+      schema:
+        type: string
+    commonName:
+      description: Subject common name.
+      in: query
+      name: commonName
+      schema:
+        type: string
+    organizationalUnit:
+      description: Subject organizational unit.
+      in: query
+      name: organizationalUnit
+      schema:
+        type: string
+    notAfter:
+      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
+      in: query
+      name: notAfter
+      schema:
+        format: date-time
+        type: string
     version:
       description: The version of the Smallstep API. Required unless set in the Accept header.
       example: '2025-01-01'
       in: header
       name: X-Smallstep-Api-Version
       required: true
+      schema:
+        type: string
+    san:
+      description: SAN of cert.
+      in: query
+      name: san
+      schema:
+        type: string
+    accept:
+      description: The content type the client is willing to accept. Also includes API version.
+      example: application/vnd.smallstep.v2025-01-01+json
+      in: header
+      name: Accept
+      schema:
+        type: string
+    certAuthorityID:
+      description: Authority ID of cert.
+      in: query
+      name: authorityID
       schema:
         type: string
     notBefore:
@@ -316,44 +380,27 @@ components:
       name: country
       schema:
         type: string
+    streetAddress:
+      description: Subject street address.
+      in: query
+      name: streetAddress
+      schema:
+        type: string
     certProvisioner:
       description: Provisioner of cert.
       in: query
       name: provisioner
       schema:
         type: string
-    serialNumber:
-      description: serial number of a certificate
-      in: path
-      name: serialNumber
-      required: true
-      schema:
-        type: string
-    organizationalUnit:
-      description: Subject organizational unit.
+    expirationStatus:
+      description: Filter certificates by expiration status.
       in: query
-      name: organizationalUnit
+      name: expirationStatus
       schema:
-        type: string
-    accept:
-      description: The content type the client is willing to accept. Also includes API version.
-      example: application/vnd.smallstep.v2025-01-01+json
-      in: header
-      name: Accept
-      schema:
-        type: string
-    locality:
-      description: Subject locality.
-      in: query
-      name: locality
-      schema:
-        type: string
-    requestID:
-      description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
-      example: abcdef
-      in: header
-      name: X-Request-Id
-      schema:
+        enum:
+        - ACTIVE
+        - EXPIRING
+        - EXPIRED
         type: string
     postalCode:
       description: Subject postal code.
@@ -393,187 +440,13 @@ components:
             type: integer
         type: object
       style: deepObject
-    streetAddress:
-      description: Subject street address.
+    locality:
+      description: Subject locality.
       in: query
-      name: streetAddress
+      name: locality
       schema:
-        type: string
-    province:
-      description: Subject province.
-      in: query
-      name: province
-      schema:
-        type: string
-    san:
-      description: SAN of cert.
-      in: query
-      name: san
-      schema:
-        type: string
-    expirationStatus:
-      description: Filter certificates by expiration status.
-      in: query
-      name: expirationStatus
-      schema:
-        enum:
-        - ACTIVE
-        - EXPIRING
-        - EXPIRED
-        type: string
-    certAuthorityID:
-      description: Authority ID of cert.
-      in: query
-      name: authorityID
-      schema:
-        type: string
-    commonName:
-      description: Subject common name.
-      in: query
-      name: commonName
-      schema:
-        type: string
-    organization:
-      description: Subject organization.
-      in: query
-      name: organization
-      schema:
-        type: string
-    notAfter:
-      description: Timestamp in RFC3339 format to filter certs not active after this timestamp.
-      in: query
-      name: notAfter
-      schema:
-        format: date-time
         type: string
   schemas:
-    subject:
-      description: 'Name used in X.509 certificates
-
-        '
-      properties:
-        commonName:
-          type: string
-        country:
-          items:
-            type: string
-          type: array
-        emailAddress:
-          items:
-            type: string
-          type: array
-        extraNames:
-          items:
-            $ref: '#/components/schemas/extraName'
-          type: array
-        locality:
-          items:
-            type: string
-          type: array
-        organization:
-          items:
-            type: string
-          type: array
-        organizationalUnit:
-          items:
-            type: string
-          type: array
-        postalCode:
-          items:
-            type: string
-          type: array
-        province:
-          items:
-            type: string
-          type: array
-        serialNumber:
-          type: string
-        streetAddress:
-          items:
-            type: string
-          type: array
-      title: Subject
-      type: object
-    basicConstraints:
-      properties:
-        isCA:
-          type: boolean
-        maxPathLen:
-          type: integer
-      required:
-      - isCA
-      - maxPathLen
-      type: object
-    error:
-      example:
-        message: ID must be a valid UUID
-      properties:
-        message:
-          description: A description of the error.
-          type: string
-      required:
-      - message
-      title: Error
-      type: object
-    revocation:
-      properties:
-        code:
-          enum:
-          - UNSPECIFIED
-          - KEY_COMPROMISE
-          - CA_COMPROMISE
-          - AFFILIATION_CHANGED
-          - SUPERSEDED
-          - CESSATION_OF_OPERATION
-          - CERTIFICATE_HOLD
-          - REMOVE_FROM_CRL
-          - PRIVILEGE_WITHDRAWN
-          - AA_COMPROMISE
-          type: string
-        reason:
-          type: string
-      type: object
-    nameConstraints:
-      description: X.509 certificate name constraints.
-      properties:
-        critical:
-          description: 'Whether or not name constraints are marked critical.
-
-            '
-          type: boolean
-        excludedDNSDomains:
-          items:
-            type: string
-          type: array
-        excludedEmailAddresses:
-          items:
-            type: string
-          type: array
-        excludedIPRanges:
-          items:
-            type: string
-          type: array
-        excludedURIDomains:
-          items:
-            type: string
-          type: array
-        permittedDNSDomains:
-          items:
-            type: string
-          type: array
-        permittedEmailAddresses:
-          items:
-            type: string
-          type: array
-        permittedIPRanges:
-          items:
-            type: string
-          type: array
-        permittedURIDomains:
-          items:
-            type: string
-          type: array
-      title: Name Constraints
     extraName:
       properties:
         type:
@@ -672,7 +545,139 @@ components:
       - signatureAlgorithm
       - basicConstraints
       type: object
+    error:
+      example:
+        message: ID must be a valid UUID
+      properties:
+        message:
+          description: A description of the error.
+          type: string
+      required:
+      - message
+      title: Error
+      type: object
+    subject:
+      description: 'Name used in X.509 certificates
+
+        '
+      properties:
+        commonName:
+          type: string
+        country:
+          items:
+            type: string
+          type: array
+        emailAddress:
+          items:
+            type: string
+          type: array
+        extraNames:
+          items:
+            $ref: '#/components/schemas/extraName'
+          type: array
+        locality:
+          items:
+            type: string
+          type: array
+        organization:
+          items:
+            type: string
+          type: array
+        organizationalUnit:
+          items:
+            type: string
+          type: array
+        postalCode:
+          items:
+            type: string
+          type: array
+        province:
+          items:
+            type: string
+          type: array
+        serialNumber:
+          type: string
+        streetAddress:
+          items:
+            type: string
+          type: array
+      title: Subject
+      type: object
+    basicConstraints:
+      properties:
+        isCA:
+          type: boolean
+        maxPathLen:
+          type: integer
+      required:
+      - isCA
+      - maxPathLen
+      type: object
+    nameConstraints:
+      description: X.509 certificate name constraints.
+      properties:
+        critical:
+          description: 'Whether or not name constraints are marked critical.
+
+            '
+          type: boolean
+        excludedDNSDomains:
+          items:
+            type: string
+          type: array
+        excludedEmailAddresses:
+          items:
+            type: string
+          type: array
+        excludedIPRanges:
+          items:
+            type: string
+          type: array
+        excludedURIDomains:
+          items:
+            type: string
+          type: array
+        permittedDNSDomains:
+          items:
+            type: string
+          type: array
+        permittedEmailAddresses:
+          items:
+            type: string
+          type: array
+        permittedIPRanges:
+          items:
+            type: string
+          type: array
+        permittedURIDomains:
+          items:
+            type: string
+          type: array
+      title: Name Constraints
+    revocation:
+      properties:
+        code:
+          enum:
+          - UNSPECIFIED
+          - KEY_COMPROMISE
+          - CA_COMPROMISE
+          - AFFILIATION_CHANGED
+          - SUPERSEDED
+          - CESSATION_OF_OPERATION
+          - CERTIFICATE_HOLD
+          - REMOVE_FROM_CRL
+          - PRIVILEGE_WITHDRAWN
+          - AA_COMPROMISE
+          type: string
+        reason:
+          type: string
+      type: object
   headers:
+    X-Next-Cursor:
+      description: The cursor value to use for the next page of results
+      example: MTIzNA==
+      schema:
+        type: string
     X-Request-Id:
       description: A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.
       example: abcdef
@@ -683,11 +688,6 @@ components:
       example: '2025-01-01'
       schema:
         format: date
-        type: string
-    X-Next-Cursor:
-      description: The cursor value to use for the next page of results
-      example: MTIzNA==
-      schema:
         type: string
   securitySchemes:
     JWT:
