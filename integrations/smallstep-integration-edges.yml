@@ -17,6 +17,9 @@ checked:
 - opentofu/integrations/opentofu-integration-edges.yml
 - terraform/integrations/terraform-integration-edges.yml
 - ansible/integrations/ansible-integration-edges.yml
+- https://aur.archlinux.org/cgit/aur.git/tree/.SRCINFO
+- https://aur.archlinux.org/packages-meta-ext-v1.json.gz
+- https://aur.archlinux.org/rpc/v5/info
 source:
 - okta/integrations/okta-integration-edges.yml
 edges:
@@ -175,3 +178,37 @@ edges:
   category: configuration-management content listing (Ansible collection)
   badges:
   - Verified publisher (GitHub domain-verified organization)
+- partner_name: Arch User Repository (AUR)
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official CLI (Arch User Repository (AUR))
+  evidence: https://aur.archlinux.org/packages/smallstep-cli
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Arch User Repository (AUR) (public package index)
+    spec_file: null
+    packages:
+    - name: smallstep-cli
+      kind: aur
+      version: 0.29.0-2
+      released: '2026-01-16'
+      released_field: AUR LastModified
+      out_of_date: false
+      lapsed: false
+      page: https://aur.archlinux.org/packages/smallstep-cli
+      upstream: https://github.com/smallstep
+      cli: 'AUR description: smallstep'
+      repo_leg: github-org:smallstep
+      publisher_leg: artifact-github-org:smallstep
+      matched_by: github-org
+    current: true
+    signal_note: 'the provider''s own command-line tool packaged for Arch Linux (community-maintained PKGBUILD whose
+      upstream and source artifact are the provider''s): distribution, not an integration; lapsed = flagged out-of-date
+      or not updated in 24 months'
+    detected_by: sweep-aur-vendor-cli-packages.py
+    detected: '2026-10-23'
+  detected_by: sweep-aur-vendor-cli-packages.py
+  first_seen: '2026-10-23'
