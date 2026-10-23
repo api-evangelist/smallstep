@@ -156,6 +156,8 @@ apis:
   - type: APIReference
     url: https://gateway.smallstep.com/v2025-01-01
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/smallstep/overview
 - type: CapabilityMap
   url: capabilities/smallstep-capability-edges.yml
   name: SmallStep Business Capability Map
