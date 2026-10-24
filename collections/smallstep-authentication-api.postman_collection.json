@@ -1,32 +1,26 @@
 {
+  "info": {
+    "_postman_id": "fa3f66d9-e0b3-4e42-9152-5c392aea665f",
+    "name": "Smallstep Authentication API",
+    "description": "# Getting Started\nFirst you'll need to get an API token from the Team Settings page of your Smallstep dashboard.\n\nThen you can try listing certificates for your first API call:\n```\nset +o history\necho \"Authorization: Bearer [your API token]\" > api_headers\nset -o history\ncurl -H @api_headers https://gateway.smallstep.com/api/certificates\n```\n\nMore resources:\n* Terraform Provider\n* Python Client\n\nContact Support:\n Name: Smallstep Support\n Email: support@smallstep.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T21:18:26.000Z",
+    "updatedAt": "2026-10-21T21:18:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fa3f66d9-e0b3-4e42-9152-5c392aea665f"
+  },
   "item": [
     {
-      "id": "f6ea5be5-805a-4dba-9446-85316213a73d",
-      "name": "Authentication",
-      "description": {
-        "content": "Create API tokens",
-        "type": "text/plain"
-      },
+      "name": "auth",
       "item": [
         {
-          "id": "306651bd-10d6-420f-8375-dcbe11e4dea5",
           "name": "Authenticate",
+          "id": "5ad1020f-e296-4dfe-876a-218bb0a9ae16",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Authenticate",
-            "description": {
-              "content": "Use client certificate authentication to get an API token",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "auth"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,337 +31,390 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+              "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth"
+              ]
+            },
+            "description": "Use client certificate authentication to get an API token"
           },
           "response": [
             {
-              "id": "1b3bff12-1a1c-4c1b-ad5c-89e45fc35767",
+              "id": "9a57a6eb-4f1e-43bc-acea-41295cef213d",
               "name": "A new auth token.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "auth"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+                  "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"token\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"token\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T21:18:27.000Z",
+              "updatedAt": "2026-10-21T21:18:27.000Z",
+              "uid": "35240-9a57a6eb-4f1e-43bc-acea-41295cef213d"
             },
             {
-              "id": "1b446460-1f42-4e15-855e-ec398a3545df",
+              "id": "6898e3c0-adeb-4955-a5b8-873535d84540",
               "name": "Bad request",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "auth"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+                  "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
-                  "key": "X-Request-Id",
-                  "value": "abcdef"
-                },
-                {
-                  "disabled": false,
-                  "description": "API version to use. Will be reflected in responses.",
-                  "key": "X-Smallstep-Api-Version",
-                  "value": "2025-01-01"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Smallstep-Api-Version",
+                  "value": ""
                 }
               ],
-              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T21:18:27.000Z",
+              "updatedAt": "2026-10-21T21:18:27.000Z",
+              "uid": "35240-6898e3c0-adeb-4955-a5b8-873535d84540"
             },
             {
-              "id": "de760e62-a859-4593-bd13-3a3415f9ea8e",
+              "id": "d7509108-f5d5-40dd-a522-bfd36edb48e9",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "auth"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+                  "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
-                  "key": "X-Request-Id",
-                  "value": "abcdef"
-                },
-                {
-                  "disabled": false,
-                  "description": "API version to use. Will be reflected in responses.",
-                  "key": "X-Smallstep-Api-Version",
-                  "value": "2025-01-01"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Smallstep-Api-Version",
+                  "value": ""
                 }
               ],
-              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T21:18:27.000Z",
+              "updatedAt": "2026-10-21T21:18:27.000Z",
+              "uid": "35240-d7509108-f5d5-40dd-a522-bfd36edb48e9"
             },
             {
-              "id": "aae7f76b-7389-4d64-93db-e9a362009c4b",
+              "id": "86a3f6a1-99e5-46f3-99a9-1680ce2c32fb",
               "name": "Forbidden",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "auth"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+                  "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
                 }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
-                  "key": "X-Request-Id",
-                  "value": "abcdef"
-                },
-                {
-                  "disabled": false,
-                  "description": "API version to use. Will be reflected in responses.",
-                  "key": "X-Smallstep-Api-Version",
-                  "value": "2025-01-01"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Smallstep-Api-Version",
+                  "value": ""
                 }
               ],
-              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T21:18:27.000Z",
+              "updatedAt": "2026-10-21T21:18:27.000Z",
+              "uid": "35240-86a3f6a1-99e5-46f3-99a9-1680ce2c32fb"
             },
             {
-              "id": "9e3107f0-0894-4dca-9581-1534f20e0163",
+              "id": "afb5b90e-45fa-477d-848b-aebbb267c844",
               "name": "Internal server error",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "auth"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"audience\": \"<string>\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
+                  "raw": "{\n  \"audience\": \"step-agent\",\n  \"bundle\": [\n    \"<binary>\",\n    \"<binary>\"\n  ],\n  \"teamID\": \"<string>\",\n  \"teamSlug\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
                 }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "disabled": false,
-                  "description": "A request ID provided by the client. If not provided, the server will generate one. Will be reflected in responses.",
-                  "key": "X-Request-Id",
-                  "value": "abcdef"
-                },
-                {
-                  "disabled": false,
-                  "description": "API version to use. Will be reflected in responses.",
-                  "key": "X-Smallstep-Api-Version",
-                  "value": "2025-01-01"
-                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "X-Smallstep-Api-Version",
+                  "value": ""
                 }
               ],
-              "body": "{\n  \"message\": \"ID must be a valid UUID\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T21:18:27.000Z",
+              "updatedAt": "2026-10-21T21:18:27.000Z",
+              "uid": "35240-afb5b90e-45fa-477d-848b-aebbb267c844"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T21:18:27.000Z",
+          "updatedAt": "2026-10-21T21:18:27.000Z",
+          "uid": "35240-5ad1020f-e296-4dfe-876a-218bb0a9ae16"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://gateway.smallstep.com/api",
-      "key": "baseUrl"
+      "id": "1fec1e7f-a9cd-4033-b111-5b91ab1268fb",
+      "createdAt": "2026-10-21T21:18:27.000Z",
+      "updatedAt": "2026-10-21T21:18:27.000Z",
+      "uid": "35240-1fec1e7f-a9cd-4033-b111-5b91ab1268fb"
     }
   ],
   "auth": {
@@ -375,17 +422,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b5759ae6-5ea6-47da-a8ce-d15cc6828644",
-    "name": "Smallstep Authentication API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "# Getting Started\nFirst you'll need to get an API token from the Team Settings page of your [Smallstep dashboard](https://smallstep.com/app).\n\nThen you can try [listing certificates](/operations/list-certificates) for your first API call:\n```\nset +o history\necho \"Authorization: Bearer [your API token]\" > api_headers\nset -o history\ncurl -H @api_headers https://gateway.smallstep.com/api/certificates\n```\n\nMore resources:\n* [Terraform Provider](https://github.com/smallstep/terraform-provider-smallstep)\n* [Python Client](https://github.com/smallstep/smallstep-python)\n\n\nContact Support:\n Name: Smallstep Support\n Email: support@smallstep.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://gateway.smallstep.com/api"
     }
-  }
+  ]
 }
